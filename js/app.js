@@ -95,7 +95,7 @@ lienProfil1.href = "";
 
 var imageProfil1 = document.createElement("img");
 imageProfil1.classList.add('photo-profil1');
-imageProfil1.src = "/assets/FishEye_Photos/Sample Photos/Mimi/Portrait_Nora.jpg";
+imageProfil1.src = "assets/FishEye_Photos/Sample Photos/Mimi/Portrait_Nora.jpg";
 
 var h2Profil1 = document.createElement('h2');
 h2Profil1.classList.add('nom-profil1');
@@ -139,7 +139,7 @@ lienProfil2.href = "";
 
 var imageProfil2 = document.createElement("img");
 imageProfil2.classList.add('photo-profil2');
-imageProfil2.src = "/assets/FishEye_Photos/Sample Photos/Ellie Rose/Architecture_Horseshoe.jpg";
+imageProfil2.src = "assets/FishEye_Photos/Sample Photos/Ellie Rose/Architecture_Horseshoe.jpg";
 
 var h2Profil2 = document.createElement('h2');
 h2Profil2.classList.add('nom-profil2');
@@ -183,7 +183,7 @@ lienProfil3.href = "";
 
 var imageProfil3 = document.createElement("img");
 imageProfil3.classList.add('photo-profil3');
-imageProfil3.src = "/assets/FishEye_Photos/Sample Photos/Tracy/Fashion_Urban_Jungle.jpg";
+imageProfil3.src = "assets/FishEye_Photos/Sample Photos/Tracy/Fashion_Urban_Jungle.jpg";
 
 var h2Profil3 = document.createElement('h2');
 h2Profil3.classList.add('nom-profil3');
@@ -227,7 +227,7 @@ lienProfil4.href = "";
 
 var imageProfil4 = document.createElement("img");
 imageProfil4.classList.add('photo-profil4');
-imageProfil4.src = "/assets/FishEye_Photos/Sample Photos/Nabeel/Travel_Outdoor_Baths.jpg";
+imageProfil4.src = "assets/FishEye_Photos/Sample Photos/Nabeel/Travel_Outdoor_Baths.jpg";
 
 var h2Profil4 = document.createElement('h2');
 h2Profil4.classList.add('nom-profil4');
@@ -271,7 +271,7 @@ lienProfil5.href = "";
 
 var imageProfil5 = document.createElement("img");
 imageProfil5.classList.add('photo-profil5');
-imageProfil5.src = "/assets/FishEye_Photos/Sample Photos/Rhode/Fashion_Melody_Red_on_Stripes.jpg";
+imageProfil5.src = "assets/FishEye_Photos/Sample Photos/Rhode/Fashion_Melody_Red_on_Stripes.jpg";
 
 var h2Profil5 = document.createElement('h2');
 h2Profil5.classList.add('nom-profil5');
@@ -315,7 +315,7 @@ lienProfil6.href = "";
 
 var imageProfil6 = document.createElement("img");
 imageProfil6.classList.add('photo-profil6');
-imageProfil6.src = "/assets/FishEye_Photos/Sample Photos/Marcel/Travel_Tower.jpg";
+imageProfil6.src = "assets/FishEye_Photos/Sample Photos/Marcel/Travel_Tower.jpg";
 
 var h2Profil6 = document.createElement('h2');
 h2Profil6.classList.add('nom-profil6');
