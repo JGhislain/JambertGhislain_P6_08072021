@@ -1,0 +1,48 @@
+=> Utiliser pattern Factory Method (programmation orienté objet)
+
+=> Construire HTML CSS JS
+
+=> Ajout d un champ JSON pour la description d'image (lecteurs d ecran)
+
+=> Pas d erreurs
+
+=> HTML sémantiques
+
+=> Utiliser des balises ARIA
+
+=> Navigation au clavier "keyboardEvent.key // keyboardEvent.code)
+
+=> Passer au vérificateur d accessibilité (AChecker)
+
+=> Choisir des noms evocateurs pour les variables fonctions et classes (si manque de clarté utiliser les commentaires)
+
+=>FONCTIONNALITES
+
+    -- Page d'accueil :
+
+        > liste de tout les photographes (nom/slogan/localisation...)
+        > Filtre des photographe en fonction de l'étiquette cliqué (tag)
+        > Envoyé vers page du photographe au clic de sa vignette
+
+    -- Page des photographes :
+
+        > Gallerie des travaux du photographe
+        > photos et vidéos dispo 
+                ---- Pour les vidéos afficher image miniature
+        > Chaque média = titre + date + prix + nb de clichés
+                ---- Cliquer sur like augmente le nb de like +1
+                ---- Nb total de clichés compté et affiché au total du profil
+        > Gallerie peut etre trié par popularité date ou titre
+        > AU clic  du média ouverture de celui ci dans une lightbox (type modal?)
+                ---- La lightbox doit comporter une croix pour fermer la fenetre
+                ---- Boutons de naviguation pour passer d un media à un autre (photo compris ou uniquement vidéo ?)
+                ---- Navigation au clavier (touche fléchées) entre les médias
+        > Un bouton contacter photographe
+                ---- formulaire de contact (modale) affichage au 1er plan
+                ---- Formulaire contien Nom/Prénom/email/msg pour le photographe (a l envoi le contenu des champs doit apparraitre dans la console du navigateur)
+
+
+=> DESIGN
+
+    -- Site convivial et responsive (Desktop et mobile obligatoire) (Tablette facultatif)
+    -- accessibilité pour les mal-voyant. Toutes les éléments qui le necessite doivent comporter des descriptions textuelles et doit etre inclus sur la page
