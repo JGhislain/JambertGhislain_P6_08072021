@@ -1,11 +1,3 @@
-//appel du JSON
-
-fetch('assets/json/listeObjets.json')
-.then(response => response.json())
-.then(essai => console.log(essai));
-
-// Mise en place des photos et profil page index
-
 //Appels des éléments du DOM
 const nav = document.getElementById('nav');
 const navBar = document.getElementsByClassName('nav-bar'); 
@@ -16,6 +8,110 @@ const cadreLienPhotographe = document.getElementsByClassName('lien-profil');
 const cadreFichePhotographe = document.getElementsByClassName('cadre-fiche-photographe');
 const cadreTagsPhotographe = document.getElementsByClassName('cadre-tags-photographe');
 
+//appel du JSON
+
+fetch('assets/json/listeObjets.json')
+.then(response => response.json())
+.then(response => {
+    console.log(response);
+    profilsPhotographes(response.photographers)
+});
+
+function profilsPhotographes(photographers) {
+    for (let i = 0; i < photographers.length; i++) {
+        let photographe = photographers[i];
+        let insertionArticle = contenuArticle(photographe);
+        let insertionTags = tagsProfil(photographe);
+        /* let insertionH2 = creationBaliseH2(photographe);
+        let insertionDivFiche = creationBaliseDivFiche(photographe); */
+    }
+};
+
+function tagsProfil(photographe) {
+    for (let i = 0; photographe.tags.length < i; i++) {
+        let tagsPhotographe = photographe.tags[i];
+        let insertionNavBar = document.createElement("div");
+        insertionNavBar.id = "nav-bar";
+        insertionNavBar.classList.add("nav-bar");
+        insertionNavBar.innerHTML = `<a class="tag">${tagsPhotographe}</a>`;
+        nav.appendChild(insertionNavBar);
+    }
+};
+
+function contenuArticle(photographe) {
+    let articleProfil = document.createElement("article");
+    articleProfil.id = "cadre-profil";
+    articleProfil.classList.add("cadre-profil");
+    articleProfil.innerHTML = `<figure id="cadre-photographe" class"cadre-photographe">
+    <a class="lien-profil" href="">
+    <img class="photo-profil" ${photographe.portrait}>
+    </a>
+    </figure>
+    <h2 class="nom-profil">${photographe.name}</h2>
+    <div id="cadre-fiche-photographe" class="cadre-fiche-photographe">
+    <address class="ville-profil">${photographe.city + " " + photographe.country}</address>
+    <p class="citation-profil">${photographe.tagline}</p>
+    <p class="prix-profil">${photographe.price}€</p>
+    </div>
+    <div id="cadre-tags-photographe" class="cadre-tags-photographe">
+    <a class="tag">${photographe.tags}
+    </a>
+    </div>`;
+    selectionPhotographes.appendChild(articleProfil);
+};
+
+/* 
+function CreationBaliseArticle(photographe) {
+    var articleProfil = document.createElement("article");
+    articleProfil.id = "cadre-profil";
+    articleProfil.classList.add('cadre-profil');
+    selectionPhotographes.appendChild(articleProfil)
+}; */
+
+
+/* function CreationBaliseFigure(photographe) {
+    for (let i = 0; i < cadreProfil.length; i++) {
+        let baliseProfil = cadreProfil[i];
+        let figureProfil = document.createElement("figure");
+        figureProfil.id = "cadre-photographe";
+        figureProfil.classList.add("cadre-photographe");
+        baliseProfil.appendChild(figureProfil);
+        let nomProfil = document.createElement('h2');
+        nomProfil.classList.add('nom-profil');
+        nomProfil.innerHTML = photographe.name;
+        baliseProfil.appendChild(nomProfil);
+        let divFichePhotographe = document.createElement('div');
+        divFichePhotographe.id = "cadre-fiche-photographe";
+        divFichePhotographe.classList.add("cadre-fiche-photographe");
+        baliseProfil.appendChild(divFichePhotographe);
+    }
+};
+
+function creationBaliseDivFiche(photographe) {
+    
+} */
+
+/*var divFichePhotographe1 = document.createElement('div');
+divFichePhotographe1.id = "cadre-fiche-photographe";
+divFichePhotographe1.classList.add("cadre-fiche-photographe");
+ // Mise en place des photos et profil page index
+//Profil 1
+selectionPhotographes.appendChild(articleProfil1);
+cadreProfil[0].appendChild(figureProfil1);
+cadreProfil[0].appendChild(divFichePhotographe1);
+cadreProfil[0].appendChild(divTagsPhotographe1);
+cadrePhotographe[0].appendChild(lienProfil1);
+cadreLienPhotographe[0].appendChild(imageProfil1);
+cadrePhotographe[0].appendChild(h2Profil1);
+cadreFichePhotographe[0].appendChild(villeProfil1);
+cadreFichePhotographe[0].appendChild(p1Profil1);
+cadreFichePhotographe[0].appendChild(p2Profil1);
+cadreTagsPhotographe[0].appendChild(tagPortrait.cloneNode([true]));
+cadreTagsPhotographe[0].appendChild(tagEvents.cloneNode([true]));
+cadreTagsPhotographe[0].appendChild(tagTravel.cloneNode([true]));
+cadreTagsPhotographe[0].appendChild(tagAnimals.cloneNode([true])); */
+
+/* 
 //Création des différentes variables tags
 var tagPortrait = document.createElement('a');
 tagPortrait.classList.add('tag');
@@ -437,7 +533,7 @@ cadreFichePhotographe[5].appendChild(p1Profil6);
 cadreFichePhotographe[5].appendChild(p2Profil6);
 cadreTagsPhotographe[5].appendChild(tagTravel.cloneNode([true]));
 cadreTagsPhotographe[5].appendChild(tagArchitecture.cloneNode([true]));
-
+ */
 //var photographes = JSON.parse("/assets/json/listeObjets.json");
 
 //console.log(photographes);
