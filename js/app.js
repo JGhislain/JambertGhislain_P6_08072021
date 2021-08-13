@@ -22,13 +22,11 @@ function profilsPhotographes(photographers) {
         let photographe = photographers[i];
         let insertionArticle = contenuArticle(photographe);
         let insertionTags = tagsProfil(photographe);
-        /* let insertionH2 = creationBaliseH2(photographe);
-        let insertionDivFiche = creationBaliseDivFiche(photographe); */
     }
 };
 
 function tagsProfil(photographe) {
-    for (let i = 0; photographe.tags.length < i; i++) {
+    for (let i = 0; i < photographe.tags.length; i++) {
         let tagsPhotographe = photographe.tags[i];
         let insertionNavBar = document.createElement("div");
         insertionNavBar.id = "nav-bar";
