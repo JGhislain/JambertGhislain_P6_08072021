@@ -24,38 +24,28 @@ fetch('assets/json/listeObjets.json')
 //fonction d'appel
 
 function profilsPhotographes(photographers) {
+//      Création variable type array vide pour regrouper les tags des photographes      //
     let allTags = [];
-    let portraitsProfil = [];
-    let identifiantsProfil = [];
-    let tagsProfil = [];
-    let photographes = [];
+//      Sortir les photographes individuellement et renvoi la fonction d'insertion      //
     for (let i = 0; i < photographers.length; i++) {
         const photographe = photographers[i];
-        const portrait = photographe.portrait;
-        const idPhotographe = photographe.id;
-        const soloTag = photographe.tags;
-        photographes.push(photographe);
-        portraitsProfil.push(portrait);
-        identifiantsProfil.push(idPhotographe);
-        tagsProfil.push(soloTag);
-        insertionArticle = contenuArticle(photographe);
+        insertionArticle = insertionArticlePhotographe(photographe);
         for (let j = 0; j < photographe.tags.length; j++) {
             const tag = photographe.tags[j];
             allTags.push(tag)
         }
     }
+//  Boucle dans la variable, regroupe les éléments du tableau et supprime les doublons  //
     allTags = [...new Set(allTags)];
     console.log(allTags);
-    console.log(portraitsProfil);
-    console.log(identifiantsProfil);
-    console.log(tagsProfil);
+//      Renvoi vers la fonction d'insertion des tags dans la barre de naviguation       //
     navBarTags(allTags);
-    photosProfilIndex(portraitsProfil);
 }
 
 //fonction de traitement
 
 function navBarTags(tags) {
+//                      Création balise div pour tags de la navBar                      //
     let insertionNavBar = document.createElement("div");
         insertionNavBar.id = "nav-bar";
         insertionNavBar.classList.add("nav-bar");
@@ -63,35 +53,38 @@ function navBarTags(tags) {
         let tag = tags[i];
         insertionNavBar.innerHTML += `<a class="tag">${tag}</a>`;
     }
+//                                Insertion de la balise                                //
     nav.appendChild(insertionNavBar);
 };
 
-function contenuArticle(photographe) {
+function insertionArticlePhotographe(photographe) {
+//                       Création balises article des photographes                       //
     let articleProfil = document.createElement("article");
     articleProfil.id = "cadre-profil";
     articleProfil.classList.add("cadre-profil");
-    articleProfil.innerHTML = `<figure id="cadre-photographe" class"cadre-photographe">
-    <a id="lien-profil" class="lien-profil" href="">
-    </a>
-    </figure>`;
     selectionPhotographes.appendChild(articleProfil);
-    /*     let insertionFigure = document.createElement("figure");
+//                       Création balises figure des photographes                       //
+    let insertionFigure = document.createElement("figure");
     insertionFigure.id = "cadre-photographe";
     insertionFigure.classList.add("cadre-photographe");
-    for (let i = 0; i < photographe.id.length; i++) {
-        const photographeId = photographe.id[i];
-        console.log(photographeId);
-        insertionFigure.innerHTML += `<a id="${photographeId}" class="lien-profil" href=""></a>`;
-    } */
+    insertionFigure.innerHTML += `<a id="${photographe.id}" class="lien-profil" href=""></a>`;
+//                       Création balises images des photographes                       //
+    let insertionPhoto = document.createElement("img");
+    insertionPhoto.classList.add("cadre-photo");
+    src =  "assets/FishEye_Photos/Sample Photos/Photographers ID Photos/" + photographe.portrait;
+    insertionPhoto.src = src;
+//               Création balises titre des photographes  (ctrl+shift+p)                //
     let insertionH2 = document.createElement("h2");
     insertionH2.classList.add("nom-profil");
     insertionH2.innerHTML += photographe.name;
+//                  Création balises div pour détails des photographes                  //
     let insertionFiche = document.createElement("div");
     insertionFiche.id = "cadre-fiche-photographe";
     insertionFiche.classList.add("cadre-fiche-photographe");
     insertionFiche.innerHTML += `<address class="ville-profil">${photographe.city + " " + photographe.country}</address>
     <p class="citation-profil">${photographe.tagline}</p>
-    <p class="prix-profil">${photographe.price}€</p>`
+    <p class="prix-profil">${photographe.price}€</p>`;
+//                   Création balises div pour tags des photographes                    //
     let insertionTags = document.createElement("div");
     insertionTags.id = "cadre-tags-photographe";
     insertionTags.classList.add("cadre-tags-photographe");
@@ -99,52 +92,11 @@ function contenuArticle(photographe) {
         const tag = photographe.tags[j];
         insertionTags.innerHTML += `<a class="tag">${tag}</a>`;
     }
-    for (let i = 0; i < cadreProfil.length; i++) {
-        const cadres = cadreProfil[i];
-        cadres.appendChild(insertionH2);
-        cadres.appendChild(insertionFiche);
-        cadres.appendChild(insertionTags);        
-    }
-};
 
-function photosProfilIndex(portraits) {
-    let imagePhotographe = [];
-    let cadrePhotographe = [];
-    let imageProfil;
-    let cadre;
-    let sources = [];
-    for (let i = 0; i < portraits.length; i++) {
-        let portrait = portraits[i];
-        src =  "assets/FishEye_Photos/Sample Photos/Photographers ID Photos/" + portrait;
-        sources.push(src);
-        console.log(src);
-    }
-    for (let i = 0; i < cadreLienPhotographe.length; i++) {
-        cadre = cadreLienPhotographe[i];
-        cadrePhotographe.push(cadre);
-        imageProfil = document.createElement("img");
-        imageProfil.classList.add("cadre-photo");
-        imagePhotographe.push(imageProfil);
-        imageProfil.src = src;
-        cadre.appendChild(imageProfil);
-        console.log(imagePhotographe);
-        console.log(cadrePhotographe);
-        console.log(imageProfil);
-        console.log(cadre);
-    }
+//                          Insertion des différentes balises                           //
+    articleProfil.appendChild(insertionFigure);
+    insertionFigure.appendChild(insertionPhoto);
+    articleProfil.appendChild(insertionH2);
+    articleProfil.appendChild(insertionFiche);
+    articleProfil.appendChild(insertionTags);        
 };
-
-/* function insertionTagsProfil(tags, photographes) {
-    for (let i = 0; i < cadreProfil.length; i++) {
-        const encart = cadreProfil[i];
-        let insertionTags = document.createElement("div");
-        insertionTags.id = "cadre-tags-photographe";
-        insertionTags.classList.add("cadre-tags-photographe");
-        for (let j = 0; j < tags.length; j++) {
-            const tag = tags[j];
-            insertionTags.innerHTML += `<a class="tag">${tag}</a>`;
-        }
-        encart.appendChild(insertionTags);
-        console.log(encart);
-    }
-}; */
