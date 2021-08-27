@@ -51,7 +51,6 @@ function profilsPhotographes(photographers) {
     console.log(tagsProfil);
     navBarTags(allTags);
     photosProfilIndex(portraitsProfil);
-    insertionTagsProfil(tagsProfil, photographes);
 }
 
 //fonction de traitement
@@ -74,14 +73,38 @@ function contenuArticle(photographe) {
     articleProfil.innerHTML = `<figure id="cadre-photographe" class"cadre-photographe">
     <a id="lien-profil" class="lien-profil" href="">
     </a>
-    </figure>
-    <h2 class="nom-profil">${photographe.name}</h2>
-    <div id="cadre-fiche-photographe" class="cadre-fiche-photographe">
-    <address class="ville-profil">${photographe.city + " " + photographe.country}</address>
-    <p class="citation-profil">${photographe.tagline}</p>
-    <p class="prix-profil">${photographe.price}€</p>
-    </div>`;
+    </figure>`;
     selectionPhotographes.appendChild(articleProfil);
+    /*     let insertionFigure = document.createElement("figure");
+    insertionFigure.id = "cadre-photographe";
+    insertionFigure.classList.add("cadre-photographe");
+    for (let i = 0; i < photographe.id.length; i++) {
+        const photographeId = photographe.id[i];
+        console.log(photographeId);
+        insertionFigure.innerHTML += `<a id="${photographeId}" class="lien-profil" href=""></a>`;
+    } */
+    let insertionH2 = document.createElement("h2");
+    insertionH2.classList.add("nom-profil");
+    insertionH2.innerHTML += photographe.name;
+    let insertionFiche = document.createElement("div");
+    insertionFiche.id = "cadre-fiche-photographe";
+    insertionFiche.classList.add("cadre-fiche-photographe");
+    insertionFiche.innerHTML += `<address class="ville-profil">${photographe.city + " " + photographe.country}</address>
+    <p class="citation-profil">${photographe.tagline}</p>
+    <p class="prix-profil">${photographe.price}€</p>`
+    let insertionTags = document.createElement("div");
+    insertionTags.id = "cadre-tags-photographe";
+    insertionTags.classList.add("cadre-tags-photographe");
+    for (let j = 0; j < photographe.tags.length; j++) {
+        const tag = photographe.tags[j];
+        insertionTags.innerHTML += `<a class="tag">${tag}</a>`;
+    }
+    for (let i = 0; i < cadreProfil.length; i++) {
+        const cadres = cadreProfil[i];
+        cadres.appendChild(insertionH2);
+        cadres.appendChild(insertionFiche);
+        cadres.appendChild(insertionTags);        
+    }
 };
 
 function photosProfilIndex(portraits) {
@@ -110,7 +133,8 @@ function photosProfilIndex(portraits) {
         console.log(cadre);
     }
 };
-function insertionTagsProfil(tags, photographes) {
+
+/* function insertionTagsProfil(tags, photographes) {
     for (let i = 0; i < cadreProfil.length; i++) {
         const encart = cadreProfil[i];
         let insertionTags = document.createElement("div");
@@ -123,4 +147,4 @@ function insertionTagsProfil(tags, photographes) {
         encart.appendChild(insertionTags);
         console.log(encart);
     }
-};
+}; */
