@@ -121,8 +121,6 @@ function selecTag() {
             photographeTag(tagsFocus, tagPhoto)
             }
         }
-//Si tag n'a pas la class focus alors ajouter la class .invisible aux articles qui ne comporte pas les tags focus
-
     )}
 };
 
