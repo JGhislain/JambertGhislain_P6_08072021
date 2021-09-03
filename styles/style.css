@@ -72,7 +72,7 @@ h1 {
     flex-wrap: wrap;
     justify-content: space-around;
 }
-#cadre-profil {
+.cadre-profil {
     width: 32vw;
     height: 400px;
     display: flex;
@@ -163,4 +163,15 @@ address {
 .tag:hover {
     background-color: #911c1c;
     color: #c4c4c4;
+    cursor: pointer;
+}
+.tag.focus {
+    background-color: #911c1c;
+    color: #c4c4c4;
+}
+.tag.invisible {
+    display: none;
+}
+.cadre-profil.invisible {
+    display: none;
 }

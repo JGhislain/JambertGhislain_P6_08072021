@@ -1,4 +1,4 @@
-//Appels des éléments du DOM
+//APPELS DES ÉLÉMENTS DU  DOM
 const nav = document.getElementById('nav');
 const navBar = document.getElementsByClassName('nav-bar'); 
 const selectionPhotographes = document.getElementById('selection-photographes');
@@ -10,9 +10,10 @@ const cadreIdLienPhotographe = document.getElementById('lien-profil');
 const cadreImagePhotographe = document.getElementsByClassName('photo-profil');
 const cadreFichePhotographe = document.getElementsByClassName('cadre-fiche-photographe');
 const cadreTagsPhotographe = document.getElementsByClassName('cadre-tags-photographe');
-const typeTagsPhotographe = document.getElementsByClassName('tag');
+const baliseClassTag = document.getElementsByClassName('tag');
+const baliseIdTag = document.getElementById("tag");
 
-//appel du JSON
+//APPEL DU JSON
 
 fetch('assets/json/listeObjets.json')
 .then(response => response.json())
@@ -21,7 +22,7 @@ fetch('assets/json/listeObjets.json')
     profilsPhotographes(response.photographers)
 });
 
-//fonction d'appel
+//FONCTIONS D APPEL
 
 function profilsPhotographes(photographers) {
 //      Création variable type array vide pour regrouper les tags des photographes      //
@@ -40,9 +41,10 @@ function profilsPhotographes(photographers) {
     console.log(allTags);
 //      Renvoi vers la fonction d'insertion des tags dans la barre de naviguation       //
     navBarTags(allTags);
+    selecTag();
 }
 
-//fonction de traitement
+//FONCTIONS DE TRAITEMENT
 
 function navBarTags(tags) {
 //                      Création balise div pour tags de la navBar                      //
@@ -51,7 +53,7 @@ function navBarTags(tags) {
         insertionNavBar.classList.add("nav-bar");
         for (let i = 0; i < tags.length; i++) {
         let tag = tags[i];
-        insertionNavBar.innerHTML += `<a class="tag">${tag}</a>`;
+        insertionNavBar.innerHTML += `<a id="tag" class="tag ${tag}">${tag}</a>`;
     }
 //                                Insertion de la balise                                //
     nav.appendChild(insertionNavBar);
@@ -90,7 +92,7 @@ function insertionArticlePhotographe(photographe) {
     insertionTags.classList.add("cadre-tags-photographe");
     for (let j = 0; j < photographe.tags.length; j++) {
         const tag = photographe.tags[j];
-        insertionTags.innerHTML += `<a class="tag">${tag}</a>`;
+        insertionTags.innerHTML += `<a id="tag" class="tag ${tag} tag-photographe">${tag}</a>`;
     }
 
 //                          Insertion des différentes balises                           //
@@ -98,5 +100,35 @@ function insertionArticlePhotographe(photographe) {
     insertionFigure.appendChild(insertionPhoto);
     articleProfil.appendChild(insertionH2);
     articleProfil.appendChild(insertionFiche);
-    articleProfil.appendChild(insertionTags);        
+    articleProfil.appendChild(insertionTags);
 };
+
+//FONCTION D'ÉCOUTE DES TAGS
+
+function selecTag() {
+//Lorsque je clique sur un tag ajoute la classe .focus
+    for (let i = 0; i < baliseClassTag.length; i++) {
+        const lien = baliseClassTag[i];
+        lien.addEventListener("click", function(e) {
+            e.preventDefault;
+            this.classList.toggle("focus")
+            let tagsFocus = document.querySelectorAll('a.tag.focus');
+            let tagsPhotographe = document.querySelectorAll('a.tag-photographe');
+            console.log(tagsFocus)
+//Si .focus afficher que les articles du photographes en fonction du tag focus
+        for (let j = 0; j < tagsPhotographe.length; j++) {
+            const tagPhoto = tagsPhotographe[j];
+            photographeTag(tagsFocus, tagPhoto)
+            }
+        }
+//Si tag n'a pas la class focus alors ajouter la class .invisible aux articles qui ne comporte pas les tags focus
+
+    )}
+};
+
+function photographeTag(tagsFocus, tagPhoto) {
+    if(tagPhoto.innerHTML != tagsFocus.innerHTML) {
+        let article = tagPhoto.parentNode.parentNode
+        article.classList.add('invisible');
+    }
+}
