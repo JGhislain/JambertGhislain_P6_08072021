@@ -32,14 +32,24 @@ nav {
     display: flex;
     justify-content: space-around;
 }
-#retour-index {
+.retour-index {
     width: 182px;
     height: 30px;
     position: absolute;
     left: 50%;
-    top: 0%;
+    top: 10px;
     border-radius: 5px;
     background-color: #DB8876;
+}
+.fixe {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    width: 182px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: #DB8876;
+    z-index: 3;
 }
 .retour-texte {
     position: absolute;
@@ -150,7 +160,7 @@ address {
     align-items: center;
     align-self: center;
 }
-.tag {
+#tag {
     text-decoration: none;
     color: #911c1c;
     border: solid 0.5px #c4c4c4;
@@ -160,18 +170,21 @@ address {
     line-height: 16px;
     text-align: center;
 }
-.tag:hover {
+#tag:hover {
     background-color: #911c1c;
     color: #c4c4c4;
     cursor: pointer;
 }
-.tag.focus {
+#tag.focus {
     background-color: #911c1c;
     color: #c4c4c4;
 }
-.tag.invisible {
+#tag.invisible {
     display: none;
 }
 .cadre-profil.invisible {
     display: none;
+}
+.cadre-profil.active {
+    border: 2px solid #95FFF9;
 }
