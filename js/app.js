@@ -26,7 +26,7 @@ let tagsNavBar = [];
 fetch('assets/json/listeObjets.json')
 .then(response => response.json())
 .then(response => {
-    console.log(response);
+    
     profilsPhotographes(response.photographers)
     allPhotographers = response.photographers;
 });
@@ -50,7 +50,7 @@ function profilsPhotographes(photographers) {
     }
 //  Boucle dans la variable, regroupe les éléments du tableau et supprime les doublons  //
     allTags = [...new Set(allTags)];
-    console.log(allTags);
+    
 //      Renvoi vers la fonction d'insertion des tags dans la barre de naviguation       //
     navBarTags(allTags);
     TagsSelection(tagsPhotoProfil, allTags);
@@ -126,7 +126,7 @@ function insertionArticlePhotographe(photographe) {
 
 
 function TagsSelection(tagsPhotoProfil, allTags) {
-    console.log(tagsPhotoProfil)
+    
     for (let i = 0; i < baliseClassTag.length; i++) {
         const lien = baliseClassTag[i];
         //Lorsque je clique sur un tag ajoute la classe .focus
@@ -157,16 +157,42 @@ function searchTags(tagsFocus, tagsPhotographes, allTags) {
     // comment on comparer les tags sel;ectionné avec les tags du photographe
     // tags selectionné type : ?? tagsFocus: Array de nodes
     // tags type : ?? array<string>
-    console.log(tagsFocus)
-    console.log(allTags)
+    //let tagsProfil = document.querySelectorAll('a.tag-photographe')
+    
+    //console.log(tagsProfil)
     for (let i = 0; i < tagsPhotographes.length; i++) {
-        const tagPhotographe = tagsPhotographes[i];
-        tagsPhotoProfil.includes(tagPhotographe)
-        console.log(tagPhotographe)
-        //let hasTagClass = 
-        if (tagPhotographe.innerHTML == tagsFocus.innerHTML) {
-            tagPhotographe.classList.add('focus')
+        const photographerTags = tagsPhotographes[i];
+        
+        // tagsPhotoProfil.includes(tagPhotographeHtmlElement)
+        for (let y = 0; y < tagsFocus.length; y++) {
+            const tag = tagsFocus[y];
+            
+            console.log('photographerTags.innerHTML == tag.innerHTML', photographerTags.innerHTML == tag.innerHTML); // #fsdj
+            if(photographerTags.innerHTML == tag.innerHTML){
+                // on a trouvais quelque chose
+                //Si tag n' a plus la class .focus alors retirer la class focus à photographerTags
+                console.log(tag.innerHTML); // #fsdj
+                console.log(photographerTags.classList.contains('focus'))
+                console.log(photographerTags)
+                console.log('photographerTags.classList.contains(focus) == false', photographerTags.classList.contains('focus') == false)
+                console.log('------------------')
+                if (photographerTags.classList.contains('focus') == false) {
+                    photographerTags.classList.remove('focus')
+                }
+                else{
+                    photographerTags.classList.add('focus')
+                }
+            }
+            //photographerTags.parentNode.parentNode.style.display = "none"
         }
+
+//Vérifier si des tags sont focus à l'intérieur de l'article du photographe
+//Si aucuns photographersTags n'est focus 
+        //alors cacher l'article des photographes
+        //Sinon ne rien faire
+
+
+        //let hasTagClass = 
     }
 }
 
@@ -227,3 +253,5 @@ let onResize = function() {
 //          Ecoute du scroll de la fenêtre et du redimensionnement de la page           //
 window.addEventListener('scroll', onScroll)
 window.addEventListener('resize', onResize)
+
+//window.scrollTo({top: 0, behavior: 'smooth'});
