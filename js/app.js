@@ -82,15 +82,23 @@ function insertionArticlePhotographe(photographe) {
     articleProfil.classList.add("cadre-profil");
     selectionPhotographes.appendChild(articleProfil);
 //                       Création balises figure des photographes                       //
-    let insertionFigure = document.createElement("figure");
+/*     let insertionFigure = document.createElement("figure");
     insertionFigure.id = "cadre-photographe";
     insertionFigure.classList.add("cadre-photographe");
-    insertionFigure.innerHTML += `<a id="${photographe.id}" class="lien-profil" href=""></a>`;
+    insertionFigure.innerHTML += `<a id="${photographe.id}" class="lien-profil" href="html/photographe.html?id=${photographe.id}"></a>`; */
+
+    let insertionFigure = document.createElement("a");
+    insertionFigure.id = photographe.id;
+    insertionFigure.classList.add("lien-profil");
+    insertionFigure.href = `html/photographe.html?id=${photographe.id}`
+    insertionFigure.innerHTML += `<figure id="cadre-photographe" class="cadre-photographe"></figure>`;
+
 //                       Création balises images des photographes                       //
     let insertionPhoto = document.createElement("img");
     insertionPhoto.classList.add("cadre-photo");
     src =  "assets/FishEye_Photos/Sample Photos/Photographers ID Photos/" + photographe.portrait;
     insertionPhoto.src = src;
+    //insertionPhoto.insertAdjacentText('afterbegin', insertionFigure)
 //               Création balises titre des photographes  (ctrl+shift+p)                //
     let insertionH2 = document.createElement("h2");
     insertionH2.classList.add("nom-profil");
@@ -171,16 +179,17 @@ function searchTags(tagsFocus, tagsPhotographes, allTags) {
             if(photographerTags.innerHTML == tag.innerHTML){
                 // on a trouvais quelque chose
                 //Si tag n' a plus la class .focus alors retirer la class focus à photographerTags
+                photographerTags.classList.add('focus')
                 console.log(tag.innerHTML); // #fsdj
                 console.log(photographerTags.classList.contains('focus'))
                 console.log(photographerTags)
                 console.log('photographerTags.classList.contains(focus) == false', photographerTags.classList.contains('focus') == false)
                 console.log('------------------')
-                if (photographerTags.classList.contains('focus') == false) {
+                if ((photographerTags.innerHTML != tag.innerHTML) && (photographerTags.classList.contains('focus') == true && tag.classList.contains('focus') == false)) {
                     photographerTags.classList.remove('focus')
                 }
                 else{
-                    photographerTags.classList.add('focus')
+                    console.log(photographerTags)
                 }
             }
             //photographerTags.parentNode.parentNode.style.display = "none"

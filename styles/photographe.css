@@ -1,0 +1,17 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css?family=DM+Sans");
+
+* {
+    box-sizing: border-box;
+    background-color: #E5E5E5;
+    font-family: DM Sans;
+    font-style: normal;
+}
+#logo {
+    width: 200px;
+    height: 50px;
+    position: absolute;
+    top: 1.82%;
+    left: 0%;
+    object-fit: contain;
+}

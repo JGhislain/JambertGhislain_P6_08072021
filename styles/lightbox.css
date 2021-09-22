@@ -1,0 +1,69 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css?family=DM+Sans");
+
+* {
+    box-sizing: border-box;
+    background-color: #E5E5E5;
+    font-family: DM Sans;
+    font-style: normal;
+}
+body {
+    margin: 0;
+}
+#logo {
+    width: 200px;
+    height: 50px;
+    position: absolute;
+    top: 1.82%;
+    left: 0%;
+    object-fit: contain;
+}
+.liste {
+    display: flex;
+    margin: 100px 20px;
+}
+.liste img {
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+    margin: 0 10px;
+}
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 10;
+}
+.lightbox__next {
+    border: none;
+    font-size: 55px;
+    height: 100%;
+    position: fixed;
+    top: 50px;
+    margin-top: 50%;
+    opacity: 0.5;
+    cursor: pointer;
+}
+.lightbox__preview {
+    border: none;
+    font-size: 55px;
+    height: 100%;
+    position: fixed;
+    top: 50px;
+    margin-top: 50%;
+    opacity: 0.5;
+    cursor: pointer;
+}
+.lightbox__close {
+    border: none;
+    font-size: 55px;
+    height: 100%;
+    position: fixed;
+    top: 50px;
+    margin-top: 50%;
+    opacity: 0.5;
+    cursor: pointer;
+}
