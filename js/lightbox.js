@@ -77,18 +77,15 @@ let previewLightbox = function() {
             // index = nombre image total
             index = imgTotal.length - 1
         }
-
-            
-        let imgUrl = getImageUrl(index)
-
-        
         //Afficher l image précédente dans la lightbox
             //Cibler l'img du lightbox container
+        let imgUrl = getImageUrl(index)
             //Changer la source de mon image par la source de mon image précédente
         image.src = imgUrl
-
     })
 };
+
+
 // ---- On va à la photo suivante lorsqu'on click sur le bouton next ---------------------
 let nextLightbox = function() {
     next.addEventListener("click", function(){

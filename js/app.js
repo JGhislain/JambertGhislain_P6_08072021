@@ -82,10 +82,6 @@ function insertionArticlePhotographe(photographe) {
     articleProfil.classList.add("cadre-profil");
     selectionPhotographes.appendChild(articleProfil);
 //                       Création balises figure des photographes                       //
-/*     let insertionFigure = document.createElement("figure");
-    insertionFigure.id = "cadre-photographe";
-    insertionFigure.classList.add("cadre-photographe");
-    insertionFigure.innerHTML += `<a id="${photographe.id}" class="lien-profil" href="html/photographe.html?id=${photographe.id}"></a>`; */
 
     let insertionFigure = document.createElement("a");
     insertionFigure.id = photographe.id;
