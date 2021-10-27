@@ -94,7 +94,6 @@ function insertionArticlePhotographe(photographe) {
     insertionPhoto.classList.add("cadre-photo");
     src =  "assets/FishEye_Photos/Sample Photos/Photographers ID Photos/" + photographe.portrait;
     insertionPhoto.src = src;
-    //insertionPhoto.insertAdjacentText('afterbegin', insertionFigure)
 //               Création balises titre des photographes  (ctrl+shift+p)                //
     let insertionH2 = document.createElement("h2");
     insertionH2.classList.add("nom-profil");

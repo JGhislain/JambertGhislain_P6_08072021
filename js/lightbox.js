@@ -59,6 +59,11 @@ let closeLightbox = function() {
     })
 };
 
+//--------------------------------------------------------------------------------------//
+//                       Fonction de recherche des sources médias                       //
+//--------------------------------------------------------------------------------------//
+
+
 let getImageUrl = function(index) {
     allMedia = document.querySelectorAll(".media")
     let media = allMedia[index];

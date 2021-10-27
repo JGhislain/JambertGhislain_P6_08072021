@@ -15,3 +15,11 @@
     left: 0%;
     object-fit: contain;
 }
+.image-profil {
+    height: 200px;
+    width: 200px;
+}
+.media-photographe {
+    height: 300px;
+    width: 300px;
+}
