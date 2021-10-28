@@ -174,7 +174,8 @@ function compareId(allPhotographers, allMedia) {
             }
             genereCadreMedia() {
 
-                // Création des balises qui comporte les medias du photographe
+                //Récupération des url des médias en cours et retrait du caractère ('-')
+                
                 let image;
                 let video;
                 
@@ -187,7 +188,7 @@ function compareId(allPhotographers, allMedia) {
                         return image = urlArray[0]
                     }
                 }
-
+                
                 function videoUrlTransfo(url) {
                     let urlArray = url.split(' ')
                     if (urlArray.join('-')) {
@@ -197,8 +198,8 @@ function compareId(allPhotographers, allMedia) {
                         return video = urlArray[0]
                     }
                 }
-
-
+                
+                // Création des balises qui comporte les medias du photographe
                 let articleMediaPhotographe = document.querySelector('#article-media')
                 let cadreMedia = document.createElement('a')
                 cadreMedia.classList.add("cadre-media")
@@ -222,6 +223,7 @@ function compareId(allPhotographers, allMedia) {
 
             genereImageMedia() {
                 
+                //Récupération des url des médias en cours et retrait du caractère ('-')
                 let image;
                 let video;
                 
