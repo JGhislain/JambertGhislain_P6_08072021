@@ -32,9 +32,10 @@ const sectionMedia = document.querySelector('#media')
 
 let nomPhotographe
 let mediaEnCours = []
-let photographeEnCours = []
+let photographeEnCours;
 let idPhotographe = false;
 let idMedia = false;
+
 
 function compareId(allPhotographers, allMedia) {
     //Je vérifie que l'ID de la barre URL correspond à un ID photographe
@@ -43,8 +44,8 @@ function compareId(allPhotographers, allMedia) {
         //Si l'ID Url à une correspondance avec un ID photographe
         if(numbId == photographe.id) {
             //Alors récupérer les informations necessaires à la construction de la page
-            console.log(photographe.name +" coucou")
-            photographeEnCours.push(photographe)
+            photographeEnCours = photographe
+            nomPhotographe = photographe.name
             idPhotographe = true
         }
     }
@@ -172,52 +173,140 @@ function compareId(allPhotographers, allMedia) {
                 this.price = price;
             }
             genereCadreMedia() {
+
+                // Création des balises qui comporte les medias du photographe
+                let image;
+                let video;
+                
+                function imageUrlTransfo(url) {
+                    let urlArray = url.split(' ')
+                    if (urlArray.join('-')) {
+                        return image = urlArray[0].replace(/-/i, '')
+                    }
+                    else {
+                        return image = urlArray[0]
+                    }
+                }
+
+                function videoUrlTransfo(url) {
+                    let urlArray = url.split(' ')
+                    if (urlArray.join('-')) {
+                        return video = urlArray[0].replace(/-/i, '')
+                    }
+                    else {
+                        return video = urlArray[0]
+                    }
+                }
+
+
                 let articleMediaPhotographe = document.querySelector('#article-media')
-                let cadreMedia = document.createElement('div')
-                cadreMedia.id = "cadre-media"
+                let cadreMedia = document.createElement('a')
+                cadreMedia.classList.add("cadre-media")
+                // si c'est une image
+                if (!this.video && this.image != undefined) {
+                    imageUrlTransfo(this.image)
+                    // Retourne le lien de l'image
+                    let sourceMediaImage = "../assets/FishEye_Photos/Sample Photos/" + prenom + "/" + image
+                    cadreMedia.href = sourceMediaImage
+                }
+                // si c'est une vidéo
+                else {
+                    // Retourne le lien de la vidéo
+                    videoUrlTransfo(this.video)
+                    let sourceMediaVideo = "../assets/FishEye_Photos/Sample Photos/" + prenom + "/" + video
+                    cadreMedia.href = sourceMediaVideo
+                }
+                cadreMedia.appendChild(this.genereImageMedia());
                 articleMediaPhotographe.appendChild(cadreMedia)
             }
+
             genereImageMedia() {
-                let divMedia = document.querySelector('#cadre-media')
-                let imageMedia = document.createElement('img')
-                imageMedia.classList.add('media-photographe')
-                let sourceMediaImage = "../assets/FishEye_Photos/Sample Photos/Mimi/" + this.image
-                imageMedia.src = sourceMediaImage
-                divMedia.appendChild(imageMedia)
-            }
-            genereVideoMedia() {
-                let divMedia = document.querySelector('#cadre-media')
-                let videoMedia = document.createElement('video')
-                videoMedia.classList.add('media-photographe')
-                let sourceMediaVideo = "../assets/FishEye_Photos/Sample Photos/Mimi/" + this.video
-                videoMedia.src = sourceMediaVideo
-                divMedia.appendChild(videoMedia) 
+                
+                let image;
+                let video;
+                
+                function imageUrlTransfo(url) {
+                    let urlArray = url.split(' ')
+                    if (urlArray.join('-')) {
+                        return image = urlArray[0].replace(/-/i, '')
+                    }
+                    else {
+                        return image = urlArray[0]
+                    }
+                }
+
+                function videoUrlTransfo(url) {
+                    let urlArray = url.split(' ')
+                    if (urlArray.join('-')) {
+                        return video = urlArray[0].replace(/-/i, '')
+                    }
+                    else {
+                        return video = urlArray[0]
+                    }
+                }
+
+                // si c'est une image 
+                if (!this.video && this.image != undefined) {
+                    // return juste l'image
+                    imageUrlTransfo(this.image)
+                    let imageMedia = document.createElement('img')
+                    imageMedia.classList.add('media-photographe')
+                    let sourceMediaImage = "../assets/FishEye_Photos/Sample Photos/" + prenom + "/" + image
+                    imageMedia.src = sourceMediaImage
+                    return imageMedia
+                }
+                // si c'est une vidéo 
+                else {
+                    // return juste la video
+                    videoUrlTransfo(this.video)
+                    let videoMedia = document.createElement('video')
+                    videoMedia.classList.add('media-photographe')
+                    
+                    let sourceMediaVideo = "../assets/FishEye_Photos/Sample Photos/" + prenom + "/" + video
+                    videoMedia.src = sourceMediaVideo
+                    return videoMedia
+                }
             }
         }
-        for (let k = 0; k < photographeEnCours.length; k++) {
-            const profil = photographeEnCours[k];
-            const newProfil = new ProfilPhotographe(profil.city, profil.country, profil.id, profil.name, profil.portrait, profil.price, profil.tagline, profil.tags);
-            newProfil.genereArticleProfil();
-            newProfil.genereNameProfil();
-            newProfil.genereCityProfil();
-            newProfil.genereCitationProfil();
-            newProfil.genereTagsProfil();
-            newProfil.genereContactProfil();
-            newProfil.generePhotoProfil();
-            newProfil.generePrixProfil();
-            newProfil.genereDivTriMedia();
-            newProfil.genereArticleMedia();
-        }
+    
+        const profil = photographeEnCours;
+        const newProfil = new ProfilPhotographe(profil.city, profil.country, profil.id, profil.name, profil.portrait, profil.price, profil.tagline, profil.tags);
+        newProfil.genereArticleProfil();
+        newProfil.genereNameProfil();
+        newProfil.genereCityProfil();
+        newProfil.genereCitationProfil();
+        newProfil.genereTagsProfil();
+        newProfil.genereContactProfil();
+        newProfil.generePhotoProfil();
+        newProfil.generePrixProfil();
+        newProfil.genereDivTriMedia();
+        newProfil.genereArticleMedia();
         
         let mediaDuPhotographe = [];
+        let prenom;
+//--------------------------------------------------------------------------------------//
+//                  Fonction de récupération du prénom du photographe                   //
+//--------------------------------------------------------------------------------------//
+        recupPrenom(nomPhotographe);
+        function recupPrenom(name) {
+            console.log(name)
+            let wordArray = name.split(' ');
+            console.log(wordArray[0])
+            if (wordArray.join('-')) {
+                prenom = wordArray[0].replace(/-/i, ' ')
+            }
+            else {
+                prenom = wordArray[0]
+            }
+        }
         
         for (let j = 0; j < mediaEnCours.length; j++) {
             const media = mediaEnCours[j];
             const newMedias = new MediasPhotographe(media.id, media.photographerId, media.title, media.image, media.video, media.tags, media.likes, media.date, media.price);
             mediaDuPhotographe.push(newMedias)
             newMedias.genereCadreMedia();
-            newMedias.genereImageMedia();
-            newMedias.genereVideoMedia();
+            // newMedias.genereImageMedia();
+            //newMedias.genereVideoMedia();
         }
     }
 }
