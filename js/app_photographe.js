@@ -13,7 +13,7 @@ console.log(numbId)
 //--------------------------------------------------------------------------------------//
 
 
-fetch('/assets/json/listeObjets.json')
+fetch('../assets/json/listeObjets.json')
 .then(response => response.json())
 .then(response => {
     let allMedia = response.media;
