@@ -172,6 +172,7 @@ function compareId(allPhotographers, allMedia) {
                 this.date = date;
                 this.price = price;
             }
+
             genereCadreMedia() {
 
                 //Récupération des url des médias en cours et retrait du caractère ('-')
@@ -209,6 +210,14 @@ function compareId(allPhotographers, allMedia) {
                     // Retourne le lien de l'image
                     let sourceMediaImage = "../assets/FishEye_Photos/Sample Photos/" + prenom + "/" + image
                     cadreMedia.href = sourceMediaImage
+                    let infoMedia = document.createElement('div')
+                    infoMedia.classList.add('info-media')
+                    infoMedia.innerHTML += `<span class"titre-media">${this.title}</span>
+                    <span class"likes-media">${this.likes}</span>
+                    <span class"titre-media">${this.title}</span>
+                    <i class="far fa-heart coeur"></i>
+                    <span class"tag-media">#${this.tags}</span>`
+                    cadreMedia.appendChild(infoMedia)
                 }
                 // si c'est une vidéo
                 else {
@@ -216,6 +225,14 @@ function compareId(allPhotographers, allMedia) {
                     videoUrlTransfo(this.video)
                     let sourceMediaVideo = "../assets/FishEye_Photos/Sample Photos/" + prenom + "/" + video
                     cadreMedia.href = sourceMediaVideo
+                    let infoMedia = document.createElement('div')
+                    infoMedia.classList.add('info-media')
+                    infoMedia.innerHTML += `<span class"titre-media">${this.title}</span>
+                    <span class"likes-media">${this.likes}</span>
+                    <span class"titre-media">${this.title}</span>
+                    <i class="far fa-heart coeur"></i>
+                    <span class"tag-media">#${this.tags}</span>`
+                    cadreMedia.appendChild(infoMedia)
                 }
                 cadreMedia.appendChild(this.genereImageMedia());
                 articleMediaPhotographe.appendChild(cadreMedia)
@@ -255,6 +272,7 @@ function compareId(allPhotographers, allMedia) {
                     imageMedia.classList.add('media-photographe')
                     let sourceMediaImage = "../assets/FishEye_Photos/Sample Photos/" + prenom + "/" + image
                     imageMedia.src = sourceMediaImage
+                    imageMedia.dataset.index = getIndex(index)
                     return imageMedia
                 }
                 // si c'est une vidéo 
@@ -263,10 +281,20 @@ function compareId(allPhotographers, allMedia) {
                     videoUrlTransfo(this.video)
                     let videoMedia = document.createElement('video')
                     videoMedia.classList.add('media-photographe')
-                    
+                    videoMedia.dataset.index = getIndex(index)
                     let sourceMediaVideo = "../assets/FishEye_Photos/Sample Photos/" + prenom + "/" + video
                     videoMedia.src = sourceMediaVideo
                     return videoMedia
+                }
+
+//--------------------------------------------------------------------------------------//
+//         Fonction de récupération et d'attribution des parametres data-index          //
+//--------------------------------------------------------------------------------------//
+
+                function getIndex(index) {
+                    let toutMedia = document.querySelectorAll(".media-photographe")
+                    let indexMedia = toutMedia[index]
+                    return [index]
                 }
             }
         }
@@ -286,6 +314,7 @@ function compareId(allPhotographers, allMedia) {
         
         let mediaDuPhotographe = [];
         let prenom;
+        let index;
 //--------------------------------------------------------------------------------------//
 //                  Fonction de récupération du prénom du photographe                   //
 //--------------------------------------------------------------------------------------//
@@ -306,7 +335,9 @@ function compareId(allPhotographers, allMedia) {
             const media = mediaEnCours[j];
             const newMedias = new MediasPhotographe(media.id, media.photographerId, media.title, media.image, media.video, media.tags, media.likes, media.date, media.price);
             mediaDuPhotographe.push(newMedias)
+            index = [j]
             newMedias.genereCadreMedia();
+            //newMedias.compteurLikes();
             // newMedias.genereImageMedia();
             //newMedias.genereVideoMedia();
         }
