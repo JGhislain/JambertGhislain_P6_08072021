@@ -69,9 +69,11 @@ function compareId(allPhotographers, allMedia) {
     else{
         console.log(photographeEnCours)
         console.log(mediaEnCours)
-        //Fabricateur d'insertion des éléments HTML et des objets
         
-        //Fabricateur qui classe les infos du photographe
+//--------------------------------------------------------------------------------------//
+//                   Fabricateur qui classe les infos du photographe                    //
+//--------------------------------------------------------------------------------------//
+
         class ProfilPhotographe {
             constructor(city, country, id, name, portrait, price, tagline, tags) {
                 this.city = city;
@@ -141,16 +143,19 @@ function compareId(allPhotographers, allMedia) {
                 let infoProfil = document.createElement('div')
                 infoProfil.classList.add('info-profil')
                 sectionProfil.appendChild(infoProfil)
-                let prixProfil = document.createElement('p')
+                let prixProfil = document.createElement('span')
                 prixProfil.classList.add('prix-profil')
-                prixProfil.innerHTML = this.price+"€"
+                prixProfil.innerHTML = this.price+"€" + " / jour"
                 let cardeInfoProfil = document.querySelector('.info-profil')
                 cardeInfoProfil.appendChild(prixProfil)
             }
             genereDivTriMedia() {
                 let triMedia = document.createElement('div')
                 triMedia.id = 'trieuse'
-                triMedia.innerHTML = 'Trier par'
+                triMedia.innerHTML = 'Trier par' + `<i class="fas fa-angle-up chevron"></i>
+                <p class= "tri-popularite">Popularité</p>
+                <p class= "tri-date">Date</p>
+                <p class= "tri-titre">Titre</p>`              
                 sectionMedia.appendChild(triMedia)
             }
             genereArticleMedia() {
@@ -159,7 +164,10 @@ function compareId(allPhotographers, allMedia) {
                 sectionMedia.appendChild(articleMedia)
             }
         }
-        //Fabricateur qui classe les médias du photographe
+//--------------------------------------------------------------------------------------//
+//                   Fabricateur qui classe les médias du photographe                   //
+//--------------------------------------------------------------------------------------//
+
         class MediasPhotographe {
             constructor(id, photographerId, title, image, video, tags, likes, date, price) {
                 this.id = id;
@@ -174,12 +182,22 @@ function compareId(allPhotographers, allMedia) {
             }
 
             genereCadreMedia() {
+                let articleMediaPhotographe = document.querySelector('#article-media')
+                let cadreMedia = document.createElement('div')
+                cadreMedia.classList.add("cadre-media")
+                articleMediaPhotographe.appendChild(cadreMedia)
+            }
 
-                //Récupération des url des médias en cours et retrait du caractère ('-')
+            genereContenuMedia() {
+
                 
+//--------------------------------------------------------------------------------------//
+//        Récupération des url des médias en cours et retrait du caractère ('-')        //
+//--------------------------------------------------------------------------------------//
+
                 let image;
                 let video;
-                
+
                 function imageUrlTransfo(url) {
                     let urlArray = url.split(' ')
                     if (urlArray.join('-')) {
@@ -189,7 +207,7 @@ function compareId(allPhotographers, allMedia) {
                         return image = urlArray[0]
                     }
                 }
-                
+
                 function videoUrlTransfo(url) {
                     let urlArray = url.split(' ')
                     if (urlArray.join('-')) {
@@ -199,25 +217,21 @@ function compareId(allPhotographers, allMedia) {
                         return video = urlArray[0]
                     }
                 }
-                
-                // Création des balises qui comporte les medias du photographe
-                let articleMediaPhotographe = document.querySelector('#article-media')
+
+//--------------------------------------------------------------------------------------//
+//             Création des balises qui comporte les medias du photographe              //
+//--------------------------------------------------------------------------------------//
+
+                let contenantMedia = document.querySelectorAll('.cadre-media')
+                let cadreParent = contenantMedia[index]
                 let cadreMedia = document.createElement('a')
-                cadreMedia.classList.add("cadre-media")
+                cadreMedia.classList.add('media')
                 // si c'est une image
                 if (!this.video && this.image != undefined) {
                     imageUrlTransfo(this.image)
                     // Retourne le lien de l'image
                     let sourceMediaImage = "../assets/FishEye_Photos/Sample Photos/" + prenom + "/" + image
                     cadreMedia.href = sourceMediaImage
-                    let infoMedia = document.createElement('div')
-                    infoMedia.classList.add('info-media')
-                    infoMedia.innerHTML += `<span class"titre-media">${this.title}</span>
-                    <span class"likes-media">${this.likes}</span>
-                    <span class"titre-media">${this.title}</span>
-                    <i class="far fa-heart coeur"></i>
-                    <span class"tag-media">#${this.tags}</span>`
-                    cadreMedia.appendChild(infoMedia)
                 }
                 // si c'est une vidéo
                 else {
@@ -225,22 +239,17 @@ function compareId(allPhotographers, allMedia) {
                     videoUrlTransfo(this.video)
                     let sourceMediaVideo = "../assets/FishEye_Photos/Sample Photos/" + prenom + "/" + video
                     cadreMedia.href = sourceMediaVideo
-                    let infoMedia = document.createElement('div')
-                    infoMedia.classList.add('info-media')
-                    infoMedia.innerHTML += `<span class"titre-media">${this.title}</span>
-                    <span class"likes-media">${this.likes}</span>
-                    <span class"titre-media">${this.title}</span>
-                    <i class="far fa-heart coeur"></i>
-                    <span class"tag-media">#${this.tags}</span>`
-                    cadreMedia.appendChild(infoMedia)
                 }
-                cadreMedia.appendChild(this.genereImageMedia());
-                articleMediaPhotographe.appendChild(cadreMedia)
+                cadreMedia.appendChild(this.genereMedia());
+                cadreParent.appendChild(cadreMedia)
+                cadreParent.appendChild(this.genereCadreInfoMedia());
             }
 
-            genereImageMedia() {
+            genereMedia() {
+//--------------------------------------------------------------------------------------//
+//        Récupération des url des médias en cours et retrait du caractère ('-')        //
+//--------------------------------------------------------------------------------------//
                 
-                //Récupération des url des médias en cours et retrait du caractère ('-')
                 let image;
                 let video;
                 
@@ -263,6 +272,19 @@ function compareId(allPhotographers, allMedia) {
                         return video = urlArray[0]
                     }
                 }
+//--------------------------------------------------------------------------------------//
+//         Fonction de récupération et d'attribution des parametres data-index          //
+//--------------------------------------------------------------------------------------//
+
+                function getIndex(index) {
+                    let toutMedia = document.querySelectorAll(".media-photographe")
+                    let indexMedia = toutMedia[index]
+                    return [index]
+                }
+                
+//--------------------------------------------------------------------------------------//
+//                             Création des balises Medias                              //
+//--------------------------------------------------------------------------------------//
 
                 // si c'est une image 
                 if (!this.video && this.image != undefined) {
@@ -286,19 +308,63 @@ function compareId(allPhotographers, allMedia) {
                     videoMedia.src = sourceMediaVideo
                     return videoMedia
                 }
+            }
+
+            genereCadreInfoMedia() {
 
 //--------------------------------------------------------------------------------------//
-//         Fonction de récupération et d'attribution des parametres data-index          //
+//                         Création des balises info des médias                         //
 //--------------------------------------------------------------------------------------//
 
-                function getIndex(index) {
-                    let toutMedia = document.querySelectorAll(".media-photographe")
-                    let indexMedia = toutMedia[index]
-                    return [index]
+                if ((this.image != undefined) || (this.video != undefined)) {
+                    let infoMedia = document.createElement('div')
+                    infoMedia.classList.add('info-media')
+                    return infoMedia
+                }
+                else {
+                    return console.log("il n y a pas de média")
                 }
             }
+
+            genereInfoMedia() {
+
+                let infoMedia = document.querySelectorAll('.info-media')
+                let divInfo = infoMedia[index]
+                let titreMedia = document.createElement('h3')
+                titreMedia.classList.add('titre-media')
+                titreMedia.innerHTML = this.title
+                let tagMedia = document.createElement('p')
+                tagMedia.classList.add('tag-media')
+                tagMedia.innerHTML = "#" + this.tags
+                let likesMedia = document.createElement('span')
+                likesMedia.classList.add('likes-media')
+                likesMedia.innerHTML = this.likes
+                /*                 let iconeCoeur = document.createElement('i')
+                iconeCoeur.classList.add('far fa-heart coeur') */
+                let dateMedia = document.createElement('p')
+                dateMedia.classList.add('date-media')
+                dateMedia.innerHTML = this.date
+                let prixMedia = document.createElement('span')
+                prixMedia.classList.add('prix-media')
+                prixMedia.innerHTML = this.price + "€"
+                divInfo.innerHTML += `<i class="far fa-heart coeur"></i>`
+                divInfo.appendChild(titreMedia)
+                divInfo.appendChild(tagMedia)
+                divInfo.appendChild(likesMedia)
+                //divInfo.appendChild(iconeCoeur)
+                divInfo.appendChild(dateMedia)
+                divInfo.appendChild(prixMedia)
+            }
+
+            genereCompteurLikes() {
+                somme += this.likes
+            }
         }
-    
+        
+//--------------------------------------------------------------------------------------//
+//                           Constructeur de la partie Profil                           //
+//--------------------------------------------------------------------------------------//
+
         const profil = photographeEnCours;
         const newProfil = new ProfilPhotographe(profil.city, profil.country, profil.id, profil.name, profil.portrait, profil.price, profil.tagline, profil.tags);
         newProfil.genereArticleProfil();
@@ -315,9 +381,11 @@ function compareId(allPhotographers, allMedia) {
         let mediaDuPhotographe = [];
         let prenom;
         let index;
+        let somme = 0;
 //--------------------------------------------------------------------------------------//
 //                  Fonction de récupération du prénom du photographe                   //
 //--------------------------------------------------------------------------------------//
+
         recupPrenom(nomPhotographe);
         function recupPrenom(name) {
             console.log(name)
@@ -330,16 +398,29 @@ function compareId(allPhotographers, allMedia) {
                 prenom = wordArray[0]
             }
         }
-        
+//--------------------------------------------------------------------------------------//
+//                           Constructeur de la section Media                           //
+//--------------------------------------------------------------------------------------//
+
         for (let j = 0; j < mediaEnCours.length; j++) {
             const media = mediaEnCours[j];
             const newMedias = new MediasPhotographe(media.id, media.photographerId, media.title, media.image, media.video, media.tags, media.likes, media.date, media.price);
             mediaDuPhotographe.push(newMedias)
             index = [j]
             newMedias.genereCadreMedia();
-            //newMedias.compteurLikes();
-            // newMedias.genereImageMedia();
+            newMedias.genereContenuMedia();
+            newMedias.genereInfoMedia();
+            newMedias.genereCompteurLikes();
             //newMedias.genereVideoMedia();
         }
+        injectInfoLikes();
+        function injectInfoLikes() {
+            let cardeInfoProfil = document.querySelector('.info-profil')
+            let likesProfil = document.createElement('span')
+            likesProfil.classList.add('likes-profil')
+            likesProfil.innerHTML = somme + " " + `<i class="far fa-heart coeur"></i>`
+            cardeInfoProfil.appendChild(likesProfil)
+        }
+        console.log(somme)
     }
 }
