@@ -85,14 +85,19 @@
     opacity: 1;
 }
 .lightbox__container img {
+    display: none;
     max-width: 100%;
     height: auto;
     animation: lightboxIn 500ms;
 }
-.lightbox__container video {
+.lightbox-video {
+    display: none;
     max-width: 100%;
     height: auto;
     animation: lightboxIn 500ms;
+}
+.lightbox-video.show {
+    display: initial;
 }
 .lightbox__container {
     display: flex;

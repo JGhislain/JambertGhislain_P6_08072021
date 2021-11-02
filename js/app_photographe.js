@@ -184,11 +184,14 @@ function compareId(allPhotographers, allMedia) {
                 <button class="lightbox__preview"><i class="fas fa-arrow-left"></i></button>
                 <button class="lightbox__next"><i class="fas fa-arrow-right"></i></button>
                 <div class="lightbox__container">
-                <img src="" alt="">
-                <video controls>
-                <source src="" type="video/mp4">
+                <img class"lightbox-photo" src="" alt="">
+                <video class="lightbox-video" src="" type="video/mp4">
+                </video>
                 </div>`
                 mainHtml.appendChild(lightboxDom)
+                /* <video controls>
+                <source src="" type="video/mp4">
+                </video> */
             }
         }
 //--------------------------------------------------------------------------------------//
@@ -255,9 +258,10 @@ function compareId(allPhotographers, allMedia) {
                 cadreMedia.classList.add('media')
                 // si c'est une image
                 if (!this.video && this.image != undefined) {
-                    imageUrlTransfo(this.image)
                     // Retourne le lien de l'image
+                    imageUrlTransfo(this.image)
                     let sourceMediaImage = "../assets/FishEye_Photos/Sample Photos/" + prenom + "/" + image
+                    cadreMedia.classList.add('photo')
                     cadreMedia.href = sourceMediaImage
                 }
                 // si c'est une vidéo
@@ -265,6 +269,7 @@ function compareId(allPhotographers, allMedia) {
                     // Retourne le lien de la vidéo
                     videoUrlTransfo(this.video)
                     let sourceMediaVideo = "../assets/FishEye_Photos/Sample Photos/" + prenom + "/" + video
+                    cadreMedia.classList.add('video')
                     cadreMedia.href = sourceMediaVideo
                 }
                 cadreMedia.appendChild(this.genereMedia());
@@ -458,9 +463,100 @@ function compareId(allPhotographers, allMedia) {
         const preview = document.querySelector(".lightbox__preview")
         const next = document.querySelector(".lightbox__next")
         const links = document.querySelectorAll(".cadre-media a")
+        const mediaContain = document.querySelector(".media-photographe")
         const imageContainer = lightbox.querySelector(".lightbox__container img")
-        const videoContainer = lightbox.querySelector("lightbox__container video")
+        const videoContainer = lightbox.querySelector(".lightbox-video")
 
-        console.log(links)
+        console.log(imageContainer)
+        let mediaIndex;
+        let mediaCible;
+
+//--------------------------------------------------------------------------------------//
+//                       On ajoute l'écouteur clic sur les liens                        //
+//--------------------------------------------------------------------------------------//
+
+        let openLightbox = function() {
+            for (let i = 0; i < links.length; i++) {
+                const link = links[i];
+                link.addEventListener("click", function(e) {
+                    e.preventDefault()
+                    //Si on clic sur une photo on ajoute l'image 
+                    //du lien de la photo et on l'insère dans la balise image
+                    if (link.classList.contains('photo') == true) {
+                        imageContainer.src = this.href
+                        let img = this.querySelector('img')
+                        mediaIndex = img.dataset.index
+                        lightbox.classList.add('show')
+                        imageContainer.style.display = "initial"
+                    }
+                    else {
+                        videoContainer.src = this.href
+                        let vid = this.querySelector('video')
+                        mediaIndex = vid.dataset.index
+                        lightbox.classList.add('show')
+                        videoContainer.classList.add('show')
+                    }
+                });
+            }
+            //On active le bouton close
+            closeLightbox()
+            //On active le bouton preview
+            previewLightbox()
+            //On active le bouton next
+            //nextLightbox()
+        }
+
+//--------------------------------------------------------------------------------------//
+//                         Fonction de fermeture de la lightbox                         //
+//--------------------------------------------------------------------------------------//
+
+        let closeLightbox = function() {
+            close.addEventListener("click", function() {
+                //On retire la classe show de la lightbox
+                imageContainer.style.display = "none"
+                videoContainer.classList.remove('show')
+                lightbox.classList.remove("show")
+            })
+        };
+
+//--------------------------------------------------------------------------------------//
+//                       Fonction de recherche des sources médias                       //
+//--------------------------------------------------------------------------------------//
+
+        let getImageUrl = function(mediaIndex) {
+            lesMedias = document.querySelectorAll(".media")
+            mediaCible = lesMedias[mediaIndex];
+            return mediaCible.querySelector('img').src
+        };
+
+        let getVideoUrl = function(mediaIndex) {
+            lesMedias = document.querySelectorAll(".media")
+            mediaCible = lesMedias[mediaIndex];
+            return mediaCible.querySelector('.video').src
+        };
+
+//--------------------------------------------------------------------------------------//
+//                      Fonction de media précédent de la lightbox                      //
+//--------------------------------------------------------------------------------------//
+
+        let previewLightbox = function() {
+            preview.addEventListener('click', function() {
+                //On initialise mediaIndex
+                mediaIndex -= 1
+                mediaTotal = document.querySelectorAll('media-photographe')
+
+                if (mediaIndex < 0) {
+                    mediaIndex = mediaTotal.length - 1
+                }
+                let imgUrl = getImageUrl(mediaIndex)
+                //Si le media précédent est une image l'afficher dans la lightbox
+                imageContainer.src = imgUrl
+            })
+        }
+//--------------------------------------------------------------------------------------//
+//                      Appel de la fonction qui ouvre la lightbox                      //
+//--------------------------------------------------------------------------------------//
+
+        openLightbox();
     }
 }
