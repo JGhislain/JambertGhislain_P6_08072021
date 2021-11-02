@@ -524,14 +524,12 @@ function compareId(allPhotographers, allMedia) {
 //--------------------------------------------------------------------------------------//
 
         let getImageUrl = function(mediaIndex) {
-            lesMedias = document.querySelectorAll(".media")
-            mediaCible = lesMedias[mediaIndex];
+            mediaCible = links[mediaIndex];
             return mediaCible.querySelector('img').src
         };
 
         let getVideoUrl = function(mediaIndex) {
-            lesMedias = document.querySelectorAll(".media")
-            mediaCible = lesMedias[mediaIndex];
+            mediaCible = links[mediaIndex];
             return mediaCible.querySelector('.video').src
         };
 
