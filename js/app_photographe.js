@@ -503,7 +503,7 @@ function compareId(allPhotographers, allMedia) {
             //On active le bouton preview
             previewLightbox()
             //On active le bouton next
-            //nextLightbox()
+            nextLightbox()
         }
 
 //--------------------------------------------------------------------------------------//
@@ -523,14 +523,14 @@ function compareId(allPhotographers, allMedia) {
 //                       Fonction de recherche des sources médias                       //
 //--------------------------------------------------------------------------------------//
 
-        let getImageUrl = function(mediaIndex) {
+        let getMediaUrl = function(mediaIndex) {
             mediaCible = links[mediaIndex];
-            return mediaCible.querySelector('img').src
-        };
-
-        let getVideoUrl = function(mediaIndex) {
-            mediaCible = links[mediaIndex];
-            return mediaCible.querySelector('.video').src
+            if (mediaCible.classList.contains("photo")) {
+                return mediaCible.querySelector('img').src
+            }
+            else {
+                return mediaCible.querySelector('video').src
+            }
         };
 
 //--------------------------------------------------------------------------------------//
@@ -541,21 +541,64 @@ function compareId(allPhotographers, allMedia) {
             preview.addEventListener('click', function() {
                 //On initialise mediaIndex
                 mediaIndex -= 1
-                mediaTotal = document.querySelectorAll('media-photographe')
-
+                mediaTotal = document.querySelectorAll('.media-photographe')
+                //Si mediaIndex est inférieur à 0 alors revenir à la dernière photo
                 if (mediaIndex < 0) {
                     mediaIndex = mediaTotal.length - 1
                 }
-                let imgUrl = getImageUrl(mediaIndex)
-                console.log(mediaCible)
-                //Si le media précédent est une image l'afficher dans la lightbox
-                imageContainer.src = imgUrl
-/*                 if (mediaCible === undefined) {
-                    let vidUrl = getVideoUrl(mediaIndex)
-                    videoContainer.src = vidUrl
-                } */
+                //Appel de la fonction de récupération de l'Url du média à venir
+                let mediaUrl = getMediaUrl(mediaIndex)
+                //Si le media est une photo on affiche la photo
+                if (mediaCible.classList.contains("photo")) {
+                    imageContainer.src = mediaUrl
+                    //Si le media précédent était une vidéo on remplace l affichage des balises
+                    if (imageContainer.style.display = "none") {
+                        videoContainer.classList.remove('show')
+                        imageContainer.style.display = 'initial'
+                    }
+                }
+                //Si le media est une vidéo on affiche la vidéo
+                else {
+                    imageContainer.style.display = "none"
+                    videoContainer.classList.add('show')
+                    videoContainer.src = mediaUrl
+                }
             })
         }
+
+//--------------------------------------------------------------------------------------//
+//                       Fonction de média suivant de la lightbox                       //
+//--------------------------------------------------------------------------------------//
+
+        let nextLightbox = function() {
+            next.addEventListener('click', function() {
+                //On initialise mediaIndex
+                mediaIndex ++
+                mediaTotal = document.querySelectorAll('.media-photographe')
+                //Si mediaIndex est supérieur à mediaTotal.length alors revenir à la premiere photo
+                if (mediaIndex === mediaTotal.length) {
+                    mediaIndex = 0
+                }
+                //Appel de la fonction de récupération de l'Url du média à venir
+                let mediaUrl = getMediaUrl(mediaIndex)
+                //Si le media est une photo on affiche la photo
+                if (mediaCible.classList.contains("photo")) {
+                    imageContainer.src = mediaUrl
+                    //Si le media précédent était une vidéo on remplace l affichage des balises
+                    if (imageContainer.style.display = "none") {
+                        videoContainer.classList.remove('show')
+                        imageContainer.style.display = 'initial'
+                    }
+                }
+                //Si le media est une vidéo on affiche la vidéo
+                else {
+                    imageContainer.style.display = "none"
+                    videoContainer.classList.add('show')
+                    videoContainer.src = mediaUrl
+                }
+            })
+        }
+
 //--------------------------------------------------------------------------------------//
 //                      Appel de la fonction qui ouvre la lightbox                      //
 //--------------------------------------------------------------------------------------//
