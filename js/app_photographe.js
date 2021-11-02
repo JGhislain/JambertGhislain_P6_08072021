@@ -84,6 +84,18 @@ function compareId(allPhotographers, allMedia) {
                 this.price = price;
                 this.tagline = tagline;
                 this.tags = tags;
+
+                this.genereArticleProfil();
+                this.genereNameProfil();
+                this.genereCityProfil();
+                this.genereCitationProfil();
+                this.genereTagsProfil();
+                this.genereContactProfil();
+                this.generePhotoProfil();
+                this.generePrixProfil();
+                this.genereDivTriMedia();
+                this.genereArticleMedia();
+                this.genereLightbox();
             }
             genereArticleProfil() {
                 let articleProfil = document.createElement("article");
@@ -162,6 +174,21 @@ function compareId(allPhotographers, allMedia) {
                 let articleMedia = document.createElement('article')
                 articleMedia.id = 'article-media'
                 sectionMedia.appendChild(articleMedia)
+            }
+            genereLightbox() {
+                const mainHtml = document.querySelector('main')
+                const lightboxDom = document.createElement('div')
+                lightboxDom.id = 'lightbox'
+                lightboxDom.classList.add('lightbox')
+                lightboxDom.innerHTML = `<button class="lightbox__close"><i class="fas fa-times"></i></button>
+                <button class="lightbox__preview"><i class="fas fa-arrow-left"></i></button>
+                <button class="lightbox__next"><i class="fas fa-arrow-right"></i></button>
+                <div class="lightbox__container">
+                <img src="" alt="">
+                <video controls>
+                <source src="" type="video/mp4">
+                </div>`
+                mainHtml.appendChild(lightboxDom)
             }
         }
 //--------------------------------------------------------------------------------------//
@@ -355,10 +382,6 @@ function compareId(allPhotographers, allMedia) {
                 divInfo.appendChild(dateMedia)
                 divInfo.appendChild(prixMedia)
             }
-
-            genereCompteurLikes() {
-                somme += this.likes
-            }
         }
         
 //--------------------------------------------------------------------------------------//
@@ -367,26 +390,18 @@ function compareId(allPhotographers, allMedia) {
 
         const profil = photographeEnCours;
         const newProfil = new ProfilPhotographe(profil.city, profil.country, profil.id, profil.name, profil.portrait, profil.price, profil.tagline, profil.tags);
-        newProfil.genereArticleProfil();
-        newProfil.genereNameProfil();
-        newProfil.genereCityProfil();
-        newProfil.genereCitationProfil();
-        newProfil.genereTagsProfil();
-        newProfil.genereContactProfil();
-        newProfil.generePhotoProfil();
-        newProfil.generePrixProfil();
-        newProfil.genereDivTriMedia();
-        newProfil.genereArticleMedia();
         
         let mediaDuPhotographe = [];
         let prenom;
         let index;
         let somme = 0;
+
 //--------------------------------------------------------------------------------------//
-//                  Fonction de récupération du prénom du photographe                   //
+//              Appel et Fonction de récupération du prénom du photographe              //
 //--------------------------------------------------------------------------------------//
 
         recupPrenom(nomPhotographe);
+
         function recupPrenom(name) {
             console.log(name)
             let wordArray = name.split(' ');
@@ -398,6 +413,19 @@ function compareId(allPhotographers, allMedia) {
                 prenom = wordArray[0]
             }
         }
+
+//--------------------------------------------------------------------------------------//
+//                      Fonction d'insertion du nb de likes total                       //
+//--------------------------------------------------------------------------------------//
+
+        function injectInfoLikes() {
+            let cardeInfoProfil = document.querySelector('.info-profil')
+            let likesProfil = document.createElement('span')
+            likesProfil.classList.add('likes-profil')
+            likesProfil.innerHTML = somme + " " + `<i class="far fa-heart coeur"></i>`
+            cardeInfoProfil.appendChild(likesProfil)
+        }
+        
 //--------------------------------------------------------------------------------------//
 //                           Constructeur de la section Media                           //
 //--------------------------------------------------------------------------------------//
@@ -407,20 +435,31 @@ function compareId(allPhotographers, allMedia) {
             const newMedias = new MediasPhotographe(media.id, media.photographerId, media.title, media.image, media.video, media.tags, media.likes, media.date, media.price);
             mediaDuPhotographe.push(newMedias)
             index = [j]
+            somme += media.likes
             newMedias.genereCadreMedia();
             newMedias.genereContenuMedia();
             newMedias.genereInfoMedia();
-            newMedias.genereCompteurLikes();
             //newMedias.genereVideoMedia();
         }
+
+//--------------------------------------------------------------------------------------//
+//                Appel de la fonction d'insertion du nb total de likes                 //
+//--------------------------------------------------------------------------------------//
+        
         injectInfoLikes();
-        function injectInfoLikes() {
-            let cardeInfoProfil = document.querySelector('.info-profil')
-            let likesProfil = document.createElement('span')
-            likesProfil.classList.add('likes-profil')
-            likesProfil.innerHTML = somme + " " + `<i class="far fa-heart coeur"></i>`
-            cardeInfoProfil.appendChild(likesProfil)
-        }
         console.log(somme)
+
+//--------------------------------------------------------------------------------------//
+//               Appel du DOM nécessaire au fonctionnement de la lightbox               //
+//--------------------------------------------------------------------------------------//
+
+        const lightbox = document.querySelector("#lightbox")
+        const close = document.querySelector(".lightbox__close")
+        const preview = document.querySelector(".lightbox__preview")
+        const next = document.querySelector(".lightbox__next")
+        const links = document.querySelectorAll(".cadre-media a")
+        const imageContainer = lightbox.querySelector(".lightbox__container img")
+
+        console.log(links)
     }
 }
