@@ -547,8 +547,13 @@ function compareId(allPhotographers, allMedia) {
                     mediaIndex = mediaTotal.length - 1
                 }
                 let imgUrl = getImageUrl(mediaIndex)
+                console.log(mediaCible)
                 //Si le media précédent est une image l'afficher dans la lightbox
                 imageContainer.src = imgUrl
+/*                 if (mediaCible === undefined) {
+                    let vidUrl = getVideoUrl(mediaIndex)
+                    videoContainer.src = vidUrl
+                } */
             })
         }
 //--------------------------------------------------------------------------------------//
