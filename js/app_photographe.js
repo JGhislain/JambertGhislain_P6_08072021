@@ -459,6 +459,7 @@ function compareId(allPhotographers, allMedia) {
         const next = document.querySelector(".lightbox__next")
         const links = document.querySelectorAll(".cadre-media a")
         const imageContainer = lightbox.querySelector(".lightbox__container img")
+        const videoContainer = lightbox.querySelector("lightbox__container video")
 
         console.log(links)
     }
