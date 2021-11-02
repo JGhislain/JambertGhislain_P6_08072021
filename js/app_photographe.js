@@ -463,13 +463,8 @@ function compareId(allPhotographers, allMedia) {
         const preview = document.querySelector(".lightbox__preview")
         const next = document.querySelector(".lightbox__next")
         const links = document.querySelectorAll(".cadre-media a")
-        const mediaContain = document.querySelector(".media-photographe")
         const imageContainer = lightbox.querySelector(".lightbox__container img")
         const videoContainer = lightbox.querySelector(".lightbox-video")
-
-        console.log(imageContainer)
-        let mediaIndex;
-        let mediaCible;
 
 //--------------------------------------------------------------------------------------//
 //                       On ajoute l'écouteur clic sur les liens                        //
