@@ -444,7 +444,6 @@ function compareId(allPhotographers, allMedia) {
             newMedias.genereCadreMedia();
             newMedias.genereContenuMedia();
             newMedias.genereInfoMedia();
-            //newMedias.genereVideoMedia();
         }
 
 //--------------------------------------------------------------------------------------//
