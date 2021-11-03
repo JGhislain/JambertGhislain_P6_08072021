@@ -658,6 +658,76 @@ function compareId(allPhotographers, allMedia) {
                 e.preventDefault()
                 modalDisplay.classList.add('show')
             })
+            //Ecoute du formulaire (partie prénom)
+            formData[0].addEventListener('input', function(e) {
+                //Création d'une variable pour une regex de validation du prénom  
+                let firstRegex = /^[a-zA-Z '\-éèêëçäâàù]{2,}$/;
+                //Récupération de la balise span
+                let firstValidate = document.getElementById('first-validation');
+                //Test du champ prénom
+                if (firstRegex.test(firstName.value) == false) {
+                //Si le prénom ne respecte pas la regex    
+                firstValidate.style.display = 'block';
+                firstValidate.style.color = 'red';
+                firstValidate.style.fontSize = '13px';
+                firstValidate.innerHTML = "Veuillez entrer deux caractères ou plus dans le champs du prénom.";
+                return false;
+            
+                } else {
+                //Sinon la regex est valide    
+                firstValidate.style.display = 'none';
+                return true;
+            
+                }
+            });
+            //Ecoute du formulaire (partie nom)
+            formData[1].addEventListener('input', function(e) {
+                //Création d'une variable pour une regex de validation du nom 
+                let lastRegex = /^[a-zA-Z '\-éèêëçäâàù]{2,}$/;
+                //Récupération de la balise span
+                let lastValidate = document.getElementById('last-validation');
+                //Test du champ nom
+                if (lastRegex.test(lastName.value) == false) {
+                //Si le nom ne respecte pas la regex      
+                lastValidate.style.display = 'block';
+                lastValidate.style.color = 'red';
+                lastValidate.style.fontSize = '13px';
+                lastValidate.innerHTML = "Veuillez entrer deux caractères ou plus dans le champs du nom.";
+                return false;
+            
+                } else {
+                //Sinon la regex est valide       
+                lastValidate.style.display = 'none';
+                return true;
+            
+                }
+            });
+            //Création d'une variable qui vérifie la bonne saisie de l'adresse mail
+            var validationEmailRegex = false;
+            
+            //Ecoute du formulaire (partie email)
+            formData[2].addEventListener('input', function(e) {
+                //Création d'une variable pour une regex de validation de l'email
+                let emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                //Récupération de la balise span
+                let emailValidate = document.getElementById('email-validation');
+                //Test du champ email
+                if (emailRegex.test(email.value) == false) {
+                //Si l'adresse ne respecte pas la regex
+                emailValidate.style.display = 'block';
+                emailValidate.style.color = 'red';
+                emailValidate.style.fontSize = '13px';
+                emailValidate.innerHTML = "L'adresse éléctronique n'est pas valide";
+                validationEmailRegex = false;
+                return false;
+            
+                } else {
+                //Sinon la regex est valide       
+                emailValidate.style.display = 'none';
+                validationEmailRegex = true;
+                return true;  
+                }
+            });
         };
 
 //--------------------------------------------------------------------------------------//
