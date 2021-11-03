@@ -96,6 +96,7 @@ function compareId(allPhotographers, allMedia) {
                 this.genereDivTriMedia();
                 this.genereArticleMedia();
                 this.genereLightbox();
+                this.genereModalContact();
             }
             genereArticleProfil() {
                 let articleProfil = document.createElement("article");
@@ -129,7 +130,7 @@ function compareId(allPhotographers, allMedia) {
                 tagsProfil.classList.add('tags-profil')
                 for (let i = 0; i < this.tags.length; i++) {
                     const tag = this.tags[i];
-                    tagsProfil.innerHTML += `<a class="tag">#${tag}</a>`
+                    tagsProfil.innerHTML += `<a class="tag" href=''>#${tag}</a>`
                 }
                 let articleProfilPhotographe = document.querySelector('#article-profil')
                 articleProfilPhotographe.appendChild(tagsProfil)
@@ -137,7 +138,7 @@ function compareId(allPhotographers, allMedia) {
             genereContactProfil() {
                 let contactProfil = document.createElement('div')
                 contactProfil.classList.add("contact-profil")
-                contactProfil.innerHTML += "contactez-moi"
+                contactProfil.innerHTML += `<a class='btn-modal' href=''>contactez-moi</a>`
                 sectionProfil.appendChild(contactProfil)
             }
             generePhotoProfil() {
@@ -192,6 +193,45 @@ function compareId(allPhotographers, allMedia) {
                 /* <video controls>
                 <source src="" type="video/mp4">
                 </video> */
+            }
+            genereModalContact() {
+                const mainHtml = document.querySelector('main')
+                const modalContact = document.createElement('div')
+                modalContact.id = 'modal'
+                modalContact.classList.add('modal-contact')
+                modalContact.innerHTML = `<div class="content">
+                <button class="modal__close"><i class="fas fa-times modal-close"></i></button>
+                <div class="modal-body">
+                <p class="nom-contact">Contactez ${this.name}</p>
+                <form name="contact" id="formulaire" action="" method="post">
+                <div class="formData">
+                <label for="first">Prénom</label><br>
+                <input class="text-control" type="text" id="first" name="first"/><br>
+                <span id="first-validation"></span>
+                </div>
+                <div class="formData">
+                <label for="last">Nom</label><br>
+                <input class="text-control" type="text" id="last" name="last"/><br>
+                <span id="last-validation"></span>
+                </div>
+                <div class="formData">
+                <label for="email">E-mail</label><br>
+                <input class="text-control" type="email" id="email" name="email"/><br>
+                <span id="email-validation"></span>
+                </div>
+                <div class="formData">
+                <label for="message">Message</label><br>
+                <input class="text-control" type="text" id="message" name="message"/><br>
+                <span id="message-validation"></span>
+                </div>
+                <div class="submit">
+                <input class="btn-submit" type="submit" id="btn-submit" value="Envoyer le message"/><br>
+                <span id="error-validation"></span>
+                </div>
+                </form>
+                </div>
+                </div>`
+                mainHtml.appendChild(modalContact)
             }
         }
 //--------------------------------------------------------------------------------------//
@@ -594,9 +634,48 @@ function compareId(allPhotographers, allMedia) {
         }
 
 //--------------------------------------------------------------------------------------//
-//                      Appel de la fonction qui ouvre la lightbox                      //
+//            Appel du DOM necéssaire au fonctionnement de la fenêtre modal             //
+//--------------------------------------------------------------------------------------//
+
+        const modalDisplay = document.querySelector(".modal-contact")
+        const modalBoutonOpen = document.querySelector(".btn-modal")
+        const modalBoutonClose = document.querySelector('.modal__close')
+        const formData = document.querySelectorAll('.formData')
+        const formulaire = document.getElementById('formulaire')
+        const firstName = document.getElementById('first')
+        const lastName = document.getElementById('last')
+        const email = document.getElementById('email')
+        const messageZone = document.getElementById('message')
+        const modalErreur = document.querySelector('#error-validation')
+        const modalBoutonSubmit = document.querySelector('.btn-submit')
+
+//--------------------------------------------------------------------------------------//
+//                       Fonction d'ouverture de la fenêtre modal                       //
+//--------------------------------------------------------------------------------------//
+
+        let openModal = function() {
+            modalBoutonOpen.addEventListener('click', function(e) {
+                e.preventDefault()
+                modalDisplay.classList.add('show')
+            })
+        };
+
+//--------------------------------------------------------------------------------------//
+//                      Fonction de fermeture de la fenêtre modal                       //
+//--------------------------------------------------------------------------------------//
+
+        let closeModal = function() {
+            modalBoutonClose.addEventListener('click', function() {
+                modalDisplay.classList.remove('show')
+            })
+        }
+
+//--------------------------------------------------------------------------------------//
+//            Appel des fonctions qui ouvre la lightbox et la fenêtre modal             //
 //--------------------------------------------------------------------------------------//
 
         openLightbox();
+        openModal();
+        closeModal();
     }
 }
