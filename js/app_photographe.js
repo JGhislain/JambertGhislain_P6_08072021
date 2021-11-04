@@ -203,7 +203,7 @@ function compareId(allPhotographers, allMedia) {
                 <button class="modal__close"><i class="fas fa-times modal-close"></i></button>
                 <div class="modal-body">
                 <p class="nom-contact">Contactez ${this.name}</p>
-                <form name="contact" id="formulaire" action="" method="post">
+                <form name="contact" id="formulaire" action="photographe.html" method="post">
                 <div class="formData">
                 <label for="first">Prénom</label><br>
                 <input class="text-control" type="text" id="first" name="first"/><br>
@@ -647,7 +647,6 @@ function compareId(allPhotographers, allMedia) {
         const email = document.getElementById('email')
         const messageZone = document.getElementById('message')
         const modalErreur = document.querySelector('#error-validation')
-        const modalBoutonSubmit = document.querySelector('.btn-submit')
 
 //--------------------------------------------------------------------------------------//
 //                       Fonction d'ouverture de la fenêtre modal                       //
@@ -658,7 +657,11 @@ function compareId(allPhotographers, allMedia) {
                 e.preventDefault()
                 modalDisplay.classList.add('show')
             })
-            //Ecoute du formulaire (partie prénom)
+
+//--------------------------------------------------------------------------------------//
+//                         Ecoute du formulaire (partie prénom)                         //
+//--------------------------------------------------------------------------------------//
+
             formData[0].addEventListener('input', function(e) {
                 //Création d'une variable pour une regex de validation du prénom  
                 let firstRegex = /^[a-zA-Z '\-éèêëçäâàù]{2,}$/;
@@ -666,21 +669,24 @@ function compareId(allPhotographers, allMedia) {
                 let firstValidate = document.getElementById('first-validation');
                 //Test du champ prénom
                 if (firstRegex.test(firstName.value) == false) {
-                //Si le prénom ne respecte pas la regex    
-                firstValidate.style.display = 'block';
-                firstValidate.style.color = 'red';
-                firstValidate.style.fontSize = '13px';
-                firstValidate.innerHTML = "Veuillez entrer deux caractères ou plus dans le champs du prénom.";
-                return false;
-            
-                } else {
-                //Sinon la regex est valide    
-                firstValidate.style.display = 'none';
-                return true;
-            
+                    //Si le prénom ne respecte pas la regex    
+                    firstValidate.style.display = 'block';
+                    firstValidate.style.color = 'red';
+                    firstValidate.style.fontSize = '13px';
+                    firstValidate.innerHTML = "Veuillez entrer deux caractères ou plus dans le champs du prénom.";
+                    return false;
+                }
+                else {
+                    //Sinon la regex est valide    
+                    firstValidate.style.display = 'none';
+                    return true;
                 }
             });
-            //Ecoute du formulaire (partie nom)
+
+//--------------------------------------------------------------------------------------//
+//                          Ecoute du formulaire (partie nom)                           //
+//--------------------------------------------------------------------------------------//
+
             formData[1].addEventListener('input', function(e) {
                 //Création d'une variable pour une regex de validation du nom 
                 let lastRegex = /^[a-zA-Z '\-éèêëçäâàù]{2,}$/;
@@ -688,24 +694,27 @@ function compareId(allPhotographers, allMedia) {
                 let lastValidate = document.getElementById('last-validation');
                 //Test du champ nom
                 if (lastRegex.test(lastName.value) == false) {
-                //Si le nom ne respecte pas la regex      
-                lastValidate.style.display = 'block';
-                lastValidate.style.color = 'red';
-                lastValidate.style.fontSize = '13px';
-                lastValidate.innerHTML = "Veuillez entrer deux caractères ou plus dans le champs du nom.";
-                return false;
-            
-                } else {
-                //Sinon la regex est valide       
-                lastValidate.style.display = 'none';
-                return true;
-            
+                    //Si le nom ne respecte pas la regex      
+                    lastValidate.style.display = 'block';
+                    lastValidate.style.color = 'red';
+                    lastValidate.style.fontSize = '13px';
+                    lastValidate.innerHTML = "Veuillez entrer deux caractères ou plus dans le champs du nom.";
+                    return false;
+                } 
+                else {
+                    //Sinon la regex est valide       
+                    lastValidate.style.display = 'none';
+                    return true;
                 }
             });
+            
+//--------------------------------------------------------------------------------------//
+//                         Ecoute du formulaire (partie email)                          //
+//--------------------------------------------------------------------------------------//
+            
             //Création d'une variable qui vérifie la bonne saisie de l'adresse mail
             var validationEmailRegex = false;
             
-            //Ecoute du formulaire (partie email)
             formData[2].addEventListener('input', function(e) {
                 //Création d'une variable pour une regex de validation de l'email
                 let emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -713,21 +722,141 @@ function compareId(allPhotographers, allMedia) {
                 let emailValidate = document.getElementById('email-validation');
                 //Test du champ email
                 if (emailRegex.test(email.value) == false) {
-                //Si l'adresse ne respecte pas la regex
-                emailValidate.style.display = 'block';
-                emailValidate.style.color = 'red';
-                emailValidate.style.fontSize = '13px';
-                emailValidate.innerHTML = "L'adresse éléctronique n'est pas valide";
-                validationEmailRegex = false;
-                return false;
-            
-                } else {
-                //Sinon la regex est valide       
-                emailValidate.style.display = 'none';
-                validationEmailRegex = true;
-                return true;  
+                    //Si l'adresse ne respecte pas la regex
+                    emailValidate.style.display = 'block';
+                    emailValidate.style.color = 'red';
+                    emailValidate.style.fontSize = '13px';
+                    emailValidate.innerHTML = "L'adresse éléctronique n'est pas valide";
+                    validationEmailRegex = false;
+                    return false;
+                } 
+                else {
+                    //Sinon la regex est valide       
+                    emailValidate.style.display = 'none';
+                    validationEmailRegex = true;
+                    return true;  
                 }
             });
+
+//--------------------------------------------------------------------------------------//
+//                                                                                      //
+//                   TRAITEMENT DES CHAMPS DE SAISIES AU CAS PAR CAS                    //
+//                                                                                      //
+//--------------------------------------------------------------------------------------//
+
+//--------------------------------------------------------------------------------------//
+//             Ecoute du formulaire dans son ensemble pour valider l'envoi              //
+//--------------------------------------------------------------------------------------//
+
+            //Création d'une variable qui définira si les différentes conditions d'envoie au cas par cas sont remplis
+            var validationChampsIndividuel = false;
+            formulaire.addEventListener('submit', function(e) {
+                if (firstName.value.trim().length < 2) {
+                    // si moins de 2 caractères saisie dans le champ prénom alors le champ n est pas valide et l envoi est refusé
+                    let firstValidate = document.getElementById('first-validation');
+                    firstValidate.style.display = 'block';
+                    firstValidate.style.color = 'red';
+                    firstValidate.style.fontSize = '13px';
+                    firstValidate.innerHTML = "Veuillez renseigner votre prénom";
+                    e.preventDefault();
+                    return validationChampsIndividuel = false;
+                }
+                else if (lastName.value.trim().length < 2) {
+                    // si moins de 2 caractères saisie dans le champ nom alors le champ n est pas valide et l envoi est refusé
+                    let lastValidate = document.getElementById('last-validation');
+                    lastValidate.style.display = 'block';
+                    lastValidate.style.color = 'red';
+                    lastValidate.style.fontSize = '13px';
+                    lastValidate.innerHTML = "Veuillez renseigner votre nom";
+                    e.preventDefault();
+                    return validationChampsIndividuel = false;
+                }
+                else if (!email.value || validationEmailRegex === false) {
+                    // si champ email vide ou si la variable validationEmailRegex = false alors le champ n est pas valide et l envoi est refusé
+                    let emailValidate = document.getElementById('email-validation');
+                    emailValidate.style.display = 'block';
+                    emailValidate.style.color = 'red';
+                    emailValidate.style.fontSize = '13px';
+                    emailValidate.innerHTML = "Veuillez renseigner votre adresse mail";
+                    e.preventDefault();
+                    return validationChampsIndividuel = false;  
+                }
+                else if (messageZone.value.trim().length < 2) {
+                    // si moins de 2 caractères saisie dans le champ nom alors le champ n est pas valide et l envoi est refusé
+                    let messageValidate = document.getElementById('message-validation');
+                    messageValidate.style.display = 'block';
+                    messageValidate.style.color = 'red';
+                    messageValidate.style.fontSize = '13px';
+                    messageValidate.innerHTML = "Veuillez écrire un message";
+                    e.preventDefault();
+                    return validationChampsIndividuel = false;
+                }
+                else {
+                    //sinon les champs sont valides et return true sur la variable validationChampsIndividuel
+                    console.log(firstName.value);
+                    console.log(lastName.value);
+                    console.log(email.value);
+                    console.log(messageZone.value);
+                    return validationChampsIndividuel = true;
+                }
+            });
+
+//--------------------------------------------------------------------------------------//
+//                                                                                      //
+//                     TRAITEMENT DES CHAMPS DE VALIDATION GLOBAUX                      //
+//                                                                                      //
+//--------------------------------------------------------------------------------------//
+
+//--------------------------------------------------------------------------------------//
+//       Ecoute du formulaire dans sa globalité via l'attribut "name" avant envoi       //
+//--------------------------------------------------------------------------------------//
+
+            //Variable qui défini si les conditions globaux ssont respectés
+            let validationConditions = false;
+            
+            document.forms["contact"].addEventListener('submit', function(e) {
+                //Variable de message d'erreur
+                let erreurPost;
+                let inputs = this;
+                //Création d'une boucle qui parcours le formulaire
+                for (let i = 0; i < inputs.length; i++) {
+                    const input = inputs[i];
+                    //Si un champ n'a pas de valeur
+                    if (!input.value) {
+                        erreurPost = "Veuillez renseigner tout les champs"
+                        break;
+                    }
+                }
+                if (erreurPost) {
+                    modalErreur.innerHTML = erreurPost
+                    modalErreur.style.transition = '0.3s'
+                    modalErreur.style.color = "#e54858"
+                    modalErreur.style.fontSize = '16px'
+                    return validationConditions = false
+                }
+                //Sinon return validationConditions = true
+                else {
+                    modalErreur.style.display = 'none'
+                    return validationConditions = true
+                }
+            });
+
+//--------------------------------------------------------------------------------------//
+//                  Fonction d'envoi du formulaire aprés vérification                   //
+//--------------------------------------------------------------------------------------//
+
+            formulaire.addEventListener('submit', function(e) {
+                //Si les variables de validations sont true alors le message est envoyé avec message de confirmation
+                if ((validationChampsIndividuel === true) && (validationConditions === true)) {
+                    console.log("Votre message à été envoyé")
+                    modalDisplay.classList.remove('show')
+                    return true
+                }
+                else {
+                    e.preventDefault()
+                    return false
+                }
+            })
         };
 
 //--------------------------------------------------------------------------------------//
