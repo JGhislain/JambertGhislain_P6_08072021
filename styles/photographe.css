@@ -7,25 +7,156 @@
 
 * {
     box-sizing: border-box;
-    background-color: #E5E5E5;
     font-family: DM Sans;
     font-style: normal;
+}
+html {
+    margin-left: 5%;
+    margin-right: 5%;
 }
 #logo {
     width: 200px;
     height: 50px;
-    position: absolute;
-    top: 1.82%;
-    left: 0%;
     object-fit: contain;
 }
+#profil {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #FAFAFA;
+    height: 313px;
+}
+.article-profil {
+    width: 40%;
+}
+.nom-profil {
+    font-size: 4em;
+    font-weight: 400;
+    margin: 0;
+    color: #D3573C;
+}
+.ville-profil {
+    font-size: 1.5em;
+    font-weight: 400;
+    color: #901C1C;
+    margin-top: 10px;
+}
+.citation-profil {
+    font-size: 1.125em;
+    font-weight: 400;
+    color: #525252;
+}
+.tags-profil {
+    display: flex;
+    justify-content: space-between;
+}
+.tag {
+    text-decoration: none;
+    font-size: 1.125em;
+    font-weight: 500;
+    color: #901C1C;
+    border: 0.5px solid #C4C4C4;
+    border-radius: 12px;
+    padding-left: 0.3vw;
+    padding-right: 0.3vw;
+}
+.tag:hover {
+    color: #D3573C;
+}
+.tag:focus {
+    color: #D3573C;
+    text-decoration: underline;
+}
+.contact-profil {
+    height: 69px;
+    width: 170px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #901C1C;
+    position: relative;
+    bottom: 65px;
+    right: 8vw;
+}
+.btn-modal {
+    text-decoration: none;
+    font-size: 1.25em;
+    font-weight: 700;
+    color: #FFF;
+}
+.btn-modal:hover {
+    color: #D3573C;
+}
+.btn-modal:focus {
+    color: #D3573C;
+}
 .image-profil {
-    height: 200px;
-    width: 200px;
+    height: 150px;
+    width: 150px;
+    border-radius: 100%;
+}
+.info-profil {
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    background-color: #DB8876;
+    border-radius: 5px;
+    padding: 20px 3vw;
+}
+.prix-profil {
+    font-size: 1.5em;
+    font-weight: 500;
+    margin-right: 5vw;
+}
+.likes-profil {
+    font-size: 1.5em;
+    font-weight: 500;
+}
+#trieuse {
+    display: flex;
+}
+#article-media {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 50px;
 }
 .media-photographe {
     height: 300px;
-    width: 300px;
+    width: 350px;
+    border-radius: 5px;
+}
+.info-media {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+.coeur {
+    width: 10%;
+    padding-top: 32px;
+    padding-left: 1em;
+    color: #901C1C;
+}
+.coeur:hover {
+    font-weight: bold;
+}
+.titre-media {
+    width: 80%;
+    font-size: 1.5em;
+    font-weight: 400;
+    color: #901C1C;
+}
+.tag-media {
+    display: none;
+}
+.likes-media {
+    display: none;
+}
+.date-media {
+    display: none;
+}
+.prix-media {
+    display: none;
 }
 .lightbox.show {
     display: initial;

@@ -138,7 +138,7 @@ function compareId(allPhotographers, allMedia) {
             genereContactProfil() {
                 let contactProfil = document.createElement('div')
                 contactProfil.classList.add("contact-profil")
-                contactProfil.innerHTML += `<a class='btn-modal' href=''>contactez-moi</a>`
+                contactProfil.innerHTML += `<a class='btn-modal' href=''>Contactez-moi</a>`
                 sectionProfil.appendChild(contactProfil)
             }
             generePhotoProfil() {
@@ -186,7 +186,7 @@ function compareId(allPhotographers, allMedia) {
                 <button class="lightbox__next"><i class="fas fa-arrow-right"></i></button>
                 <div class="lightbox__container">
                 <img class"lightbox-photo" src="" alt="">
-                <video class="lightbox-video" src="" type="video/mp4">
+                <video controls class="lightbox-video" src="" type="video/mp4">
                 </video>
                 </div>`
                 mainHtml.appendChild(lightboxDom)
@@ -221,7 +221,7 @@ function compareId(allPhotographers, allMedia) {
                 </div>
                 <div class="formData">
                 <label for="message">Message</label><br>
-                <input class="text-control" type="text" id="message" name="message"/><br>
+                <input class="text-control" type="text-area" id="message" name="message"/><br>
                 <span id="message-validation"></span>
                 </div>
                 <div class="submit">
@@ -374,6 +374,7 @@ function compareId(allPhotographers, allMedia) {
                     // return juste la video
                     videoUrlTransfo(this.video)
                     let videoMedia = document.createElement('video')
+                    videoMedia.setAttribute("controls", "")
                     videoMedia.classList.add('media-photographe')
                     videoMedia.dataset.index = getIndex(index)
                     let sourceMediaVideo = "../assets/FishEye_Photos/Sample Photos/" + prenom + "/" + video
@@ -467,7 +468,7 @@ function compareId(allPhotographers, allMedia) {
             let cardeInfoProfil = document.querySelector('.info-profil')
             let likesProfil = document.createElement('span')
             likesProfil.classList.add('likes-profil')
-            likesProfil.innerHTML = somme + " " + `<i class="far fa-heart coeur"></i>`
+            likesProfil.innerHTML = somme + " " + `<i class="far fa-heart coeur-profil"></i>`
             cardeInfoProfil.appendChild(likesProfil)
         }
         
@@ -848,6 +849,7 @@ function compareId(allPhotographers, allMedia) {
             formulaire.addEventListener('submit', function(e) {
                 //Si les variables de validations sont true alors le message est envoyé avec message de confirmation
                 if ((validationChampsIndividuel === true) && (validationConditions === true)) {
+                    e.preventDefault()
                     console.log("Votre message à été envoyé")
                     modalDisplay.classList.remove('show')
                     return true
