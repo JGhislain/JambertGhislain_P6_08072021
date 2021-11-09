@@ -163,13 +163,16 @@ function compareId(allPhotographers, allMedia) {
                 cardeInfoProfil.appendChild(prixProfil)
             }
             genereDivTriMedia() {
-                let triMedia = document.createElement('div')
+                let triMedia = document.createElement('nav')
                 triMedia.id = 'trieuse'
-                triMedia.innerHTML = 'Trier par' + `<i class="fas fa-angle-up chevron"></i>
-                <p class= "tri-popularite">Popularité</p>
+                triMedia.innerHTML = '<p class="trier">Trier par<i class="fas fa-angle-up chevron"></i></p>'
+                let triCategorie = document.createElement('div')
+                triCategorie.classList.add('tri-categorie')
+                triCategorie.innerHTML = `<p class= "tri-popularite">Popularité</p>
                 <p class= "tri-date">Date</p>
                 <p class= "tri-titre">Titre</p>`              
                 sectionMedia.appendChild(triMedia)
+                triMedia.appendChild(triCategorie)
             }
             genereArticleMedia() {
                 let articleMedia = document.createElement('article')
@@ -259,8 +262,7 @@ function compareId(allPhotographers, allMedia) {
             }
 
             genereContenuMedia() {
-
-                
+     
 //--------------------------------------------------------------------------------------//
 //        Récupération des url des médias en cours et retrait du caractère ('-')        //
 //--------------------------------------------------------------------------------------//

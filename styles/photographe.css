@@ -61,11 +61,13 @@ html {
     padding-right: 0.3vw;
 }
 .tag:hover {
-    color: #D3573C;
+    color: #FFF;
+    background-color: #901C1C;
 }
 .tag:focus {
-    color: #D3573C;
+    color: #FFF;
     text-decoration: underline;
+    background-color: #901C1C;
 }
 .contact-profil {
     height: 69px;
@@ -85,10 +87,10 @@ html {
     color: #FFF;
 }
 .btn-modal:hover {
-    color: #D3573C;
+    color: #000;
 }
 .btn-modal:focus {
-    color: #D3573C;
+    color: #000;
 }
 .image-profil {
     height: 150px;
@@ -115,6 +117,47 @@ html {
 #trieuse {
     display: flex;
 }
+.trier {
+    font-size: 1.125em;
+    font-weight: bold;
+}
+.trier i {
+    padding-left: 15px;
+}
+.tri-categorie {
+    width: 170px;
+    height: 160px;
+    background-color: #901C1C;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0.625em 1.875em 0 1.875em;
+    padding-left: 0.625em;
+    padding-right: 0.625em;
+    border-radius: 5px;
+}
+.tri-popularite {
+    color: #FFF;
+    cursor: pointer;
+    border-bottom: 1px solid;
+    padding-left: 1.25em;
+    padding-bottom: 0.94em;
+    margin: 0;
+    padding-top: 0.75em;
+}
+.tri-date {
+    color: #FFF;
+    cursor: pointer;
+    border-bottom: 1px solid;
+    padding-left: 1.25em;
+    padding-bottom: 0.94em;
+}
+.tri-titre {
+    color: #FFF;
+    cursor: pointer;
+    padding-left: 1.25em;
+    margin-top: 0;
+}
 #article-media {
     display: flex;
     flex-wrap: wrap;
@@ -136,6 +179,7 @@ html {
     padding-top: 32px;
     padding-left: 1em;
     color: #901C1C;
+    cursor: pointer;
 }
 .coeur:hover {
     font-weight: bold;
