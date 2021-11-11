@@ -193,9 +193,6 @@ function compareId(allPhotographers, allMedia) {
                 </video>
                 </div>`
                 mainHtml.appendChild(lightboxDom)
-                /* <video controls>
-                <source src="" type="video/mp4">
-                </video> */
             }
             genereModalContact() {
                 const mainHtml = document.querySelector('main')
@@ -209,22 +206,22 @@ function compareId(allPhotographers, allMedia) {
                 <form name="contact" id="formulaire" action="photographe.html" method="post">
                 <div class="formData">
                 <label for="first">Prénom</label><br>
-                <input class="text-control" type="text" id="first" name="first"/><br>
+                <input class="text-control" type="text" id="first" name="first" placeholder="Votre prénom"/><br>
                 <span id="first-validation"></span>
                 </div>
                 <div class="formData">
                 <label for="last">Nom</label><br>
-                <input class="text-control" type="text" id="last" name="last"/><br>
+                <input class="text-control" type="text" id="last" name="last" placeholder="Votre nom"/><br>
                 <span id="last-validation"></span>
                 </div>
                 <div class="formData">
                 <label for="email">E-mail</label><br>
-                <input class="text-control" type="email" id="email" name="email"/><br>
+                <input class="text-control" type="email" id="email" name="email" placeholder="Votre Email"/><br>
                 <span id="email-validation"></span>
                 </div>
                 <div class="formData">
                 <label for="message">Message</label><br>
-                <input class="text-control" type="text-area" id="message" name="message"/><br>
+                <textarea class="text-control" type="textarea" id="message" name="message" placeholder="Votre message"></textarea><br>
                 <span id="message-validation"></span>
                 </div>
                 <div class="submit">
@@ -461,19 +458,7 @@ function compareId(allPhotographers, allMedia) {
                 prenom = wordArray[0]
             }
         }
-
-//--------------------------------------------------------------------------------------//
-//                      Fonction d'insertion du nb de likes total                       //
-//--------------------------------------------------------------------------------------//
-
-        function injectInfoLikes() {
-            let cardeInfoProfil = document.querySelector('.info-profil')
-            let likesProfil = document.createElement('span')
-            likesProfil.classList.add('likes-profil')
-            likesProfil.innerHTML = somme + " " + `<i class="far fa-heart coeur-profil"></i>`
-            cardeInfoProfil.appendChild(likesProfil)
-        }
-        
+  
 //--------------------------------------------------------------------------------------//
 //                           Constructeur de la section Media                           //
 //--------------------------------------------------------------------------------------//
@@ -489,12 +474,56 @@ function compareId(allPhotographers, allMedia) {
             newMedias.genereInfoMedia();
         }
 
+        
+//--------------------------------------------------------------------------------------//
+//                      Fonction d'insertion du nb de likes total                       //
+//--------------------------------------------------------------------------------------//
+
+        function injectInfoLikes() {
+            let cardeInfoProfil = document.querySelector('.info-profil')
+            let likesProfil = document.createElement('span')
+            likesProfil.classList.add('likes-profil')
+            likesProfil.innerHTML = somme + " " + `<i class="far fa-heart coeur-profil"></i>`
+            cardeInfoProfil.appendChild(likesProfil)
+        }
+
+
 //--------------------------------------------------------------------------------------//
 //                Appel de la fonction d'insertion du nb total de likes                 //
 //--------------------------------------------------------------------------------------//
         
         injectInfoLikes();
         console.log(somme)
+
+//--------------------------------------------------------------------------------------//
+//                    Ajout du nombre de like si click sur un coeur                     //
+//--------------------------------------------------------------------------------------//
+
+        let iconesCoeur = document.querySelectorAll('.coeur')
+        let nombreLikes = function() {
+            for (let i = 0; i < iconesCoeur.length; i++) {
+                const icone = iconesCoeur[i];
+                //On écoute le click des icones de coeurs
+                icone.addEventListener('click', function() {
+                    //Si on click sur un coeur on ajoute la class 'bold'
+                    //et on incrémente +1 au compteur de likes
+                    if (!icone.classList.contains('bold')) {
+                        icone.classList.add('bold')
+                        somme ++
+                    }
+                    //Sinon on retire la classe 'bold'
+                    else {
+                        icone.classList.remove('bold')
+                        somme --
+                    }
+                    //On attache la nouvelle valeur à la page
+                    let likesProfil = document.querySelector('.likes-profil')
+                    likesProfil.firstChild.textContent = somme
+                })
+            }
+        }
+
+        nombreLikes();
 
 //--------------------------------------------------------------------------------------//
 //               Appel du DOM nécessaire au fonctionnement de la lightbox               //

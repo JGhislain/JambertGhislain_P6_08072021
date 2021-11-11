@@ -1,10 +1,37 @@
 @charset "UTF-8";
 @import url("https://fonts.googleapis.com/css?family=DM+Sans");
 @keyframes lightboxIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
+    0% {
+        opacity: 0.2;
+    }
+    100% {
+        opacity: 1;
+    }
 }
-
+@keyframes chevronTranslate {
+    0% {
+        transform: translateX(0vw);
+    }
+    100% {
+        transform: translateX(14vw);
+    }
+}
+@keyframes chevronRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(180deg);
+    }
+}
+@keyframes transitionChevronY {
+    0% {
+        transform: translateY(-10vw);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
 * {
     box-sizing: border-box;
     font-family: DM Sans;
@@ -116,17 +143,21 @@ html {
 }
 #trieuse {
     display: flex;
-}
-.trier {
-    font-size: 1.125em;
-    font-weight: bold;
-}
-.trier i {
-    padding-left: 15px;
+    cursor: pointer;
 }
 .tri-categorie {
+    height: 1px;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    top: -10000px;
+    width: 1px;
+}
+#trieuse:hover .tri-categorie {
     width: 170px;
     height: 160px;
+    position: initial;
+    overflow: visible;
     background-color: #901C1C;
     display: flex;
     flex-direction: column;
@@ -135,6 +166,21 @@ html {
     padding-left: 0.625em;
     padding-right: 0.625em;
     border-radius: 5px;
+    animation: transitionChevronY 150ms linear;
+}
+.trier i {
+    padding-left: 15px;
+    color: #000;
+}
+#trieuse:hover .trier i {
+    position: absolute;
+    transform: translateX(9em) rotate(180deg);
+    transition: transform 200ms ease 50ms;
+    color: #FFF;
+}
+.trier {
+    font-size: 1.125em;
+    font-weight: bold;
 }
 .tri-popularite {
     color: #FFF;
@@ -176,12 +222,16 @@ html {
 }
 .coeur {
     width: 10%;
-    padding-top: 32px;
+    padding-top: 30px;
     padding-left: 1em;
     color: #901C1C;
     cursor: pointer;
+    font-size: 1.2em;
 }
 .coeur:hover {
+    font-weight: bold;
+}
+.coeur.bold {
     font-weight: bold;
 }
 .titre-media {
