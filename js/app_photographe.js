@@ -448,9 +448,7 @@ function compareId(allPhotographers, allMedia) {
         recupPrenom(nomPhotographe);
 
         function recupPrenom(name) {
-            console.log(name)
             let wordArray = name.split(' ');
-            console.log(wordArray[0])
             if (wordArray.join('-')) {
                 prenom = wordArray[0].replace(/-/i, ' ')
             }
@@ -493,7 +491,6 @@ function compareId(allPhotographers, allMedia) {
 //--------------------------------------------------------------------------------------//
         
         injectInfoLikes();
-        console.log(somme)
 
 //--------------------------------------------------------------------------------------//
 //                    Ajout du nombre de like si click sur un coeur                     //
