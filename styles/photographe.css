@@ -92,7 +92,7 @@ html {
     color: #FFF;
     background-color: #901C1C;
 }
-.tag:focus {
+.tag.focus {
     color: #FFF;
     text-decoration: underline;
     background-color: #901C1C;
@@ -210,6 +210,12 @@ html {
     flex-wrap: wrap;
     justify-content: space-between;
     margin-bottom: 50px;
+}
+article {
+    display: initial;
+}
+article.invisible {
+    display: none;
 }
 .media-photographe {
     height: 300px;

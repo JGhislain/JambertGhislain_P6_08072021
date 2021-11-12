@@ -130,7 +130,7 @@ function compareId(allPhotographers, allMedia) {
                 tagsProfil.classList.add('tags-profil')
                 for (let i = 0; i < this.tags.length; i++) {
                     const tag = this.tags[i];
-                    tagsProfil.innerHTML += `<a class="tag" href=''>#${tag}</a>`
+                    tagsProfil.innerHTML += `<a class="tag ${tag}" href=''>#${tag}</a>`
                 }
                 let articleProfilPhotographe = document.querySelector('#article-profil')
                 articleProfilPhotographe.appendChild(tagsProfil)
@@ -175,7 +175,7 @@ function compareId(allPhotographers, allMedia) {
                 triMedia.appendChild(triCategorie)
             }
             genereArticleMedia() {
-                let articleMedia = document.createElement('article')
+                let articleMedia = document.createElement('div')
                 articleMedia.id = 'article-media'
                 sectionMedia.appendChild(articleMedia)
             }
@@ -253,8 +253,9 @@ function compareId(allPhotographers, allMedia) {
 
             genereCadreMedia() {
                 let articleMediaPhotographe = document.querySelector('#article-media')
-                let cadreMedia = document.createElement('div')
+                let cadreMedia = document.createElement('article')
                 cadreMedia.classList.add("cadre-media")
+                cadreMedia.classList.add("#" + this.tags)
                 articleMediaPhotographe.appendChild(cadreMedia)
             }
 
@@ -521,6 +522,45 @@ function compareId(allPhotographers, allMedia) {
         }
 
         nombreLikes();
+
+//--------------------------------------------------------------------------------------//
+//                        Trieuse des media en fonction des tags                        //
+//--------------------------------------------------------------------------------------//
+
+        //Appel des éléments du DOM nécessaire
+        let tagsLink = document.querySelectorAll('.tag')
+        let tagsMedia = document.querySelectorAll('.cadre-media')
+        let tagMedia;
+        console.log(tagsMedia)
+        //Écoute du tag clické
+        let triMedia = function() {
+            for (let i = 0; i < tagsLink.length; i++) {
+                const tagLink = tagsLink[i];
+                tagLink.addEventListener('click', function(e) {
+                    e.preventDefault()
+                    //On ajoute ou retire la classe .focus au clic du tag et on vérifie si le tag est présent dans le media
+                    tagLink.classList.toggle('focus')
+                    for (let j = 0; j < tagsMedia.length; j++) {
+                        tagMedia = tagsMedia[j];
+                        let classMediaTagContains = tagLink.innerHTML
+                        //Si la tag focus est différent du tag media alors rendre invisible le media
+                        if (tagLink.classList.contains('focus') && !tagMedia.classList.contains(classMediaTagContains)) {
+                            tagMedia.classList.add('invisible')
+                        }
+                        //Si la tag focus est différent du tag media mais que tag media à la class invisible alors retirer la classe invisible
+                        else if (tagLink.classList.contains('focus') && !tagMedia.classList.contains(classMediaTagContains) && tagMedia.classList.contains('invisible')) {
+                            tagMedia.classList.remove('invisible')
+                        }
+                        //Si aucun tag focus alors retirer la classe invisible à tout les media
+                        else if (!tagLink.classList.contains('focus')) {
+                            tagMedia.classList.remove('invisible')
+                        }
+                    }
+                })
+            }
+        }
+
+        triMedia();
 
 //--------------------------------------------------------------------------------------//
 //               Appel du DOM nécessaire au fonctionnement de la lightbox               //
