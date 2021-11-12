@@ -548,7 +548,7 @@ function compareId(allPhotographers, allMedia) {
                             tagMedia.classList.add('invisible')
                         }
                         //Si la tag focus est différent du tag media mais que tag media à la class invisible alors retirer la classe invisible
-                        else if (tagLink.classList.contains('focus') && !tagMedia.classList.contains(classMediaTagContains) && tagMedia.classList.contains('invisible')) {
+                        else if (tagMedia.classList.contains('invisible')) {
                             tagMedia.classList.remove('invisible')
                         }
                         //Si aucun tag focus alors retirer la classe invisible à tout les media
