@@ -150,15 +150,26 @@ function TagsSelection(tagsPhotoProfil, allTags) {
             let tagsFocus = document.querySelectorAll('a.tag.focus');
             this.classList.toggle("focus")
             let tag = e.currentTarget.id
-            const filterPhotographers = allPhotographers.filter(ph => {
-                return ph.tags.includes(tag)
-            })
-            console.log(filterPhotographers)
-            document.getElementById("selection-photographes").innerHTML = ""
-            profilsPhotographes(filterPhotographers)
+            if (this.classList.contains('focus')) {
+                    const filterPhotographers = allPhotographers.filter(ph => {
+                        return ph.tags.includes(tag)
+                })
+                console.log(filterPhotographers)
+                document.getElementById("selection-photographes").innerHTML = ""
+                profilsPhotographes(filterPhotographers)
+            }
+            else {
+                document.getElementById("selection-photographes").innerHTML = ""
+                profilsPhotographes(allPhotographers)
+            }
         }
     )}
 };
+
+//--------------------------------------------------------------------------------------//
+//           Fonction de tags si activé sur la page de profil du photographe            //
+//--------------------------------------------------------------------------------------//
+
 
 function tagStorage() {
     console.log(listePhotographes)
@@ -168,10 +179,17 @@ function tagStorage() {
         const filterStorage = listePhotographes.filter(ph => {
             return ph.tags.includes(tagStorage)
         })
-    document.getElementById("selection-photographes").innerHTML = ""
-    profilsPhotographes(filterStorage)
-    sessionStorage.clear()
-    }
+        for (let i = 0; i < baliseClassTag.length; i++) {
+            const lien = baliseClassTag[i];
+            console.log(lien.id)
+            if (lien.id == tagStorage) {
+                lien.classList.toggle('focus')
+            }
+        }
+        document.getElementById("selection-photographes").innerHTML = ""
+        profilsPhotographes(filterStorage)
+        sessionStorage.clear()
+        }
 }
 
 
