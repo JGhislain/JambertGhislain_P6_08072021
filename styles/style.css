@@ -164,7 +164,7 @@ address {
     align-items: center;
     align-self: center;
 }
-#tag {
+.tag {
     text-decoration: none;
     color: #911c1c;
     border: solid 0.5px #c4c4c4;
@@ -173,17 +173,18 @@ address {
     font-size: 12px;
     line-height: 16px;
     text-align: center;
+    cursor: pointer;
 }
-#tag:hover {
+.tag:hover {
     background-color: #911c1c;
     color: #c4c4c4;
     cursor: pointer;
 }
-#tag.focus {
+.tag.focus {
     background-color: #911c1c;
     color: #c4c4c4;
 }
-#tag.invisible {
+.tag.invisible {
     display: none;
 }
 .cadre-profil.invisible {

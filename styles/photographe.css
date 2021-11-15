@@ -212,10 +212,15 @@ html {
     margin-bottom: 50px;
 }
 article {
-    display: initial;
+    position: initial;
 }
 article.invisible {
-    display: none;
+    height: 1px;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    top: -10000px;
+    width: 1px;
 }
 .media-photographe {
     height: 300px;

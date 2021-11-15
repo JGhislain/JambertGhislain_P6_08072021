@@ -18,6 +18,7 @@ const baliseIdTag = document.getElementById("tag");
 
 let tagsPhotoProfil = []
 let tagsNavBar = [];
+let listePhotographes
 
 //--------------------------------------------------------------------------------------//
 //                                    APPEL DU JSON                                     //
@@ -28,6 +29,7 @@ fetch('assets/json/listeObjets.json')
 .then(response => {
     
     profilsPhotographes(response.photographers)
+    allTagsPhotographes(response.photographers)
     allPhotographers = response.photographers;
 });
 
@@ -37,24 +39,34 @@ fetch('assets/json/listeObjets.json')
 
 
 function profilsPhotographes(photographers) {
-//      Création variable type array vide pour regrouper les tags des photographes      //
-    let allTags = [];
 //      Sortir les photographes individuellement et renvoi la fonction d'insertion      //
     for (let i = 0; i < photographers.length; i++) {
         const photographe = photographers[i];
         insertionArticlePhotographe(photographe);
-        for (let j = 0; j < photographe.tags.length; j++) {
-            const tag = photographe.tags[j];
-            allTags.push(tag)
-        }
     }
-//  Boucle dans la variable, regroupe les éléments du tableau et supprime les doublons  //
-    allTags = [...new Set(allTags)];
-    
-//      Renvoi vers la fonction d'insertion des tags dans la barre de naviguation       //
-    navBarTags(allTags);
-    TagsSelection(tagsPhotoProfil, allTags);
+    console.log(photographers)
+    listePhotographes = photographers
 }
+
+function allTagsPhotographes(photographers) {
+    //      Création variable type array vide pour regrouper les tags des photographes      //
+        let allTags = [];
+    //      Sortir les photographes individuellement et renvoi la fonction d'insertion      //
+        for (let i = 0; i < photographers.length; i++) {
+            const photographe = photographers[i];
+            for (let j = 0; j < photographe.tags.length; j++) {
+                const tag = photographe.tags[j];
+                allTags.push(tag)
+            }
+        }
+    //  Boucle dans la variable, regroupe les éléments du tableau et supprime les doublons  //
+        allTags = [...new Set(allTags)];
+        
+    //      Renvoi vers la fonction d'insertion des tags dans la barre de naviguation       //
+        navBarTags(allTags);
+        TagsSelection(tagsPhotoProfil, allTags);
+        tagStorage()
+    }
 
 //--------------------------------------------------------------------------------------//
 //                               FONCTIONS DE TRAITEMENT                                //
@@ -68,7 +80,7 @@ function navBarTags(tags) {
         insertionNavBar.classList.add("nav-bar");
         for (let i = 0; i < tags.length; i++) {
         let tag = tags[i];
-        insertionNavBar.innerHTML += `<a id="tag" class="tag ${tag} nav-tag">${tag}</a>`;
+        insertionNavBar.innerHTML += `<a id=${tag} class="tag nav-tag">${tag}</a>`;
     }
     tagsNavBar.push(insertionNavBar.childNodes)
 //                                Insertion de la balise                                //
@@ -135,70 +147,33 @@ function TagsSelection(tagsPhotoProfil, allTags) {
         //Lorsque je clique sur un tag ajoute la classe .focus
         lien.addEventListener("click", function(e) {
             e.preventDefault;
-            this.classList.toggle("focus")
             let tagsFocus = document.querySelectorAll('a.tag.focus');
-            // Mettre à jour les articles des photographes selon les tags selectionnés
-            // Pour chaque photographes boucle for photographe.tags
-            for (let j = 0; j < tagsPhotoProfil.length; j++) {
-                const tagPhoto = tagsPhotoProfil[j];
-                searchTags(tagsFocus, tagPhoto, allTags)
-            }
-                // comparer les tags focus avec les tags du photographe
-                    // si true 
-                        // afficher le photographe dans le html
-                    // sinon 
-                        // le cacher
-            
-            //Récupérer les tags sélectionnés et les comparer avec les tags de chaques photographes
-            //Si le photographes ne contients pas les tags sélectionnés alors caché le photographe
-            //Sinon l'affiché
+            this.classList.toggle("focus")
+            let tag = e.currentTarget.id
+            const filterPhotographers = allPhotographers.filter(ph => {
+                return ph.tags.includes(tag)
+            })
+            console.log(filterPhotographers)
+            document.getElementById("selection-photographes").innerHTML = ""
+            profilsPhotographes(filterPhotographers)
         }
     )}
 };
 
-function searchTags(tagsFocus, tagsPhotographes, allTags) {
-    // comment on comparer les tags sel;ectionné avec les tags du photographe
-    // tags selectionné type : ?? tagsFocus: Array de nodes
-    // tags type : ?? array<string>
-    //let tagsProfil = document.querySelectorAll('a.tag-photographe')
-    
-    //console.log(tagsProfil)
-    for (let i = 0; i < tagsPhotographes.length; i++) {
-        const photographerTags = tagsPhotographes[i];
-        
-        // tagsPhotoProfil.includes(tagPhotographeHtmlElement)
-        for (let y = 0; y < tagsFocus.length; y++) {
-            const tag = tagsFocus[y];
-            
-            console.log('photographerTags.innerHTML == tag.innerHTML', photographerTags.innerHTML == tag.innerHTML); // #fsdj
-            if(photographerTags.innerHTML == tag.innerHTML){
-                // on a trouvais quelque chose
-                //Si tag n' a plus la class .focus alors retirer la class focus à photographerTags
-                photographerTags.classList.add('focus')
-                console.log(tag.innerHTML); // #fsdj
-                console.log(photographerTags.classList.contains('focus'))
-                console.log(photographerTags)
-                console.log('photographerTags.classList.contains(focus) == false', photographerTags.classList.contains('focus') == false)
-                console.log('------------------')
-                if ((photographerTags.innerHTML != tag.innerHTML) && (photographerTags.classList.contains('focus') == true && tag.classList.contains('focus') == false)) {
-                    photographerTags.classList.remove('focus')
-                }
-                else{
-                    console.log(photographerTags)
-                }
-            }
-            //photographerTags.parentNode.parentNode.style.display = "none"
-        }
-
-//Vérifier si des tags sont focus à l'intérieur de l'article du photographe
-//Si aucuns photographersTags n'est focus 
-        //alors cacher l'article des photographes
-        //Sinon ne rien faire
-
-
-        //let hasTagClass = 
+function tagStorage() {
+    console.log(listePhotographes)
+    let tagStorage =sessionStorage.getItem("tag")
+    console.log(tagStorage)
+    if (tagStorage != null) {
+        const filterStorage = listePhotographes.filter(ph => {
+            return ph.tags.includes(tagStorage)
+        })
+    document.getElementById("selection-photographes").innerHTML = ""
+    profilsPhotographes(filterStorage)
+    sessionStorage.clear()
     }
 }
+
 
 //--------------------------------------------------------------------------------------//
 //                             FONCTION D'ECOUTE DU SCROLL                              //
