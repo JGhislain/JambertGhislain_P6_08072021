@@ -147,7 +147,6 @@ function TagsSelection(tagsPhotoProfil, allTags) {
         //Lorsque je clique sur un tag ajoute la classe .focus
         lien.addEventListener("click", function(e) {
             e.preventDefault;
-            let tagsFocus = document.querySelectorAll('a.tag.focus');
             this.classList.toggle("focus")
             let tag = e.currentTarget.id
             if (this.classList.contains('focus')) {

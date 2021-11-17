@@ -143,8 +143,10 @@ html {
     font-weight: 500;
 }
 #trieuse {
+    width: 30%;
     display: flex;
     cursor: pointer;
+    padding-bottom: 20px;
 }
 .tri-categorie {
     height: 1px;
@@ -153,6 +155,27 @@ html {
     position: absolute;
     top: -10000px;
     width: 1px;
+}
+.tri-categorie.visible {
+    width: 170px;
+    height: 160px;
+    position: initial;
+    overflow: visible;
+    background-color: #901C1C;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0.625em 1.875em 0 1.875em;
+    padding-left: 0.625em;
+    padding-right: 0.625em;
+    border-radius: 5px;
+    animation: transitionChevronY 150ms linear;
+}
+.chevron.visible {
+    position: absolute;
+    transform: translateX(9em) rotate(180deg);
+    transition: transform 200ms ease 50ms;
+    color: #FFF;    
 }
 #trieuse:hover .tri-categorie {
     width: 170px;
@@ -169,11 +192,11 @@ html {
     border-radius: 5px;
     animation: transitionChevronY 150ms linear;
 }
-.trier i {
+.chevron {
     padding-left: 15px;
     color: #000;
 }
-#trieuse:hover .trier i {
+#trieuse:hover .chevron {
     position: absolute;
     transform: translateX(9em) rotate(180deg);
     transition: transform 200ms ease 50ms;
@@ -205,6 +228,14 @@ html {
     padding-left: 1.25em;
     margin-top: 0;
 }
+.categorie:hover {
+    color: #000;
+    text-decoration: underline;
+}
+.active {
+    color: #000;
+    text-decoration: underline;
+}
 #article-media {
     display: flex;
     flex-wrap: wrap;
@@ -213,6 +244,7 @@ html {
 }
 article {
     position: initial;
+    width: 30%;
 }
 article.invisible {
     height: 1px;
@@ -225,6 +257,7 @@ article.invisible {
 .media-photographe {
     height: 300px;
     width: 350px;
+    object-fit: contain;
     border-radius: 5px;
 }
 .info-media {

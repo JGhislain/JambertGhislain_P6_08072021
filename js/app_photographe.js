@@ -17,9 +17,7 @@ fetch('../assets/json/listeObjets.json')
 .then(response => response.json())
 .then(response => {
     let allMedia = response.media;
-    console.log(allMedia)
     let allPhotographers = response.photographers;
-    console.log(allPhotographers)
     compareId(allPhotographers, allMedia)
 });
 
@@ -65,8 +63,8 @@ function compareId(allPhotographers, allMedia) {
         //Alors construire la page HTML (revoie vers une nouvelle fonction ou écrire le code à la suite?)
         alert("Le photographe n'existe pas")
     }
-        //Sinon renvoyer vers l'index
-    else{
+        //Sinon renvoyer vers la page
+    else {
         console.log(photographeEnCours)
         console.log(mediaEnCours)
         
@@ -168,9 +166,9 @@ function compareId(allPhotographers, allMedia) {
                 triMedia.innerHTML = '<p class="trier">Trier par<i class="fas fa-angle-up chevron"></i></p>'
                 let triCategorie = document.createElement('div')
                 triCategorie.classList.add('tri-categorie')
-                triCategorie.innerHTML = `<p class= "tri-popularite">Popularité</p>
-                <p class= "tri-date">Date</p>
-                <p class= "tri-titre">Titre</p>`              
+                triCategorie.innerHTML = `<p class= "tri-popularite categorie">Popularité</p>
+                <p class= "tri-date categorie">Date</p>
+                <p class= "tri-titre categorie">Titre</p>`              
                 sectionMedia.appendChild(triMedia)
                 triMedia.appendChild(triCategorie)
             }
@@ -543,6 +541,141 @@ function compareId(allPhotographers, allMedia) {
         }
 
         triTag();
+
+//--------------------------------------------------------------------------------------//
+//                      Fonction de tri des médias du photographes                      //
+//--------------------------------------------------------------------------------------//
+
+// ---- Affichage de la liste des options de tri -----------------------------------------
+
+        //Appel des éléments du DOM nécessaire
+        let navLink = document.querySelector('.trier')
+        let triCategorieLink = document.querySelector('.tri-categorie')
+        let iconeChevron = document.querySelector('.chevron')
+        //Écoute de la balise au click
+        let affichageListeTri = () => {
+            navLink.addEventListener('click', (e) => {
+                triCategorieLink.classList.toggle('visible')
+                iconeChevron.classList.toggle('visible')
+            })
+        }
+
+        affichageListeTri();
+
+// ---- Tri des médias en fonction de la popularité --------------------------------------
+        
+        //Appel des éléments du DOM nécessaire
+        let navDate = document.querySelector('.tri-date')
+        let navPopularite = document.querySelector('.tri-popularite')
+        let navTitre = document.querySelector('.tri-titre')
+        let spanLikesMedia = document.querySelectorAll('.likes-media')
+
+        function triMediaPopularite() {
+
+            //On regroupe tout les likes individuellement dans un tableau
+            let listeMediaLikes = []
+            mediaEnCours.forEach((media) => {
+                listeMediaLikes.push(media)
+            })
+            //Fonction de réorganisation des éléments du tableau (chiffre décroissant)
+            listeMediaLikes.sort((a, b) => {
+                return b.likes - a.likes
+            })
+            console.log(listeMediaLikes)
+            //On écoute la balise popularité au click
+            navPopularite.addEventListener('click', (e) => {
+                e.preventDefault()
+                navPopularite.classList.toggle('active')
+                if (navDate.classList.contains('active')) {
+                    navDate.classList.remove('active')
+                }
+                if (navTitre.classList.contains('active')) {
+                    navTitre.classList.remove('active')
+                }
+                if (navPopularite.classList.contains('active')) {
+                    document.getElementById('article-media').innerHTML = ""
+                    genereCadreMedia(listeMediaLikes)
+                }
+                else {
+                    document.getElementById('article-media').innerHTML = ""
+                    genereCadreMedia(mediaEnCours)
+                }
+            })
+        }
+
+        triMediaPopularite()
+
+// ---- Tri des médias en fonction de la date --------------------------------------
+
+        function triMediaDate() {
+            //On regroupe tout les likes individuellement dans un tableau
+            let listeMediaDate = []
+            mediaEnCours.forEach((media) => {
+                listeMediaDate.push(media)
+            })
+            //Fonction de réorganisation des éléments du tableau (chiffre décroissant)
+            listeMediaDate.sort((a, b) => {
+                return a.date > b.date
+            })
+            console.log(listeMediaDate)
+            //On écoute la balise popularité au click
+            navDate.addEventListener('click', (e) => {
+                e.preventDefault()
+                navDate.classList.toggle('active')
+                if (navPopularite.classList.contains('active')) {
+                    navPopularite.classList.remove('active')
+                }
+                if (navTitre.classList.contains('active')) {
+                    navTitre.classList.remove('active')
+                }
+                if (navDate.classList.contains('active')) {
+                    document.getElementById('article-media').innerHTML = ""
+                    genereCadreMedia(listeMediaDate)
+                }
+                else {
+                    document.getElementById('article-media').innerHTML = ""
+                    genereCadreMedia(mediaEnCours)
+                }
+            })
+        }
+
+        triMediaDate()
+
+// ---- Tri des médias en fonction du titre --------------------------------------
+
+        function triMediaTitre() {
+            //On regroupe tout les likes individuellement dans un tableau
+            let listeMediaTitre = []
+            mediaEnCours.forEach((media) => {
+                listeMediaTitre.push(media)
+            })
+            //Fonction de réorganisation des éléments du tableau (chiffre décroissant)
+            listeMediaTitre.sort((a, b)  => {
+                return a.title > b.title
+            })
+            console.log(listeMediaTitre)
+            //On écoute la balise popularité au click
+            navTitre.addEventListener('click', (e) => {
+                e.preventDefault()
+                navTitre.classList.toggle('active')
+                if (navPopularite.classList.contains('active')) {
+                    navPopularite.classList.remove('active')
+                }
+                if (navDate.classList.contains('active')) {
+                    navDate.classList.remove('active')
+                }
+                if (navTitre.classList.contains('active')) {
+                    document.getElementById('article-media').innerHTML = ""
+                    genereCadreMedia(listeMediaTitre)
+                }
+                else {
+                    document.getElementById('article-media').innerHTML = ""
+                    genereCadreMedia(mediaEnCours)
+                }
+            })
+        }
+
+        triMediaTitre()
 
 //--------------------------------------------------------------------------------------//
 //               Appel du DOM nécessaire au fonctionnement de la lightbox               //

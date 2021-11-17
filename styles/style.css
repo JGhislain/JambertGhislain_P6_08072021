@@ -29,8 +29,6 @@ nav {
     position: absolute;
     top: 25%;
     left: 0%;
-    display: flex;
-    justify-content: space-around;
 }
 .retour-index {
     width: 182px;
@@ -166,12 +164,13 @@ address {
 }
 .tag {
     text-decoration: none;
-    color: #911c1c;
-    border: solid 0.5px #c4c4c4;
-    border-radius: 11px;
+    font-size: 1.125em;
     font-weight: 500;
-    font-size: 12px;
-    line-height: 16px;
+    color: #901C1C;
+    border: 0.5px solid #C4C4C4;
+    border-radius: 12px;
+    padding-left: 0.3vw;
+    padding-right: 0.3vw;
     text-align: center;
     cursor: pointer;
 }
