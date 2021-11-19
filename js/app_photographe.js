@@ -460,18 +460,21 @@ function compareId(allPhotographers, allMedia) {
 //                           Constructeur de la section Media                           //
 //--------------------------------------------------------------------------------------//
 
-        for (let j = 0; j < mediaEnCours.length; j++) {
-            const media = mediaEnCours[j];
-            const newMedias = new MediasPhotographe(media.id, media.photographerId, media.title, media.image, media.video, media.tags, media.likes, media.date, media.price);
-            mediaDuPhotographe.push(newMedias)
-            index = [j]
-            somme += media.likes
-            newMedias.genereCadreMedia();
-            newMedias.genereContenuMedia();
-            newMedias.genereInfoMedia();
+        const showMedia = (currentMedia) => {
+            for (let j = 0; j < currentMedia.length; j++) {
+                const media = currentMedia[j];
+                const newMedias = new MediasPhotographe(media.id, media.photographerId, media.title, media.image, media.video, media.tags, media.likes, media.date, media.price);
+                mediaDuPhotographe.push(newMedias)
+                index = [j]
+                somme += media.likes
+                newMedias.genereCadreMedia();
+                newMedias.genereContenuMedia();
+                newMedias.genereInfoMedia();
+            }
         }
 
-        
+        showMedia(mediaEnCours)
+
 //--------------------------------------------------------------------------------------//
 //                      Fonction d'insertion du nb de likes total                       //
 //--------------------------------------------------------------------------------------//
@@ -570,18 +573,33 @@ function compareId(allPhotographers, allMedia) {
         let navTitre = document.querySelector('.tri-titre')
         let spanLikesMedia = document.querySelectorAll('.likes-media')
 
-        function triMediaPopularite() {
+        function triMedia() {
 
-            //On regroupe tout les likes individuellement dans un tableau
-            let listeMediaLikes = []
-            mediaEnCours.forEach((media) => {
-                listeMediaLikes.push(media)
+            //On créer des images des medias pour les traiter
+            let listeMediaLikes = mediaEnCours.map(media => {
+                return media
+            })
+            let listeMediaDate = mediaEnCours.map(media => {
+                return media
+            })
+            let listeMediaTitre = mediaEnCours.map(media => {
+                return media
             })
             //Fonction de réorganisation des éléments du tableau (chiffre décroissant)
             listeMediaLikes.sort((a, b) => {
                 return b.likes - a.likes
             })
+            //Fonction de réorganisation des éléments du tableau (date croissante)
+            listeMediaDate.sort((a, b) => {
+                return a.date > b.date
+            })
+            //Fonction de réorganisation des éléments du tableau (ordre alphabétique)
+            listeMediaTitre.sort((a, b)  => {
+                return a.title > b.title
+            })
             console.log(listeMediaLikes)
+            console.log(listeMediaDate)
+            console.log(listeMediaTitre)
             //On écoute la balise popularité au click
             navPopularite.addEventListener('click', (e) => {
                 e.preventDefault()
@@ -594,31 +612,14 @@ function compareId(allPhotographers, allMedia) {
                 }
                 if (navPopularite.classList.contains('active')) {
                     document.getElementById('article-media').innerHTML = ""
-                    genereCadreMedia(listeMediaLikes)
+                    showMedia(listeMediaLikes)
                 }
                 else {
                     document.getElementById('article-media').innerHTML = ""
-                    genereCadreMedia(mediaEnCours)
+                    showMedia(mediaEnCours)
                 }
             })
-        }
-
-        triMediaPopularite()
-
-// ---- Tri des médias en fonction de la date --------------------------------------
-
-        function triMediaDate() {
-            //On regroupe tout les likes individuellement dans un tableau
-            let listeMediaDate = []
-            mediaEnCours.forEach((media) => {
-                listeMediaDate.push(media)
-            })
-            //Fonction de réorganisation des éléments du tableau (chiffre décroissant)
-            listeMediaDate.sort((a, b) => {
-                return a.date > b.date
-            })
-            console.log(listeMediaDate)
-            //On écoute la balise popularité au click
+            //On écoute la balise Date au click
             navDate.addEventListener('click', (e) => {
                 e.preventDefault()
                 navDate.classList.toggle('active')
@@ -630,31 +631,14 @@ function compareId(allPhotographers, allMedia) {
                 }
                 if (navDate.classList.contains('active')) {
                     document.getElementById('article-media').innerHTML = ""
-                    genereCadreMedia(listeMediaDate)
+                    showMedia(listeMediaDate)
                 }
                 else {
                     document.getElementById('article-media').innerHTML = ""
-                    genereCadreMedia(mediaEnCours)
+                    showMedia(mediaEnCours)
                 }
             })
-        }
-
-        triMediaDate()
-
-// ---- Tri des médias en fonction du titre --------------------------------------
-
-        function triMediaTitre() {
-            //On regroupe tout les likes individuellement dans un tableau
-            let listeMediaTitre = []
-            mediaEnCours.forEach((media) => {
-                listeMediaTitre.push(media)
-            })
-            //Fonction de réorganisation des éléments du tableau (chiffre décroissant)
-            listeMediaTitre.sort((a, b)  => {
-                return a.title > b.title
-            })
-            console.log(listeMediaTitre)
-            //On écoute la balise popularité au click
+            //On écoute la balise Titre au click
             navTitre.addEventListener('click', (e) => {
                 e.preventDefault()
                 navTitre.classList.toggle('active')
@@ -666,16 +650,16 @@ function compareId(allPhotographers, allMedia) {
                 }
                 if (navTitre.classList.contains('active')) {
                     document.getElementById('article-media').innerHTML = ""
-                    genereCadreMedia(listeMediaTitre)
+                    showMedia(listeMediaTitre)
                 }
                 else {
                     document.getElementById('article-media').innerHTML = ""
-                    genereCadreMedia(mediaEnCours)
+                    showMedia(mediaEnCours)
                 }
             })
         }
 
-        triMediaTitre()
+        triMedia()
 
 //--------------------------------------------------------------------------------------//
 //               Appel du DOM nécessaire au fonctionnement de la lightbox               //
@@ -689,6 +673,9 @@ function compareId(allPhotographers, allMedia) {
         const imageContainer = lightbox.querySelector(".lightbox__container img")
         const videoContainer = lightbox.querySelector(".lightbox-video")
 
+        document.querySelector('html').addEventListener('keyup', (e) => {
+            console.log(e.code)
+        })
 //--------------------------------------------------------------------------------------//
 //                       On ajoute l'écouteur clic sur les liens                        //
 //--------------------------------------------------------------------------------------//

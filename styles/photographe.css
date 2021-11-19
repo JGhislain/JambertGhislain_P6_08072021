@@ -228,12 +228,20 @@ html {
     padding-left: 1.25em;
     margin-top: 0;
 }
-.categorie:hover {
+.tri-popularite:hover {
     color: #000;
-    text-decoration: underline;
+    border-bottom: 1px solid #FFF;
+}
+.tri-date:hover {
+    color: #000;
+    border-bottom: 1px solid #FFF;
+}
+.tri-titre:hover {
+    color: #000;
 }
 .active {
     color: #000;
+    font-weight: bold;
     text-decoration: underline;
 }
 #article-media {
