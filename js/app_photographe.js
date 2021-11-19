@@ -673,9 +673,6 @@ function compareId(allPhotographers, allMedia) {
         const imageContainer = lightbox.querySelector(".lightbox__container img")
         const videoContainer = lightbox.querySelector(".lightbox-video")
 
-        document.querySelector('html').addEventListener('keyup', (e) => {
-            console.log(e.code)
-        })
 //--------------------------------------------------------------------------------------//
 //                       On ajoute l'écouteur clic sur les liens                        //
 //--------------------------------------------------------------------------------------//
@@ -703,26 +700,25 @@ function compareId(allPhotographers, allMedia) {
                     }
                 });
             }
-            //On active le bouton close
-            closeLightbox()
-            //On active le bouton preview
-            previewLightbox()
-            //On active le bouton next
-            nextLightbox()
         }
 
 //--------------------------------------------------------------------------------------//
 //                         Fonction de fermeture de la lightbox                         //
 //--------------------------------------------------------------------------------------//
 
-        let closeLightbox = function() {
-            close.addEventListener("click", function() {
-                //On retire la classe show de la lightbox
-                imageContainer.style.display = "none"
-                videoContainer.classList.remove('show')
-                lightbox.classList.remove("show")
-            })
-        };
+        function closeLightbox() {
+            //On retire la classe show de la lightbox
+            imageContainer.style.display = "none"
+            videoContainer.classList.remove('show')
+            lightbox.classList.remove("show")
+        }
+
+        close.addEventListener("click", closeLightbox)
+        window.addEventListener('keyup', (e) => {
+            if (e.keyCode === 27) {
+                closeLightbox()
+            }
+        })
 
 //--------------------------------------------------------------------------------------//
 //                       Fonction de recherche des sources médias                       //
@@ -742,41 +738,45 @@ function compareId(allPhotographers, allMedia) {
 //                      Fonction de media précédent de la lightbox                      //
 //--------------------------------------------------------------------------------------//
 
-        let previewLightbox = function() {
-            preview.addEventListener('click', function() {
-                //On initialise mediaIndex
-                mediaIndex -= 1
-                mediaTotal = document.querySelectorAll('.media-photographe')
-                //Si mediaIndex est inférieur à 0 alors revenir à la dernière photo
-                if (mediaIndex < 0) {
-                    mediaIndex = mediaTotal.length - 1
+        function previewLightbox() {
+            //On initialise mediaIndex
+            mediaIndex -= 1
+            mediaTotal = document.querySelectorAll('.media-photographe')
+            //Si mediaIndex est inférieur à 0 alors revenir à la dernière photo
+            if (mediaIndex < 0) {
+                mediaIndex = mediaTotal.length - 1
+            }
+            //Appel de la fonction de récupération de l'Url du média à venir
+            let mediaUrl = getMediaUrl(mediaIndex)
+            //Si le media est une photo on affiche la photo
+            if (mediaCible.classList.contains("photo")) {
+                imageContainer.src = mediaUrl
+                //Si le media précédent était une vidéo on remplace l affichage des balises
+                if (imageContainer.style.display = "none") {
+                    videoContainer.classList.remove('show')
+                    imageContainer.style.display = 'initial'
                 }
-                //Appel de la fonction de récupération de l'Url du média à venir
-                let mediaUrl = getMediaUrl(mediaIndex)
-                //Si le media est une photo on affiche la photo
-                if (mediaCible.classList.contains("photo")) {
-                    imageContainer.src = mediaUrl
-                    //Si le media précédent était une vidéo on remplace l affichage des balises
-                    if (imageContainer.style.display = "none") {
-                        videoContainer.classList.remove('show')
-                        imageContainer.style.display = 'initial'
-                    }
-                }
-                //Si le media est une vidéo on affiche la vidéo
-                else {
-                    imageContainer.style.display = "none"
-                    videoContainer.classList.add('show')
-                    videoContainer.src = mediaUrl
-                }
-            })
+            }
+            //Si le media est une vidéo on affiche la vidéo
+            else {
+                imageContainer.style.display = "none"
+                videoContainer.classList.add('show')
+                videoContainer.src = mediaUrl
+            }
         }
+
+        preview.addEventListener('click', previewLightbox)
+        window.addEventListener('keyup', (e) => {
+            if (e.keyCode === 37) {
+                previewLightbox()
+            }
+        })
 
 //--------------------------------------------------------------------------------------//
 //                       Fonction de média suivant de la lightbox                       //
 //--------------------------------------------------------------------------------------//
 
-        let nextLightbox = function() {
-            next.addEventListener('click', function() {
+            function nextLightbox() {
                 //On initialise mediaIndex
                 mediaIndex ++
                 mediaTotal = document.querySelectorAll('.media-photographe')
@@ -801,8 +801,14 @@ function compareId(allPhotographers, allMedia) {
                     videoContainer.classList.add('show')
                     videoContainer.src = mediaUrl
                 }
+            }
+            next.addEventListener('click', nextLightbox)
+            window.addEventListener('keyup', (e) => {
+                console.log(e.keyCode)
+                if (e.keyCode === 39) {
+                    nextLightbox()
+                }
             })
-        }
 
 //--------------------------------------------------------------------------------------//
 //            Appel du DOM necéssaire au fonctionnement de la fenêtre modal             //
