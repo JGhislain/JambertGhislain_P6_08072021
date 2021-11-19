@@ -802,6 +802,7 @@ function compareId(allPhotographers, allMedia) {
                     videoContainer.src = mediaUrl
                 }
             }
+
             next.addEventListener('click', nextLightbox)
             window.addEventListener('keyup', (e) => {
                 console.log(e.keyCode)
@@ -829,16 +830,16 @@ function compareId(allPhotographers, allMedia) {
 //                       Fonction d'ouverture de la fenêtre modal                       //
 //--------------------------------------------------------------------------------------//
 
-        let openModal = function() {
-            modalBoutonOpen.addEventListener('click', function(e) {
-                e.preventDefault()
-                modalDisplay.classList.add('show')
-            })
+        function openModal(e) {
+            e.preventDefault()
+            modalDisplay.classList.add('show')
+            verifFormulaire()
+            }
 
 //--------------------------------------------------------------------------------------//
 //                         Ecoute du formulaire (partie prénom)                         //
 //--------------------------------------------------------------------------------------//
-
+     function verifFormulaire() {
             formData[0].addEventListener('input', function(e) {
                 //Création d'une variable pour une regex de validation du prénom  
                 let firstRegex = /^[a-zA-Z '\-éèêëçäâàù]{2,}$/;
@@ -1041,18 +1042,27 @@ function compareId(allPhotographers, allMedia) {
 //                      Fonction de fermeture de la fenêtre modal                       //
 //--------------------------------------------------------------------------------------//
 
-        let closeModal = function() {
-            modalBoutonClose.addEventListener('click', function() {
+        function closeModal() {
                 modalDisplay.classList.remove('show')
-            })
-        }
+            }
 
 //--------------------------------------------------------------------------------------//
 //            Appel des fonctions qui ouvre la lightbox et la fenêtre modal             //
 //--------------------------------------------------------------------------------------//
 
+        modalBoutonOpen.addEventListener('click', openModal)
+        window.addEventListener('keyup', (e) => {
+            if (e.keyCode === 70) {
+                openModal(e)
+            }
+        })
+
+        modalBoutonClose.addEventListener('click', closeModal)
+        window.addEventListener('keyup', (e) => {
+            if (e.keyCode === 27) {
+                closeModal()
+            }
+        })
         openLightbox();
-        openModal();
-        closeModal();
     }
 }
