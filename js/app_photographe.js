@@ -166,9 +166,9 @@ function compareId(allPhotographers, allMedia) {
                 triMedia.innerHTML = '<p class="trier">Trier par<i class="fas fa-angle-up chevron"></i></p>'
                 let triCategorie = document.createElement('div')
                 triCategorie.classList.add('tri-categorie')
-                triCategorie.innerHTML = `<p class= "tri-popularite categorie">Popularité</p>
-                <p class= "tri-date categorie">Date</p>
-                <p class= "tri-titre categorie">Titre</p>`              
+                triCategorie.innerHTML = `<a href="" class= "tri-popularite categorie">Popularité</a>
+                <a href="" class= "tri-date categorie">Date</a>
+                <a href="" class= "tri-titre categorie">Titre</a>`              
                 sectionMedia.appendChild(triMedia)
                 triMedia.appendChild(triCategorie)
             }
