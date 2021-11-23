@@ -80,7 +80,7 @@ function navBarTags(tags) {
         insertionNavBar.classList.add("nav-bar");
         for (let i = 0; i < tags.length; i++) {
         let tag = tags[i];
-        insertionNavBar.innerHTML += `<a id=${tag} class="tag nav-tag">${tag}</a>`;
+        insertionNavBar.innerHTML += `<a id=${tag} href="" class="tag nav-tag">${tag}</a>`;
     }
     tagsNavBar.push(insertionNavBar.childNodes)
 //                                Insertion de la balise                                //
@@ -90,7 +90,7 @@ function navBarTags(tags) {
 function insertionArticlePhotographe(photographe) {
 //                       Création balises article des photographes                       //
     let articleProfil = document.createElement("article");
-    articleProfil.id = "cadre-profil";
+    articleProfil.id = photographe.name;
     articleProfil.classList.add("cadre-profil");
     selectionPhotographes.appendChild(articleProfil);
 //                       Création balises figure des photographes                       //
@@ -123,7 +123,7 @@ function insertionArticlePhotographe(photographe) {
     insertionTags.classList.add("cadre-tags-photographe");
     for (let j = 0; j < photographe.tags.length; j++) {
         const tag = photographe.tags[j];
-        insertionTags.innerHTML += `<a id="tag" class="tag ${tag} tag-photographe">${tag}</a>`;
+        insertionTags.innerHTML += `<a id="tag" href="" class="tag ${tag} tag-photographe">${tag}</a>`;
     }
     tagsPhotoProfil.push(insertionTags.childNodes)
 
