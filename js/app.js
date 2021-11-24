@@ -14,6 +14,7 @@ const cadreImagePhotographe = document.getElementsByClassName('photo-profil');
 const cadreFichePhotographe = document.getElementsByClassName('cadre-fiche-photographe');
 const cadreTagsPhotographe = document.getElementsByClassName('cadre-tags-photographe');
 const baliseClassTag = document.getElementsByClassName('tag');
+const baliseTagsPhotographe = document.getElementsByClassName('tag-photographes')
 const baliseIdTag = document.getElementById("tag");
 
 let tagsPhotoProfil = []
@@ -94,6 +95,7 @@ function insertionArticlePhotographe(photographe) {
 //                       Création balises article des photographes                       //
     let articleProfil = document.createElement("article");
     articleProfil.id = photographe.name;
+    articleProfil.setAttribute('aria-labelledby', 'selection-photographes')
     articleProfil.setAttribute('tabindex', '-1')
     articleProfil.classList.add("cadre-profil");
     selectionPhotographes.appendChild(articleProfil);
@@ -102,36 +104,36 @@ function insertionArticlePhotographe(photographe) {
     let insertionFigure = document.createElement("a");
     insertionFigure.id = photographe.id;
     insertionFigure.classList.add("lien-profil");
-    insertionFigure.setAttribute('aria-label', articleProfil.id)
+    insertionFigure.setAttribute('aria-labelleby', articleProfil.id)
     insertionFigure.href = `html/photographe.html?id=${photographe.id}`
-    insertionFigure.innerHTML += `<figure id="cadre-photographe" class="cadre-photographe"></figure>`;
 
 //                       Création balises images des photographes                       //
     let insertionPhoto = document.createElement("img");
     insertionPhoto.classList.add("cadre-photo");
+    insertionPhoto.setAttribute('alt', 'portrait de'+ photographe.name)
     src =  "assets/FishEye_Photos/Sample Photos/Photographers ID Photos/" + photographe.portrait;
     insertionPhoto.src = src;
 //               Création balises titre des photographes  (ctrl+shift+p)                //
     let insertionH2 = document.createElement("h2");
     insertionH2.classList.add("nom-profil");
-    insertionH2.setAttribute('aria-controls', articleProfil)
+    insertionH2.setAttribute('aria-controls', articleProfil.id)
     insertionH2.setAttribute('tabindex', '-1')
     insertionH2.innerHTML += photographe.name;
 //                  Création balises div pour détails des photographes                  //
     let insertionFiche = document.createElement("div");
-    insertionFiche.id = "cadre-fiche-photographe";
-    insertionFiche.setAttribute('aria-controls', articleProfil)
-    insertionFiche.setAttribute('tabindex', '-1')
+    insertionFiche.id = "fiche-" + photographe.name;
+    insertionFiche.setAttribute('aria-controls', articleProfil.id)
+    insertionFiche.setAttribute('tabindex', '0')
     insertionFiche.classList.add("cadre-fiche-photographe");
-    insertionFiche.innerHTML += `<address aria-controls=${insertionFiche} tabindex='0' class="ville-profil">${photographe.city + " " + photographe.country}</address>
-    <p aria-controls=${insertionFiche} tabindex='0' class="citation-profil">${photographe.tagline}</p>
-    <p aria-controls=${insertionFiche} tabindex='0' class="prix-profil">${photographe.price}€</p>`;
+    insertionFiche.innerHTML += `<address aria-controls=${insertionFiche.id} tabindex='-1' class="ville-profil">${photographe.city + " " + photographe.country}</address>
+    <p aria-controls=${insertionFiche.id} tabindex='-1' class="citation-profil">${photographe.tagline}</p>
+    <p aria-controls=${insertionFiche.id} tabindex='-1' class="prix-profil">${photographe.price}€</p>`;
 //                   Création balises div pour tags des photographes                    //
     let insertionTags = document.createElement("div");
     insertionTags.id = "cadre-tags-photographe";
     insertionTags.classList.add("cadre-tags-photographe");
     insertionTags.setAttribute('role', 'naviguation')
-    insertionTags.setAttribute('aria-controls', articleProfil)
+    insertionTags.setAttribute('aria-controls', articleProfil.id)
     for (let j = 0; j < photographe.tags.length; j++) {
         const tag = photographe.tags[j];
         insertionTags.innerHTML += `<a id="tag" href="" class="tag ${tag} tag-photographe">${tag}</a>`;
@@ -149,7 +151,7 @@ function insertionArticlePhotographe(photographe) {
 //--------------------------------------------------------------------------------------//
 //                              FONCTION D'ÉCOUTE DES TAGS                              //
 //--------------------------------------------------------------------------------------//
-
+console.log(baliseTagsPhotographe)
 
 function TagsSelection(tagsPhotoProfil, allTags) {
     
@@ -165,10 +167,12 @@ function TagsSelection(tagsPhotoProfil, allTags) {
                         return ph.tags.includes(tag)
                 })
                 console.log(filterPhotographers)
+                e.preventDefault()
                 document.getElementById("selection-photographes").innerHTML = ""
                 profilsPhotographes(filterPhotographers)
             }
             else {
+                e.preventDefault()
                 document.getElementById("selection-photographes").innerHTML = ""
                 profilsPhotographes(allPhotographers)
             }
@@ -183,7 +187,7 @@ function TagsSelection(tagsPhotoProfil, allTags) {
 
 function tagStorage() {
     console.log(listePhotographes)
-    let tagStorage =sessionStorage.getItem("tag")
+    let tagStorage = sessionStorage.getItem("tag")
     console.log(tagStorage)
     if (tagStorage != null) {
         const filterStorage = listePhotographes.filter(ph => {
@@ -191,7 +195,7 @@ function tagStorage() {
         })
         for (let i = 0; i < baliseClassTag.length; i++) {
             const lien = baliseClassTag[i];
-            console.log(lien.id)
+            console.log(lien)
             if (lien.id == tagStorage) {
                 lien.classList.toggle('focus')
             }

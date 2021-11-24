@@ -61,7 +61,7 @@ nav {
     line-height: 23px;
     text-align: center;
 }
-h1 {
+.titre-page {
     width: 306px;
     height: 47px;
     position: absolute;
@@ -120,7 +120,7 @@ h2 {
     text-align: center;
     color: #D3573C;
 }
-#cadre-fiche-photographe {
+.cadre-fiche-photographe {
     position: relative;
     bottom: 35px;
     width: 13.7vw;
