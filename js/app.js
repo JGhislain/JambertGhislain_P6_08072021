@@ -78,9 +78,12 @@ function navBarTags(tags) {
     let insertionNavBar = document.createElement("div");
         insertionNavBar.id = "nav-bar";
         insertionNavBar.classList.add("nav-bar");
+        insertionNavBar.setAttribute("role", "naviguation")
+        insertionNavBar.setAttribute('tabindex', '-1')
+        insertionNavBar.setAttribute('aria-labelledby', 'nav')
         for (let i = 0; i < tags.length; i++) {
         let tag = tags[i];
-        insertionNavBar.innerHTML += `<a id=${tag} href="" class="tag nav-tag">${tag}</a>`;
+        insertionNavBar.innerHTML += `<a role='naviguation' id=${tag} href="" class="tag nav-tag">${tag}</a>`;
     }
     tagsNavBar.push(insertionNavBar.childNodes)
 //                                Insertion de la balise                                //
@@ -91,6 +94,7 @@ function insertionArticlePhotographe(photographe) {
 //                       Création balises article des photographes                       //
     let articleProfil = document.createElement("article");
     articleProfil.id = photographe.name;
+    articleProfil.setAttribute('tabindex', '-1')
     articleProfil.classList.add("cadre-profil");
     selectionPhotographes.appendChild(articleProfil);
 //                       Création balises figure des photographes                       //
@@ -98,6 +102,7 @@ function insertionArticlePhotographe(photographe) {
     let insertionFigure = document.createElement("a");
     insertionFigure.id = photographe.id;
     insertionFigure.classList.add("lien-profil");
+    insertionFigure.setAttribute('aria-label', articleProfil.id)
     insertionFigure.href = `html/photographe.html?id=${photographe.id}`
     insertionFigure.innerHTML += `<figure id="cadre-photographe" class="cadre-photographe"></figure>`;
 
@@ -109,18 +114,24 @@ function insertionArticlePhotographe(photographe) {
 //               Création balises titre des photographes  (ctrl+shift+p)                //
     let insertionH2 = document.createElement("h2");
     insertionH2.classList.add("nom-profil");
+    insertionH2.setAttribute('aria-controls', articleProfil)
+    insertionH2.setAttribute('tabindex', '-1')
     insertionH2.innerHTML += photographe.name;
 //                  Création balises div pour détails des photographes                  //
     let insertionFiche = document.createElement("div");
     insertionFiche.id = "cadre-fiche-photographe";
+    insertionFiche.setAttribute('aria-controls', articleProfil)
+    insertionFiche.setAttribute('tabindex', '-1')
     insertionFiche.classList.add("cadre-fiche-photographe");
-    insertionFiche.innerHTML += `<address class="ville-profil">${photographe.city + " " + photographe.country}</address>
-    <p class="citation-profil">${photographe.tagline}</p>
-    <p class="prix-profil">${photographe.price}€</p>`;
+    insertionFiche.innerHTML += `<address aria-controls=${insertionFiche} tabindex='0' class="ville-profil">${photographe.city + " " + photographe.country}</address>
+    <p aria-controls=${insertionFiche} tabindex='0' class="citation-profil">${photographe.tagline}</p>
+    <p aria-controls=${insertionFiche} tabindex='0' class="prix-profil">${photographe.price}€</p>`;
 //                   Création balises div pour tags des photographes                    //
     let insertionTags = document.createElement("div");
     insertionTags.id = "cadre-tags-photographe";
     insertionTags.classList.add("cadre-tags-photographe");
+    insertionTags.setAttribute('role', 'naviguation')
+    insertionTags.setAttribute('aria-controls', articleProfil)
     for (let j = 0; j < photographe.tags.length; j++) {
         const tag = photographe.tags[j];
         insertionTags.innerHTML += `<a id="tag" href="" class="tag ${tag} tag-photographe">${tag}</a>`;
@@ -251,3 +262,4 @@ window.addEventListener('scroll', onScroll)
 window.addEventListener('resize', onResize)
 
 //window.scrollTo({top: 0, behavior: 'smooth'});
+
