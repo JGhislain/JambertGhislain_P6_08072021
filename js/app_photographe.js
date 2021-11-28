@@ -90,9 +90,9 @@ function compareId(allPhotographers, allMedia) {
                 this.genereTagsProfil();
                 this.genereContactProfil();
                 this.generePhotoProfil();
-                this.generePrixProfil();
                 this.genereDivTriMedia();
                 this.genereArticleMedia();
+                this.generePrixProfil();
                 this.genereLightbox();
                 this.genereModalContact();
             }
@@ -100,11 +100,17 @@ function compareId(allPhotographers, allMedia) {
                 let articleProfil = document.createElement("article");
                 articleProfil.id = "article-profil"
                 articleProfil.classList.add('article-profil')
+                articleProfil.setAttribute('aria-labelledby', 'profil')
+                articleProfil.setAttribute('tabindex', '-1')
+                articleProfil.setAttribute('aria-controls', 'profil')
                 sectionProfil.appendChild(articleProfil);
             }
             genereNameProfil() {
                 let nameProfil = document.createElement("h2");
                 nameProfil.classList.add('nom-profil');
+                nameProfil.setAttribute('aria-label', this.name)
+                nameProfil.setAttribute('tabindex', '0')
+                nameProfil.setAttribute('aria-controls', 'profil')
                 nameProfil.innerHTML += this.name;
                 let articleProfilPhotographe = document.querySelector('#article-profil')
                 articleProfilPhotographe.appendChild(nameProfil)
@@ -112,6 +118,9 @@ function compareId(allPhotographers, allMedia) {
             genereCityProfil() {
                 let cityProfil = document.createElement("p");
                 cityProfil.classList.add('ville-profil')
+                cityProfil.setAttribute('aria-label', this.city + this.country)
+                cityProfil.setAttribute('tabindex', '0')
+                cityProfil.setAttribute('aria-controls', 'profil')
                 cityProfil.innerHTML += this.city + ", " + this.country
                 let articleProfilPhotographe = document.querySelector('#article-profil')
                 articleProfilPhotographe.appendChild(cityProfil)
@@ -119,6 +128,9 @@ function compareId(allPhotographers, allMedia) {
             genereCitationProfil() {
                 let citationProfil = document.createElement('p')
                 citationProfil.classList.add('citation-profil')
+                citationProfil.setAttribute('aria-label', this.tagline)
+                citationProfil.setAttribute('tabindex', '0')
+                citationProfil.setAttribute('aria-controls', 'profil')
                 citationProfil.innerHTML += this.tagline
                 let articleProfilPhotographe = document.querySelector('#article-profil')
                 articleProfilPhotographe.appendChild(citationProfil)
@@ -126,9 +138,13 @@ function compareId(allPhotographers, allMedia) {
             genereTagsProfil() {
                 let tagsProfil = document.createElement('div')
                 tagsProfil.classList.add('tags-profil')
+                tagsProfil.setAttribute('role', 'naviguation')
+                tagsProfil.setAttribute('aria-label', 'Vignettes des médias de' + this.name)
+                tagsProfil.setAttribute('tabindex', '0')
+                tagsProfil.setAttribute('aria-controls', 'profil')
                 for (let i = 0; i < this.tags.length; i++) {
                     const tag = this.tags[i];
-                    tagsProfil.innerHTML += `<a id=${tag} class="tag" href='../index.html'>#${tag}</a>`
+                    tagsProfil.innerHTML += `<a role='naviguation' id=${tag} class="tag" href='../index.html'>#${tag}</a>`
                 }
                 let articleProfilPhotographe = document.querySelector('#article-profil')
                 articleProfilPhotographe.appendChild(tagsProfil)
@@ -142,13 +158,37 @@ function compareId(allPhotographers, allMedia) {
             generePhotoProfil() {
                 let cadreProfil = document.createElement("div")
                 cadreProfil.classList.add('cadre-image-profil')
+                cadreProfil.setAttribute('tabindex', '-1')
+                cadreProfil.setAttribute('aria-controls', 'profil')
                 sectionProfil.appendChild(cadreProfil)
                 let imageProfil = document.createElement('img')
                 imageProfil.classList.add('image-profil')
                 let sourceImage = "../assets/FishEye_Photos/Sample Photos/Photographers ID Photos/"+this.portrait
                 imageProfil.src = sourceImage
+                imageProfil.setAttribute('aria-label', 'Portrait de' + this.name)
+                imageProfil.setAttribute('tabindex', '0')
+                imageProfil.setAttribute('aria-controls', 'profil')
                 let cadreImageProfil = document.querySelector('.cadre-image-profil')
                 cadreImageProfil.appendChild(imageProfil)
+            }
+            genereDivTriMedia() {
+                let triMedia = document.createElement('nav')
+                triMedia.id = 'trieuse'
+                triMedia.innerHTML = '<p role="button" aria-haspopup="true" tabindex="0" aria-controls="menu" class="trier">Trier par<i class="fas fa-angle-up chevron"></i></p>'
+                let triCategorie = document.createElement('div')
+                triCategorie.classList.add('tri-categorie')
+                triCategorie.setAttribute('role', 'menu')
+                triCategorie.setAttribute('aria-labelledby', 'trieuse')
+                triCategorie.innerHTML = `<a role="menuitem" href="" class= "tri-popularite categorie">Popularité</a>
+                <a role="menuitem" href="" class= "tri-date categorie">Date</a>
+                <a role="menuitem" href="" class= "tri-titre categorie">Titre</a>`              
+                sectionMedia.appendChild(triMedia)
+                triMedia.appendChild(triCategorie)
+            }
+            genereArticleMedia() {
+                let articleMedia = document.createElement('div')
+                articleMedia.id = 'article-media'
+                sectionMedia.appendChild(articleMedia)
             }
             generePrixProfil() {
                 let infoProfil = document.createElement('div')
@@ -159,23 +199,6 @@ function compareId(allPhotographers, allMedia) {
                 prixProfil.innerHTML = this.price+"€" + " / jour"
                 let cardeInfoProfil = document.querySelector('.info-profil')
                 cardeInfoProfil.appendChild(prixProfil)
-            }
-            genereDivTriMedia() {
-                let triMedia = document.createElement('nav')
-                triMedia.id = 'trieuse'
-                triMedia.innerHTML = '<p class="trier">Trier par<i class="fas fa-angle-up chevron"></i></p>'
-                let triCategorie = document.createElement('div')
-                triCategorie.classList.add('tri-categorie')
-                triCategorie.innerHTML = `<a href="" class= "tri-popularite categorie">Popularité</a>
-                <a href="" class= "tri-date categorie">Date</a>
-                <a href="" class= "tri-titre categorie">Titre</a>`              
-                sectionMedia.appendChild(triMedia)
-                triMedia.appendChild(triCategorie)
-            }
-            genereArticleMedia() {
-                let articleMedia = document.createElement('div')
-                articleMedia.id = 'article-media'
-                sectionMedia.appendChild(articleMedia)
             }
             genereLightbox() {
                 const mainHtml = document.querySelector('main')
@@ -247,14 +270,19 @@ function compareId(allPhotographers, allMedia) {
                 this.likes = likes;
                 this.date = date;
                 this.price = price;
+
+                this.heartClick()
             }
 
             genereCadreMedia() {
                 let articleMediaPhotographe = document.querySelector('#article-media')
-                let cadreMedia = document.createElement('article')
-                cadreMedia.classList.add("cadre-media")
-                cadreMedia.classList.add("#" + this.tags)
-                articleMediaPhotographe.appendChild(cadreMedia)
+                let articleMedia = document.createElement('article')
+                articleMedia.classList.add("cadre-media")
+                articleMedia.classList.add("#" + this.tags)
+                articleMedia.setAttribute('aria-labelledby', 'media')
+                articleMedia.setAttribute('tabindex', '0')
+                articleMedia.setAttribute('aria-controls', 'media')
+                articleMediaPhotographe.appendChild(articleMedia)
             }
 
             genereContenuMedia() {
@@ -294,6 +322,9 @@ function compareId(allPhotographers, allMedia) {
                 let cadreParent = contenantMedia[index]
                 let cadreMedia = document.createElement('a')
                 cadreMedia.classList.add('media')
+                cadreMedia.setAttribute('aria-label', this.title)
+                cadreMedia.setAttribute('tabindex', '0')
+                cadreMedia.setAttribute('aria-controls', 'media')
                 // si c'est une image
                 if (!this.video && this.image != undefined) {
                     // Retourne le lien de l'image
@@ -365,6 +396,7 @@ function compareId(allPhotographers, allMedia) {
                     let sourceMediaImage = "../assets/FishEye_Photos/Sample Photos/" + prenom + "/" + image
                     imageMedia.src = sourceMediaImage
                     imageMedia.dataset.index = getIndex(index)
+                    imageMedia.setAttribute('alt', this.title)
                     return imageMedia
                 }
                 // si c'est une vidéo 
@@ -377,6 +409,7 @@ function compareId(allPhotographers, allMedia) {
                     videoMedia.dataset.index = getIndex(index)
                     let sourceMediaVideo = "../assets/FishEye_Photos/Sample Photos/" + prenom + "/" + video
                     videoMedia.src = sourceMediaVideo
+                    videoMedia.setAttribute('alt', this.title)
                     return videoMedia
                 }
             }
@@ -403,6 +436,7 @@ function compareId(allPhotographers, allMedia) {
                 let divInfo = infoMedia[index]
                 let titreMedia = document.createElement('h3')
                 titreMedia.classList.add('titre-media')
+                titreMedia.setAttribute('onclick', this.heartClick)
                 titreMedia.innerHTML = this.title
                 let tagMedia = document.createElement('p')
                 tagMedia.classList.add('tag-media')
@@ -410,8 +444,6 @@ function compareId(allPhotographers, allMedia) {
                 let likesMedia = document.createElement('span')
                 likesMedia.classList.add('likes-media')
                 likesMedia.innerHTML = this.likes
-                /*                 let iconeCoeur = document.createElement('i')
-                iconeCoeur.classList.add('far fa-heart coeur') */
                 let dateMedia = document.createElement('p')
                 dateMedia.classList.add('date-media')
                 dateMedia.innerHTML = this.date
@@ -422,9 +454,12 @@ function compareId(allPhotographers, allMedia) {
                 divInfo.appendChild(titreMedia)
                 divInfo.appendChild(tagMedia)
                 divInfo.appendChild(likesMedia)
-                //divInfo.appendChild(iconeCoeur)
                 divInfo.appendChild(dateMedia)
                 divInfo.appendChild(prixMedia)
+            }
+            
+            heartClick = () => {
+                console.log("j'ai réussi un click")
             }
         }
         
@@ -506,6 +541,7 @@ function compareId(allPhotographers, allMedia) {
                 icone.addEventListener('click', function() {
                     //Si on click sur un coeur on ajoute la class 'bold'
                     //et on incrémente +1 au compteur de likes
+                    console.log('hello')
                     if (!icone.classList.contains('bold')) {
                         icone.classList.add('bold')
                         somme ++
