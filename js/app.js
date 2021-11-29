@@ -125,7 +125,7 @@ function insertionArticlePhotographe(photographe) {
     insertionFiche.setAttribute('aria-controls', articleProfil.id)
     insertionFiche.setAttribute('tabindex', '0')
     insertionFiche.classList.add("cadre-fiche-photographe");
-    insertionFiche.innerHTML += `<address aria-controls=${insertionFiche.id} tabindex='-1' class="ville-profil">${photographe.city + " " + photographe.country}</address>
+    insertionFiche.innerHTML += `<address aria-controls=${insertionFiche.id} tabindex='-1' class="ville-profil">${photographe.city + ", " + photographe.country}</address>
     <p aria-controls=${insertionFiche.id} tabindex='-1' class="citation-profil">${photographe.tagline}</p>
     <p aria-controls=${insertionFiche.id} tabindex='-1' class="prix-profil">${photographe.price}€ / jour</p>`;
 //                   Création balises div pour tags des photographes                    //
