@@ -174,14 +174,14 @@ function compareId(allPhotographers, allMedia) {
             genereDivTriMedia() {
                 let triMedia = document.createElement('nav')
                 triMedia.id = 'trieuse'
-                triMedia.innerHTML = '<p role="button" aria-haspopup="true" tabindex="0" aria-controls="menu" class="trier">Trier par<i class="fas fa-angle-up chevron"></i></p>'
-                let triCategorie = document.createElement('div')
+                triMedia.innerHTML = '<button id="nav-button" aria-haspopup="true" tabindex="0" aria-controls="menu2" class="trier">Trier par<i class="fas fa-angle-up chevron"></i></button>'
+                let triCategorie = document.createElement('ul')
                 triCategorie.classList.add('tri-categorie')
-                triCategorie.setAttribute('role', 'menu')
-                triCategorie.setAttribute('aria-labelledby', 'trieuse')
-                triCategorie.innerHTML = `<a role="menuitem" href="" class= "tri-popularite categorie">Popularité</a>
-                <a role="menuitem" href="" class= "tri-date categorie">Date</a>
-                <a role="menuitem" href="" class= "tri-titre categorie">Titre</a>`              
+                triCategorie.setAttribute('role', 'menu2')
+                triCategorie.setAttribute('aria-labelledby', 'nav-button')
+                triCategorie.innerHTML = `<li role="none"><span tabindex="0" role="menuitem" class= "tri-popularite categorie">Popularité</span></li>
+                <li role="none"><span tabindex="0" role="menuitem" class= "tri-date categorie">Date</span></li>
+                <li role="none"><span tabindex="0" role="menuitem" class= "tri-titre categorie">Titre</span></li>`        
                 sectionMedia.appendChild(triMedia)
                 triMedia.appendChild(triCategorie)
             }

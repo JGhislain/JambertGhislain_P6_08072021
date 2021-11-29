@@ -84,7 +84,7 @@ function navBarTags(tags) {
         insertionNavBar.setAttribute('aria-labelledby', 'nav')
         for (let i = 0; i < tags.length; i++) {
         let tag = tags[i];
-        insertionNavBar.innerHTML += `<a role='naviguation' id=${tag} href="" class="tag nav-tag">${tag}</a>`;
+        insertionNavBar.innerHTML += `<a role='naviguation' id=${tag} href="" class="tag nav-tag">#${tag}</a>`;
     }
     tagsNavBar.push(insertionNavBar.childNodes)
 //                                Insertion de la balise                                //
@@ -96,7 +96,7 @@ function insertionArticlePhotographe(photographe) {
     let articleProfil = document.createElement("article");
     articleProfil.id = photographe.name;
     articleProfil.setAttribute('aria-labelledby', 'selection-photographes')
-    articleProfil.setAttribute('tabindex', '-1')
+    articleProfil.setAttribute('tabindex', '0')
     articleProfil.classList.add("cadre-profil");
     selectionPhotographes.appendChild(articleProfil);
 //                       Création balises figure des photographes                       //
@@ -127,16 +127,18 @@ function insertionArticlePhotographe(photographe) {
     insertionFiche.classList.add("cadre-fiche-photographe");
     insertionFiche.innerHTML += `<address aria-controls=${insertionFiche.id} tabindex='-1' class="ville-profil">${photographe.city + " " + photographe.country}</address>
     <p aria-controls=${insertionFiche.id} tabindex='-1' class="citation-profil">${photographe.tagline}</p>
-    <p aria-controls=${insertionFiche.id} tabindex='-1' class="prix-profil">${photographe.price}€</p>`;
+    <p aria-controls=${insertionFiche.id} tabindex='-1' class="prix-profil">${photographe.price}€ / jour</p>`;
 //                   Création balises div pour tags des photographes                    //
     let insertionTags = document.createElement("div");
-    insertionTags.id = "cadre-tags-photographe";
+    insertionTags.id = photographe.tags;
     insertionTags.classList.add("cadre-tags-photographe");
+    insertionTags.setAttribute('tabindex', '0')
     insertionTags.setAttribute('role', 'naviguation')
+    insertionTags.setAttribute('aria-labelledby', insertionTags.id)
     insertionTags.setAttribute('aria-controls', articleProfil.id)
     for (let j = 0; j < photographe.tags.length; j++) {
         const tag = photographe.tags[j];
-        insertionTags.innerHTML += `<a id="tag" href="" class="tag ${tag} tag-photographe">${tag}</a>`;
+        insertionTags.innerHTML += `<a id="${tag}" href="" class="tag tag-photographe">#${tag}</a>`;
     }
     tagsPhotoProfil.push(insertionTags.childNodes)
 
