@@ -179,9 +179,9 @@ function compareId(allPhotographers, allMedia) {
                 triCategorie.classList.add('tri-categorie')
                 triCategorie.setAttribute('role', 'menu2')
                 triCategorie.setAttribute('aria-labelledby', 'nav-button')
-                triCategorie.innerHTML = `<li role="none"><span tabindex="0" role="menuitem" class= "tri-popularite categorie">Popularité</span></li>
-                <li role="none"><span tabindex="0" role="menuitem" class= "tri-date categorie">Date</span></li>
-                <li role="none"><span tabindex="0" role="menuitem" class= "tri-titre categorie">Titre</span></li>`        
+                triCategorie.innerHTML = `<li class="ligne-un" role="none"><span tabindex="0" role="menuitem" class= "tri-popularite categorie">Popularité</span></li>
+                <li class="ligne-deux" role="none"><span tabindex="0" role="menuitem" class= "tri-date categorie">Date</span></li>
+                <li class="ligne-trois" role="none"><span tabindex="0" role="menuitem" class= "tri-titre categorie">Titre</span></li>`        
                 sectionMedia.appendChild(triMedia)
                 triMedia.appendChild(triCategorie)
             }
@@ -438,24 +438,8 @@ function compareId(allPhotographers, allMedia) {
                 titreMedia.classList.add('titre-media')
                 titreMedia.setAttribute('onclick', this.heartClick)
                 titreMedia.innerHTML = this.title
-                let tagMedia = document.createElement('p')
-                tagMedia.classList.add('tag-media')
-                tagMedia.innerHTML = "#" + this.tags
-                let likesMedia = document.createElement('span')
-                likesMedia.classList.add('likes-media')
-                likesMedia.innerHTML = this.likes
-                let dateMedia = document.createElement('p')
-                dateMedia.classList.add('date-media')
-                dateMedia.innerHTML = this.date
-                let prixMedia = document.createElement('span')
-                prixMedia.classList.add('prix-media')
-                prixMedia.innerHTML = this.price + "€"
-                divInfo.innerHTML += `<i class="far fa-heart coeur"></i>`
+                divInfo.innerHTML += `<span class="nb-likes">${this.likes}<i class="far fa-heart coeur"></i></span>`
                 divInfo.appendChild(titreMedia)
-                divInfo.appendChild(tagMedia)
-                divInfo.appendChild(likesMedia)
-                divInfo.appendChild(dateMedia)
-                divInfo.appendChild(prixMedia)
             }
             
             heartClick = () => {
@@ -522,7 +506,6 @@ function compareId(allPhotographers, allMedia) {
             cardeInfoProfil.appendChild(likesProfil)
         }
 
-
 //--------------------------------------------------------------------------------------//
 //                Appel de la fonction d'insertion du nb total de likes                 //
 //--------------------------------------------------------------------------------------//
@@ -541,7 +524,7 @@ function compareId(allPhotographers, allMedia) {
                 icone.addEventListener('click', function() {
                     //Si on click sur un coeur on ajoute la class 'bold'
                     //et on incrémente +1 au compteur de likes
-                    console.log('hello')
+                    console.log(index)
                     if (!icone.classList.contains('bold')) {
                         icone.classList.add('bold')
                         somme ++

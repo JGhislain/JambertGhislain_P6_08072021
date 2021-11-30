@@ -80,21 +80,23 @@ html {
 }
 .tag {
     text-decoration: none;
-    font-size: 1.125em;
+    font-size: 1em;
     font-weight: 500;
     color: #901C1C;
     border: 0.5px solid #C4C4C4;
     border-radius: 12px;
-    padding-left: 0.3vw;
-    padding-right: 0.3vw;
+    padding: 0.4vh 0.4vw;
+    margin: 0 0.3vw;
+    text-align: center;
+    cursor: pointer;
 }
 .tag:hover {
     color: #FFF;
     background-color: #901C1C;
+    cursor: pointer;
 }
 .tag.focus {
     color: #FFF;
-    text-decoration: underline;
     background-color: #901C1C;
 }
 .contact-profil {
@@ -158,13 +160,14 @@ html {
 }
 .tri-categorie.visible {
     width: 170px;
-    height: 160px;
+    height: 130px;
     position: initial;
     overflow: visible;
     background-color: #901C1C;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
+    align-items: center;
     margin: 0.625em 1.875em 0 1.875em;
     padding-left: 0.625em;
     padding-right: 0.625em;
@@ -179,13 +182,14 @@ html {
 }
 #trieuse:hover .tri-categorie {
     width: 170px;
-    height: 160px;
+    height: 130px;
     position: initial;
     overflow: visible;
     background-color: #901C1C;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
+    align-items: center;
     margin: 0.625em 1.875em 0 1.875em;
     padding-left: 0.625em;
     padding-right: 0.625em;
@@ -205,36 +209,49 @@ html {
 .trier {
     font-size: 1.125em;
     font-weight: bold;
+    background-color: transparent;
+    border: 0;
+    margin: 2vh 0vw;
+    height: 3vh;
+}
+.ligne-un {
+    list-style-type: none;
+    border-bottom: 1px solid #FFF;
+    width: 100%;
+    padding-bottom: 1vh;
+    padding-top: 1vh;
+}
+.ligne-deux {
+    list-style-type: none;
+    border-bottom: 1px solid #FFF;
+    width: 100%;
+    padding-bottom: 1vh;
+}
+.ligne-trois {
+    list-style-type: none;
+    width: 100%;
+    padding-bottom: 1vh;
 }
 .tri-popularite {
     color: #FFF;
     cursor: pointer;
-    border-bottom: 1px solid;
-    padding-left: 1.25em;
-    padding-bottom: 0.94em;
-    margin: 0;
-    padding-top: 0.75em;
+    padding-left: 2em;
 }
 .tri-date {
     color: #FFF;
     cursor: pointer;
-    border-bottom: 1px solid;
-    padding-left: 1.25em;
-    padding-bottom: 0.94em;
+    padding-left: 2em;
 }
 .tri-titre {
     color: #FFF;
     cursor: pointer;
-    padding-left: 1.25em;
-    margin-top: 0;
+    padding-left: 2em;
 }
 .tri-popularite:hover {
     color: #000;
-    border-bottom: 1px solid #FFF;
 }
 .tri-date:hover {
     color: #000;
-    border-bottom: 1px solid #FFF;
 }
 .tri-titre:hover {
     color: #000;
@@ -291,6 +308,12 @@ article.invisible {
     width: 80%;
     font-size: 1.5em;
     font-weight: 400;
+    color: #901C1C;
+}
+.nb-likes {
+    width: 20%;
+    font-size: 1em;
+    font-weight: bold;
     color: #901C1C;
 }
 .tag-media {
