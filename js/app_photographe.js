@@ -526,14 +526,15 @@ function compareId(allPhotographers, allMedia) {
                 icone.addEventListener('click', function() {
                     //Si on click sur un coeur on ajoute la class 'bold'
                     //et on incrémente +1 au compteur de likes
-                    console.log(nblikes)
                     if (!icone.classList.contains('bold')) {
                         icone.classList.add('bold')
+                        icone.previousElementSibling.innerHTML ++
                         somme ++
                     }
                     //Sinon on retire la classe 'bold'
                     else {
                         icone.classList.remove('bold')
+                        icone.previousElementSibling.innerHTML --
                         somme --
                     }
                     //On attache la nouvelle valeur à la page
