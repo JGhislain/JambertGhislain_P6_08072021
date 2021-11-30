@@ -438,8 +438,8 @@ function compareId(allPhotographers, allMedia) {
                 titreMedia.classList.add('titre-media')
                 titreMedia.setAttribute('onclick', this.heartClick)
                 titreMedia.innerHTML = this.title
-                divInfo.innerHTML += `<span class="nb-likes">${this.likes}<i class="far fa-heart coeur"></i></span>`
                 divInfo.appendChild(titreMedia)
+                divInfo.innerHTML += `<span class="nb-likes">${this.likes}</span><i class="far fa-heart coeur"></i>`
             }
             
             heartClick = () => {
@@ -458,6 +458,7 @@ function compareId(allPhotographers, allMedia) {
         let prenom;
         let index;
         let somme = 0;
+        let nblikes = []
 
 //--------------------------------------------------------------------------------------//
 //              Appel et Fonction de récupération du prénom du photographe              //
@@ -486,6 +487,7 @@ function compareId(allPhotographers, allMedia) {
                 mediaDuPhotographe.push(newMedias)
                 index = [j]
                 somme += media.likes
+                nblikes.push(media.likes)
                 newMedias.genereCadreMedia();
                 newMedias.genereContenuMedia();
                 newMedias.genereInfoMedia();
@@ -524,7 +526,7 @@ function compareId(allPhotographers, allMedia) {
                 icone.addEventListener('click', function() {
                     //Si on click sur un coeur on ajoute la class 'bold'
                     //et on incrémente +1 au compteur de likes
-                    console.log(index)
+                    console.log(nblikes)
                     if (!icone.classList.contains('bold')) {
                         icone.classList.add('bold')
                         somme ++
