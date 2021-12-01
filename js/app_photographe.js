@@ -869,6 +869,7 @@ function compareId(allPhotographers, allMedia) {
             e.preventDefault()
             modalDisplay.classList.add('show')
             focusables = Array.from(modalDisplay.querySelectorAll(focusableForm))
+            focusables[1].focus()
             modalDisplay.setAttribute('aria-hidden', 'false')
             modalDisplay.setAttribute('aria-modal', 'true')
             verifFormulaire()
