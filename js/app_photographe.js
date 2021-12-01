@@ -225,7 +225,7 @@ function compareId(allPhotographers, allMedia) {
                 modalContact.classList.add('modal-contact')
                 modalContact.setAttribute('aria-hidden', 'true')
                 modalContact.setAttribute('role', 'form')
-                modalContact.setAttribute('aria-label', 'Formulaire de contact')
+                modalContact.setAttribute('aria-labelledby', 'contact-me')
                 modalContact.innerHTML = `<div class="content">
                 <div class="modal-body">
                 <p class="contact-me">Contactez-moi<button class="modal__close"><i class="fas fa-times modal-close"></i></button></p>
@@ -532,11 +532,12 @@ function compareId(allPhotographers, allMedia) {
             for (let i = 0; i < iconesCoeur.length; i++) {
                 const icone = iconesCoeur[i];
                 //On écoute le click des icones de coeurs
-                icone.addEventListener('click', function() {
+                icone.addEventListener('click', function(e) {
                     //Si on click sur un coeur on ajoute la class 'bold'
                     //et on incrémente +1 au compteur de likes
                     if (!icone.classList.contains('bold')) {
                         icone.classList.add('bold')
+                        console.log(e.target.previousElementSibling)
                         icone.previousElementSibling.innerHTML ++
                         somme ++
                     }
@@ -836,7 +837,7 @@ function compareId(allPhotographers, allMedia) {
 
             next.addEventListener('click', nextLightbox)
             window.addEventListener('keyup', (e) => {
-                console.log(e.keyCode)
+                console.log(e.key)
                 if (e.keyCode === 39) {
                     nextLightbox()
                 }
@@ -861,9 +862,15 @@ function compareId(allPhotographers, allMedia) {
 //                       Fonction d'ouverture de la fenêtre modal                       //
 //--------------------------------------------------------------------------------------//
 
+        const focusableForm = 'p, button, label, input, textarea, span'
+        let focusables = []
+
         function openModal(e) {
             e.preventDefault()
             modalDisplay.classList.add('show')
+            focusables = Array.from(modalDisplay.querySelectorAll(focusableForm))
+            modalDisplay.setAttribute('aria-hidden', 'false')
+            modalDisplay.setAttribute('aria-modal', 'true')
             verifFormulaire()
             }
 
@@ -1075,7 +1082,28 @@ function compareId(allPhotographers, allMedia) {
 
         function closeModal() {
                 modalDisplay.classList.remove('show')
+                modalDisplay.setAttribute('aria-hidden', 'true')
+                modalDisplay.removeAttribute('aria-modal')
             }
+
+        function focusForm(e) {
+            e.preventDefault()
+            let indexForm = focusables.findIndex(getFocus => getFocus === modalDisplay.querySelector(':focus'))
+            console.log(indexForm)
+            if (e.shiftKey === true) {
+                indexForm --
+            }
+            else {
+                indexForm ++
+            }
+            if (indexForm >= focusables.length) {
+                indexForm = 1
+            }
+            if (indexForm < 0) {
+                indexForm = focusables.length -1
+            }
+            focusables[indexForm].focus()
+        }
 
 //--------------------------------------------------------------------------------------//
 //            Appel des fonctions qui ouvre la lightbox et la fenêtre modal             //
@@ -1092,6 +1120,9 @@ function compareId(allPhotographers, allMedia) {
         window.addEventListener('keyup', (e) => {
             if (e.keyCode === 27) {
                 closeModal()
+            }
+            if (e.key === 'Tab' && modalDisplay.classList.contains('show')) {
+                focusForm(e)
             }
         })
         openLightbox();
