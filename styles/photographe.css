@@ -32,6 +32,14 @@
         transform: translateX(0) rotate(0deg);
     }
 }
+:root {
+    --primaire-color: #911c1c;
+    --second-color: #D3573C;
+    --bg-color:  #E5E5E5;
+    --border-tag-color: #C4C4C4;
+    --border-acces-color: #95FFF9;
+    --bg-acces-color: #DB8876;
+}
 * {
     box-sizing: border-box;
     font-family: DM Sans;
@@ -45,6 +53,9 @@ header a {
     display: block;
     width: 20%;
 }
+header a:focus {
+    border: 2px solid var(--border-acces-color);
+}
 #logo {
     width: 250px;
     object-fit: contain;
@@ -55,6 +66,9 @@ header a {
     align-items: center;
     background-color: #FAFAFA;
     height: 313px;
+}
+#profil:focus {
+    border: 2px solid var(--border-acces-color);
 }
 .article-profil {
     width: 45%;
@@ -71,15 +85,24 @@ header a {
     color: #901C1C;
     margin-top: 10px;
 }
+.ville-profil:focus {
+    border: 2px solid var(--border-acces-color);
+}
 .citation-profil {
     font-size: 1.125em;
     font-weight: 400;
     color: #525252;
 }
+.citation-profil:focus {
+    border: 2px solid var(--border-acces-color);
+}
 .tags-profil {
     width: 65%;
     display: flex;
     justify-content: space-between;
+}
+.tags-profil:focus {
+    border: 2px solid var(--border-acces-color);
 }
 .tag {
     text-decoration: none;
@@ -128,11 +151,15 @@ header a {
 }
 .btn-modal:focus {
     color: #000;
+    border: 2px solid var(--border-acces-color);
 }
 .image-profil {
     height: 150px;
     width: 150px;
     border-radius: 100%;
+}
+.image-profil:focus {
+    border: 2px solid var(--border-acces-color);
 }
 .info-profil {
     position: fixed;
@@ -227,6 +254,9 @@ header a {
     margin: 2vh 0vw;
     height: 3vh;
 }
+.trier:focus {
+    border: 2px solid var(--border-acces-color);
+}
 .ligne-un {
     list-style-type: none;
     border-bottom: 1px solid #FFF;
@@ -248,17 +278,32 @@ header a {
 .tri-popularite {
     color: #FFF;
     cursor: pointer;
-    padding-left: 1em;
+    padding: 0 1em;
+    width: auto;
+    display: block;
+}
+.tri-popularite:focus {
+    border: 2px solid var(--border-acces-color);
 }
 .tri-date {
     color: #FFF;
     cursor: pointer;
-    padding-left: 1em;
+    padding: 0 1em;
+    width: auto;
+    display: block;
+}
+.tri-date:focus {
+    border: 2px solid var(--border-acces-color);
 }
 .tri-titre {
     color: #FFF;
     cursor: pointer;
-    padding-left: 1em;
+    padding: 0 1em;
+    width: auto;
+    display: block;
+}
+.tri-titre:focus {
+    border: 2px solid var(--border-acces-color);
 }
 .tri-popularite:hover {
     color: #000;
@@ -298,6 +343,10 @@ article.invisible {
     object-fit: contain;
     border-radius: 5px;
 }
+.media:focus {
+    display: block;
+    border: 2px solid var(--border-acces-color);
+}
 .info-media {
     display: flex;
     justify-content: space-between;
@@ -320,10 +369,16 @@ article.invisible {
     font-weight: 400;
     color: #901C1C;
 }
+.titre-media:focus {
+    border: 2px solid var(--border-acces-color);
+}
 .nb-likes {
     font-size: 1.5em;
     color: #901C1C;
     padding-left: 1vw;
+}
+.nb-likes:focus {
+    border: 2px solid var(--border-acces-color);
 }
 .lightbox.show {
     display: initial;
@@ -432,7 +487,7 @@ article.invisible {
     max-width: 500px;
     animation-name: modalopen;
     animation-duration: var(--modal-duration);
-    background: #DB8876;
+    background: var(--bg-acces-color);
     border-radius: 5px;
     overflow: hidden;
     position: relative;
@@ -453,12 +508,15 @@ article.invisible {
     border: 0;
     cursor: pointer;
 }
+.modal__close:focus {
+    border: 2px solid var(--border-acces-color);
+}
 .modal-close {
-    color: white;
+    color: #FFF;
     font-size: 3em;
 }
 .modal-close:hover {
-    color: #901C1C;
+    color: var(--primaire-color);
 }
 .nom-contact {
     font-size: 2.5em;
@@ -483,6 +541,9 @@ input {
     font-size: 1.3em;
     height: 48px;
 }
+.text-control:focus {
+    border: 2px solid var(--border-acces-color);
+}
 textarea {
     padding: 10px;
     max-width: 100%;
@@ -491,8 +552,11 @@ textarea {
     line-height: 1.5;
     border-radius: 5px;
 }
+textarea:focus {
+    border: 2px solid var(--border-acces-color);
+}
 .btn-submit{
-    background: #901C1C;
+    background: var(--primaire-color);
     border-radius: 7px;
     font-size: 1.1em;
     padding: 15px 30px;
@@ -503,6 +567,9 @@ textarea {
 }
 .btn-submit:hover {
     background-color: #FFF;
-    color: #901C1C;
+    color: var(--primaire-color);
     font-weight: bold;
+}
+.btn-submit:focus {
+    border: 2px solid var(--border-acces-color);
 }

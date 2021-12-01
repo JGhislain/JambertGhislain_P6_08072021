@@ -97,10 +97,11 @@ function compareId(allPhotographers, allMedia) {
                 this.genereModalContact();
             }
             genereArticleProfil() {
+                document.querySelector('#profil').setAttribute('aria-label', 'Profil de ' + this.name)
                 let articleProfil = document.createElement("article");
                 articleProfil.id = "article-profil"
                 articleProfil.classList.add('article-profil')
-                articleProfil.setAttribute('aria-labelledby', 'profil')
+                articleProfil.setAttribute('aria-label', 'Profil de ' + this.name)
                 articleProfil.setAttribute('tabindex', '-1')
                 articleProfil.setAttribute('aria-controls', 'profil')
                 sectionProfil.appendChild(articleProfil);
@@ -109,7 +110,7 @@ function compareId(allPhotographers, allMedia) {
                 let nameProfil = document.createElement("h2");
                 nameProfil.classList.add('nom-profil');
                 nameProfil.setAttribute('aria-label', this.name)
-                nameProfil.setAttribute('tabindex', '0')
+                nameProfil.setAttribute('tabindex', '-1')
                 nameProfil.setAttribute('aria-controls', 'profil')
                 nameProfil.innerHTML += this.name;
                 let articleProfilPhotographe = document.querySelector('#article-profil')
@@ -152,7 +153,9 @@ function compareId(allPhotographers, allMedia) {
             genereContactProfil() {
                 let contactProfil = document.createElement('div')
                 contactProfil.classList.add("contact-profil")
-                contactProfil.innerHTML += `<a class='btn-modal' href=''>Contactez-moi</a>`
+                contactProfil.setAttribute('aria-labelledby', 'bouton-form')
+                contactProfil.setAttribute('aria-controls', 'profil')
+                contactProfil.innerHTML += `<a id="bouton-form" aria-haspopup="true" aria-controls='profil' class='btn-modal' href=''>Contactez-moi</a>`
                 sectionProfil.appendChild(contactProfil)
             }
             generePhotoProfil() {
@@ -220,6 +223,9 @@ function compareId(allPhotographers, allMedia) {
                 const modalContact = document.createElement('div')
                 modalContact.id = 'modal'
                 modalContact.classList.add('modal-contact')
+                modalContact.setAttribute('aria-hidden', 'true')
+                modalContact.setAttribute('role', 'form')
+                modalContact.setAttribute('aria-label', 'Formulaire de contact')
                 modalContact.innerHTML = `<div class="content">
                 <div class="modal-body">
                 <p class="contact-me">Contactez-moi<button class="modal__close"><i class="fas fa-times modal-close"></i></button></p>
@@ -227,22 +233,22 @@ function compareId(allPhotographers, allMedia) {
                 <form name="contact" id="formulaire" action="photographe.html" method="post">
                 <div class="formData">
                 <label for="first">Prénom</label><br>
-                <input class="text-control" type="text" id="first" name="first" placeholder="Votre prénom"/><br>
+                <input class="text-control" type="text" id="first" name="first" placeholder="Votre prénom" aria-required='true'/><br>
                 <span id="first-validation"></span>
                 </div>
                 <div class="formData">
                 <label for="last">Nom</label><br>
-                <input class="text-control" type="text" id="last" name="last" placeholder="Votre nom"/><br>
+                <input class="text-control" type="text" id="last" name="last" placeholder="Votre nom" aria-required='true'/><br>
                 <span id="last-validation"></span>
                 </div>
                 <div class="formData">
                 <label for="email">Email</label><br>
-                <input class="text-control" type="email" id="email" name="email" placeholder="Votre Email"/><br>
+                <input class="text-control" type="email" id="email" name="email" placeholder="Votre Email" aria-required='true'/><br>
                 <span id="email-validation"></span>
                 </div>
                 <div class="formData">
                 <label for="message">Votre message</label><br>
-                <textarea class="text-control" type="textarea" id="message" name="message" placeholder="Saisissez votre message"></textarea><br>
+                <textarea class="text-control" type="textarea" id="message" name="message" placeholder="Saisissez votre message" aria-required='true'></textarea><br>
                 <span id="message-validation"></span>
                 </div>
                 <div class="submit">
@@ -280,7 +286,7 @@ function compareId(allPhotographers, allMedia) {
                 articleMedia.classList.add("cadre-media")
                 articleMedia.classList.add("#" + this.tags)
                 articleMedia.setAttribute('aria-labelledby', 'media')
-                articleMedia.setAttribute('tabindex', '0')
+                articleMedia.setAttribute('tabindex', '-1')
                 articleMedia.setAttribute('aria-controls', 'media')
                 articleMediaPhotographe.appendChild(articleMedia)
             }
@@ -395,6 +401,7 @@ function compareId(allPhotographers, allMedia) {
                     imageMedia.classList.add('media-photographe')
                     let sourceMediaImage = "../assets/FishEye_Photos/Sample Photos/" + prenom + "/" + image
                     imageMedia.src = sourceMediaImage
+                    imageMedia.setAttribute('aria-label', this.image)
                     imageMedia.dataset.index = getIndex(index)
                     imageMedia.setAttribute('alt', this.title)
                     return imageMedia
@@ -409,6 +416,7 @@ function compareId(allPhotographers, allMedia) {
                     videoMedia.dataset.index = getIndex(index)
                     let sourceMediaVideo = "../assets/FishEye_Photos/Sample Photos/" + prenom + "/" + video
                     videoMedia.src = sourceMediaVideo
+                    videoMedia.setAttribute('aria-label', this.video)
                     videoMedia.setAttribute('alt', this.title)
                     return videoMedia
                 }
@@ -436,10 +444,13 @@ function compareId(allPhotographers, allMedia) {
                 let divInfo = infoMedia[index]
                 let titreMedia = document.createElement('h3')
                 titreMedia.classList.add('titre-media')
+                titreMedia.setAttribute('aria-label', this.title)
+                titreMedia.setAttribute('tabindex', '0')
+                titreMedia.setAttribute('aria-controls', 'media')
                 titreMedia.setAttribute('onclick', this.heartClick)
                 titreMedia.innerHTML = this.title
                 divInfo.appendChild(titreMedia)
-                divInfo.innerHTML += `<span class="nb-likes">${this.likes}</span><i class="far fa-heart coeur"></i>`
+                divInfo.innerHTML += `<span class="nb-likes" arial-label='${this.likes}' tabindex='0' aria-controls='media'>${this.likes}</span><i class="far fa-heart coeur"></i>`
             }
             
             heartClick = () => {
