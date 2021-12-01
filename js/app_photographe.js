@@ -221,9 +221,9 @@ function compareId(allPhotographers, allMedia) {
                 modalContact.id = 'modal'
                 modalContact.classList.add('modal-contact')
                 modalContact.innerHTML = `<div class="content">
-                <button class="modal__close"><i class="fas fa-times modal-close"></i></button>
                 <div class="modal-body">
-                <p class="nom-contact">Contactez ${this.name}</p>
+                <p class="contact-me">Contactez-moi<button class="modal__close"><i class="fas fa-times modal-close"></i></button></p>
+                <p class="nom-contact">${this.name}</p>
                 <form name="contact" id="formulaire" action="photographe.html" method="post">
                 <div class="formData">
                 <label for="first">Prénom</label><br>
@@ -236,17 +236,17 @@ function compareId(allPhotographers, allMedia) {
                 <span id="last-validation"></span>
                 </div>
                 <div class="formData">
-                <label for="email">E-mail</label><br>
+                <label for="email">Email</label><br>
                 <input class="text-control" type="email" id="email" name="email" placeholder="Votre Email"/><br>
                 <span id="email-validation"></span>
                 </div>
                 <div class="formData">
-                <label for="message">Message</label><br>
-                <textarea class="text-control" type="textarea" id="message" name="message" placeholder="Votre message"></textarea><br>
+                <label for="message">Votre message</label><br>
+                <textarea class="text-control" type="textarea" id="message" name="message" placeholder="Saisissez votre message"></textarea><br>
                 <span id="message-validation"></span>
                 </div>
                 <div class="submit">
-                <input class="btn-submit" type="submit" id="btn-submit" value="Envoyer le message"/><br>
+                <input class="btn-submit" type="submit" id="btn-submit" value="Envoyer"/><br>
                 <span id="error-validation"></span>
                 </div>
                 </form>
@@ -458,7 +458,6 @@ function compareId(allPhotographers, allMedia) {
         let prenom;
         let index;
         let somme = 0;
-        let nblikes = []
 
 //--------------------------------------------------------------------------------------//
 //              Appel et Fonction de récupération du prénom du photographe              //
@@ -487,7 +486,6 @@ function compareId(allPhotographers, allMedia) {
                 mediaDuPhotographe.push(newMedias)
                 index = [j]
                 somme += media.likes
-                nblikes.push(media.likes)
                 newMedias.genereCadreMedia();
                 newMedias.genereContenuMedia();
                 newMedias.genereInfoMedia();

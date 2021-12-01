@@ -174,7 +174,7 @@ function TagsSelection(tagsPhotoProfil, allTags) {
                 profilsPhotographes(filterPhotographers)
             }
             else {
-                e.preventDefault()
+                //e.preventDefault()
                 document.getElementById("selection-photographes").innerHTML = ""
                 profilsPhotographes(allPhotographers)
             }

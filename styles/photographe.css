@@ -41,9 +41,12 @@ html {
     margin-left: 5%;
     margin-right: 5%;
 }
+header a {
+    display: block;
+    width: 20%;
+}
 #logo {
-    width: 200px;
-    height: 50px;
+    width: 250px;
     object-fit: contain;
 }
 #profil {
@@ -99,6 +102,10 @@ html {
     color: #FFF;
     background-color: #901C1C;
 }
+.tag:focus {
+    color: #FFF;
+    background-color: #901C1C;
+}
 .contact-profil {
     height: 69px;
     width: 170px;
@@ -144,7 +151,7 @@ html {
 }
 .coeur-profil {
     padding-left: 0.5vw;
-    font-weight: bold;
+    font-weight: bold !important;
 }
 .likes-profil {
     font-size: 1.5em;
@@ -318,7 +325,6 @@ article.invisible {
     color: #901C1C;
     padding-left: 1vw;
 }
-
 .lightbox.show {
     display: initial;
 }
@@ -409,67 +415,79 @@ article.invisible {
     width: 100%;
     overflow: auto;
     background-color: rgba(26, 39, 156, 0.4);
-  }
-  .modal-contact.show {
-      display: initial;
-  }
-  
-  .content {
+}
+.modal-contact.show {
+    display: initial;
+}
+.content {
     margin: 5% auto;
     width: 100%;
     max-width: 500px;
     animation-name: modalopen;
     animation-duration: var(--modal-duration);
-    background: #232323;
-    border-radius: 10px;
+    background: #DB8876;
+    border-radius: 5px;
     overflow: hidden;
     position: relative;
-    color: #fff;
+    color: #000;
     padding-top: 10px;
-  }
-  
-  .modal-body {
-    padding: 15px 8%;
-    margin: 15px auto;
-  }
-  
-  label {
-    font-size: 17px;
+}
+.modal-body {
+    padding: 0 5%;
+}
+.contact-me {
+    font-size: 2.5em;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+}
+.modal__close {
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+}
+.modal-close {
+    color: white;
+    font-size: 3em;
+}
+.nom-contact {
+    font-size: 2.5em;
+    margin: 0 0 2vh 0;
+}
+label {
+    font-size: 1.5em;
     font-weight: normal;
     display: inline-block;
-    margin-bottom: 11px;
-  }
-  input {
+    margin-top: 0.3vh;
+}
+input {
     padding: 8px;
     border: 0.8px solid #ccc;
     outline: none;
-  }
-  .text-control {
+}
+.text-control {
     margin: 0;
     padding: 8px;
     width: 100%;
-    border-radius: 8px;
-    font-size: 20px;
+    border-radius: 5px;
+    font-size: 1.3em;
     height: 48px;
-  }
-  .close {
-    position: absolute;
-    right: 15px;
-    top: 15px;
-    width: 32px;
-    height: 32px;
-    opacity: 1;
+}
+textarea {
+    padding: 10px;
+    max-width: 100%;
+    min-height: 170px;
+    max-height: 250px;
+    line-height: 1.5;
+    border-radius: 5px;
+}
+.btn-submit{
+    background: #901C1C;
+    border-radius: 7px;
+    font-size: 1.1em;
+    padding: 15px 30px;
+    color: #fff;
     cursor: pointer;
-    transform: scale(0.7);
-  }
-  .btn-submit{
-  background: #fe142f;
-  display: block;
-  margin: 0 auto;
-  border-radius: 7px;
-  font-size: 1rem;
-  padding: 12px 82px;
-  color: #fff;
-  cursor: pointer;
-  border: 0;
+    border: 0;
+    margin-top: 2vh;
 }
