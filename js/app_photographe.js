@@ -1091,19 +1091,31 @@ function compareId(allPhotographers, allMedia) {
             e.preventDefault()
             let indexForm = focusables.findIndex(getFocus => getFocus === modalDisplay.querySelector(':focus'))
             console.log(modalDisplay.querySelector(':focus'))
-            if (e.shiftKey === true) {
+            if (indexForm < 1) {
+                indexForm = 15
+            }
+            console.log(focusables.length)
+            focusables[indexForm].focus()
+            if (e.shiftKey == 'Tab') {
                 indexForm --
             }
             else {
                 indexForm ++
             }
-            if (indexForm >= 16) {
-                indexForm = 1
-            }
-            if (indexForm < 1) {
-                indexForm = focusables.length -1
-            }
-            focusables[indexForm].focus()
+            console.log(indexForm)
+            document.querySelector('.submit').addEventListener('keydown', e => {
+                e.preventDefault()
+                console.log(e.defaultPrevented)
+                if (e.shiftKey === true) {
+                    console.log('bordel')
+                    indexForm = 13
+                    focusables[indexForm].focus()
+                }
+                if (e.shiftKey == false) {
+                    indexForm = 1
+                    focusables[indexForm].focus()
+                }
+            })
         }
 
 //--------------------------------------------------------------------------------------//
@@ -1111,7 +1123,7 @@ function compareId(allPhotographers, allMedia) {
 //--------------------------------------------------------------------------------------//
 
         modalBoutonOpen.addEventListener('click', openModal)
-        window.addEventListener('keyup', (e) => {
+        window.addEventListener('keydown', (e) => {
             if (e.keyCode === 70) {
                 openModal(e)
             }

@@ -212,7 +212,7 @@ function tagStorage() {
 //              Fonction de pointage du focus vers la section photographe               //
 //--------------------------------------------------------------------------------------//
 
-const retourTexte = document.querySelector('.retour-texte')
+/* const retourTexte = document.querySelector('.retour-texte')
 
 const focusAccess = function (e) {
     console.log(retourTexte.querySelector(':focus'))
@@ -228,7 +228,7 @@ window.addEventListener('keyup', e => {
         focusAccess(e)
         console.log(e.target)
     }
-})
+}) */
 
 //--------------------------------------------------------------------------------------//
 //                             FONCTION D'ECOUTE DU SCROLL                              //
