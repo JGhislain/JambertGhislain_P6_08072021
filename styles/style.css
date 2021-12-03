@@ -58,7 +58,7 @@ header {
     border: 2px solid var(--border-acces-color);
 }
 #logo {
-    width: 250px;
+    width: 80%;
     object-fit: contain;
 }
 #logo:focus {

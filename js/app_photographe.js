@@ -878,7 +878,7 @@ function compareId(allPhotographers, allMedia) {
 //--------------------------------------------------------------------------------------//
 //                         Ecoute du formulaire (partie prénom)                         //
 //--------------------------------------------------------------------------------------//
-     function verifFormulaire() {
+        function verifFormulaire() {
             formData[0].addEventListener('input', function(e) {
                 //Création d'une variable pour une regex de validation du prénom  
                 let firstRegex = /^[a-zA-Z '\-éèêëçäâàù]{2,}$/;
@@ -1090,17 +1090,17 @@ function compareId(allPhotographers, allMedia) {
         function focusForm(e) {
             e.preventDefault()
             let indexForm = focusables.findIndex(getFocus => getFocus === modalDisplay.querySelector(':focus'))
-            console.log(indexForm)
+            console.log(modalDisplay.querySelector(':focus'))
             if (e.shiftKey === true) {
                 indexForm --
             }
             else {
                 indexForm ++
             }
-            if (indexForm >= focusables.length) {
+            if (indexForm >= 16) {
                 indexForm = 1
             }
-            if (indexForm < 0) {
+            if (indexForm < 1) {
                 indexForm = focusables.length -1
             }
             focusables[indexForm].focus()

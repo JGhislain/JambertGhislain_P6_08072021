@@ -208,6 +208,27 @@ function tagStorage() {
         }
 }
 
+//--------------------------------------------------------------------------------------//
+//              Fonction de pointage du focus vers la section photographe               //
+//--------------------------------------------------------------------------------------//
+
+const retourTexte = document.querySelector('.retour-texte')
+
+const focusAccess = function (e) {
+    console.log(retourTexte.querySelector(':focus'))
+    if ((retourTexte.querySelector(':focus') != null) && (e.key == 'Enter')) {
+        e.preventDefault()
+        console.log(cadreProfil[0].focus())
+    }
+}
+
+window.addEventListener('keyup', e => {
+    console.log(e.key)
+    if (e.key === 'Tab') {
+        focusAccess(e)
+        console.log(e.target)
+    }
+})
 
 //--------------------------------------------------------------------------------------//
 //                             FONCTION D'ECOUTE DU SCROLL                              //
