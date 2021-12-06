@@ -276,8 +276,6 @@ function compareId(allPhotographers, allMedia) {
                 this.likes = likes;
                 this.date = date;
                 this.price = price;
-
-                this.heartClick()
             }
 
             genereCadreMedia() {
@@ -447,14 +445,9 @@ function compareId(allPhotographers, allMedia) {
                 titreMedia.setAttribute('aria-label', this.title)
                 titreMedia.setAttribute('tabindex', '0')
                 titreMedia.setAttribute('aria-controls', 'media')
-                titreMedia.setAttribute('onclick', this.heartClick)
                 titreMedia.innerHTML = this.title
                 divInfo.appendChild(titreMedia)
                 divInfo.innerHTML += `<span class="nb-likes" arial-label='${this.likes}' tabindex='0' aria-controls='media'>${this.likes}</span><i class="far fa-heart coeur"></i>`
-            }
-            
-            heartClick = () => {
-                console.log("j'ai réussi un click")
             }
         }
         
@@ -527,8 +520,8 @@ function compareId(allPhotographers, allMedia) {
 //                    Ajout du nombre de like si click sur un coeur                     //
 //--------------------------------------------------------------------------------------//
 
-        let iconesCoeur = document.querySelectorAll('.coeur')
         let nombreLikes = function() {
+            let iconesCoeur = document.querySelectorAll('.coeur')
             for (let i = 0; i < iconesCoeur.length; i++) {
                 const icone = iconesCoeur[i];
                 //On écoute le click des icones de coeurs
@@ -627,7 +620,8 @@ function compareId(allPhotographers, allMedia) {
             })
             //Fonction de réorganisation des éléments du tableau (ordre alphabétique)
             listeMediaTitre.sort((a, b)  => {
-                return a.title > b.title
+                if (a.title < b.title)
+                return -1;
             })
             console.log(listeMediaLikes)
             console.log(listeMediaDate)
@@ -650,6 +644,7 @@ function compareId(allPhotographers, allMedia) {
                     document.getElementById('article-media').innerHTML = ""
                     showMedia(mediaEnCours)
                 }
+                nombreLikes()
             })
             //On écoute la balise Date au click
             navDate.addEventListener('click', (e) => {
@@ -669,6 +664,7 @@ function compareId(allPhotographers, allMedia) {
                     document.getElementById('article-media').innerHTML = ""
                     showMedia(mediaEnCours)
                 }
+                nombreLikes()
             })
             //On écoute la balise Titre au click
             navTitre.addEventListener('click', (e) => {
@@ -688,6 +684,7 @@ function compareId(allPhotographers, allMedia) {
                     document.getElementById('article-media').innerHTML = ""
                     showMedia(mediaEnCours)
                 }
+                nombreLikes()
             })
         }
 

@@ -17,6 +17,9 @@
 html {
     margin: 0 3%;
 }
+:focus {
+    border: 2px solid var(--border-acces-color);
+}   
 header {
     display: flex;
     align-items: center;
@@ -24,6 +27,7 @@ header {
     height: 15vh;
 }
 .retour-index {
+    display: none;
     width: 182px;
     height: 30px;
     position: absolute;
@@ -33,6 +37,7 @@ header {
     background-color: var(--bg-acces-color);
 }
 .fixe {
+    display: initial;
     position: fixed;
     top: 0;
     left: 50%;
