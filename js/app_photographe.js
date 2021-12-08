@@ -290,33 +290,6 @@ function compareId(allPhotographers, allMedia) {
             }
 
             genereContenuMedia() {
-     
-//--------------------------------------------------------------------------------------//
-//        Récupération des url des médias en cours et retrait du caractère ('-')        //
-//--------------------------------------------------------------------------------------//
-
-                let image;
-                let video;
-
-                function imageUrlTransfo(url) {
-                    let urlArray = url.split(' ')
-                    if (urlArray.join('-')) {
-                        return image = urlArray[0].replace(/-/i, '')
-                    }
-                    else {
-                        return image = urlArray[0]
-                    }
-                }
-
-                function videoUrlTransfo(url) {
-                    let urlArray = url.split(' ')
-                    if (urlArray.join('-')) {
-                        return video = urlArray[0].replace(/-/i, '')
-                    }
-                    else {
-                        return video = urlArray[0]
-                    }
-                }
 
 //--------------------------------------------------------------------------------------//
 //             Création des balises qui comporte les medias du photographe              //
@@ -332,7 +305,7 @@ function compareId(allPhotographers, allMedia) {
                 // si c'est une image
                 if (!this.video && this.image != undefined) {
                     // Retourne le lien de l'image
-                    imageUrlTransfo(this.image)
+                    let image = this.imageUrlTransfo(this.image)
                     let sourceMediaImage = "../assets/FishEye_Photos/Sample Photos/" + prenom + "/" + image
                     cadreMedia.classList.add('photo')
                     cadreMedia.href = sourceMediaImage
@@ -340,7 +313,7 @@ function compareId(allPhotographers, allMedia) {
                 // si c'est une vidéo
                 else {
                     // Retourne le lien de la vidéo
-                    videoUrlTransfo(this.video)
+                    let video = this.videoUrlTransfo(this.video)
                     let sourceMediaVideo = "../assets/FishEye_Photos/Sample Photos/" + prenom + "/" + video
                     cadreMedia.classList.add('video')
                     cadreMedia.href = sourceMediaVideo
@@ -351,41 +324,6 @@ function compareId(allPhotographers, allMedia) {
             }
 
             genereMedia() {
-//--------------------------------------------------------------------------------------//
-//        Récupération des url des médias en cours et retrait du caractère ('-')        //
-//--------------------------------------------------------------------------------------//
-                
-                let image;
-                let video;
-                
-                function imageUrlTransfo(url) {
-                    let urlArray = url.split(' ')
-                    if (urlArray.join('-')) {
-                        return image = urlArray[0].replace(/-/i, '')
-                    }
-                    else {
-                        return image = urlArray[0]
-                    }
-                }
-
-                function videoUrlTransfo(url) {
-                    let urlArray = url.split(' ')
-                    if (urlArray.join('-')) {
-                        return video = urlArray[0].replace(/-/i, '')
-                    }
-                    else {
-                        return video = urlArray[0]
-                    }
-                }
-//--------------------------------------------------------------------------------------//
-//         Fonction de récupération et d'attribution des parametres data-index          //
-//--------------------------------------------------------------------------------------//
-
-                function getIndex(index) {
-                    let toutMedia = document.querySelectorAll(".media-photographe")
-                    let indexMedia = toutMedia[index]
-                    return [index]
-                }
                 
 //--------------------------------------------------------------------------------------//
 //                             Création des balises Medias                              //
@@ -394,24 +332,24 @@ function compareId(allPhotographers, allMedia) {
                 // si c'est une image 
                 if (!this.video && this.image != undefined) {
                     // return juste l'image
-                    imageUrlTransfo(this.image)
+                    let image = this.imageUrlTransfo(this.image)
                     let imageMedia = document.createElement('img')
                     imageMedia.classList.add('media-photographe')
                     let sourceMediaImage = "../assets/FishEye_Photos/Sample Photos/" + prenom + "/" + image
                     imageMedia.src = sourceMediaImage
                     imageMedia.setAttribute('aria-label', this.image)
-                    imageMedia.dataset.index = getIndex(index)
+                    imageMedia.dataset.index = this.getIndex(index)
                     imageMedia.setAttribute('alt', this.title)
                     return imageMedia
                 }
                 // si c'est une vidéo 
                 else {
                     // return juste la video
-                    videoUrlTransfo(this.video)
+                    let video = this.videoUrlTransfo(this.video)
                     let videoMedia = document.createElement('video')
                     videoMedia.setAttribute("controls", "")
                     videoMedia.classList.add('media-photographe')
-                    videoMedia.dataset.index = getIndex(index)
+                    videoMedia.dataset.index = this.getIndex(index)
                     let sourceMediaVideo = "../assets/FishEye_Photos/Sample Photos/" + prenom + "/" + video
                     videoMedia.src = sourceMediaVideo
                     videoMedia.setAttribute('aria-label', this.video)
@@ -449,6 +387,41 @@ function compareId(allPhotographers, allMedia) {
                 divInfo.appendChild(titreMedia)
                 divInfo.innerHTML += `<span class="nb-likes" arial-label='${this.likes}' tabindex='0' aria-controls='media'>${this.likes}</span><i class="far fa-heart coeur"></i>`
             }
+
+//--------------------------------------------------------------------------------------//
+//        Récupération des url des médias en cours et retrait du caractère ('-')        //
+//--------------------------------------------------------------------------------------//
+                                
+            imageUrlTransfo(url) {
+                let urlArray = url.split(' ')
+                if (urlArray.join('-')) {
+                    return urlArray[0].replace(/-/i, '')
+                }
+                else {
+                    return urlArray[0]
+                }
+            }
+
+            videoUrlTransfo(url) {
+                let urlArray = url.split(' ')
+                if (urlArray.join('-')) {
+                    return urlArray[0].replace(/-/i, '')
+                }
+                else {
+                    return urlArray[0]
+                }
+            }
+
+//--------------------------------------------------------------------------------------//
+//         Fonction de récupération et d'attribution des parametres data-index          //
+//--------------------------------------------------------------------------------------//
+
+            getIndex(index) {
+                let toutMedia = document.querySelectorAll(".media-photographe")
+                let indexMedia = toutMedia[index]
+                return [index]
+            }
+
         }
         
 //--------------------------------------------------------------------------------------//
@@ -506,7 +479,7 @@ function compareId(allPhotographers, allMedia) {
             let cardeInfoProfil = document.querySelector('.info-profil')
             let likesProfil = document.createElement('span')
             likesProfil.classList.add('likes-profil')
-            likesProfil.innerHTML = somme + " " + `<i class="far fa-heart coeur-profil"></i>`
+            likesProfil.innerHTML = Math.round(somme) + " " + `<i class="far fa-heart coeur-profil"></i>`
             cardeInfoProfil.appendChild(likesProfil)
         }
 
@@ -645,6 +618,7 @@ function compareId(allPhotographers, allMedia) {
                     showMedia(mediaEnCours)
                 }
                 nombreLikes()
+                somme = somme/2
             })
             //On écoute la balise Date au click
             navDate.addEventListener('click', (e) => {
@@ -665,6 +639,7 @@ function compareId(allPhotographers, allMedia) {
                     showMedia(mediaEnCours)
                 }
                 nombreLikes()
+                somme = somme/2
             })
             //On écoute la balise Titre au click
             navTitre.addEventListener('click', (e) => {
@@ -685,6 +660,7 @@ function compareId(allPhotographers, allMedia) {
                     showMedia(mediaEnCours)
                 }
                 nombreLikes()
+                somme = somme/2
             })
         }
 
