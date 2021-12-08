@@ -41,7 +41,6 @@ header {
     position: fixed;
     top: 0;
     left: 50%;
-    width: 182px;
     height: 30px;
     border-radius: 5px;
     background-color: var(--bg-acces-color);
@@ -62,8 +61,11 @@ header {
 .retour-texte:focus {
     border: 2px solid var(--border-acces-color);
 }
+#titre-principal {
+    width: 20%;
+}
 #logo {
-    width: 80%;
+    width: 100%;
     object-fit: contain;
 }
 #logo:focus {
@@ -73,10 +75,14 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 5vh;
 }
 #nav:focus {
     border: 2px solid var(--border-acces-color);
+}
+.nav-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 .tag {
     text-decoration: none;
@@ -86,7 +92,7 @@ nav {
     border: 0.5px solid var(--border-tag-color);
     border-radius: 12px;
     padding: 0.4vh 0.4vw;
-    margin: 0 0.3vw;
+    margin: 0.2vh 0.2vw;
     text-align: center;
     cursor: pointer;
 }
@@ -109,6 +115,8 @@ nav {
 .titre-page {
     font-size: 2.25em;
     color: var(--primaire-color);
+    width: 20%;
+    margin-left: 1vw;
 }
 #selection-photographes {
     width: 100%;
@@ -193,4 +201,181 @@ address {
 }
 .cadre-profil.active {
     border: 2px solid #95FFF9;
+}
+
+@media screen and (max-width: 768px) {
+    * {
+        box-sizing: border-box;
+        background-color: var(--bg-color);
+        font-family: DM Sans, sans-serif;
+        font-style: normal;
+    }
+    html {
+        margin: 0 3%;
+    }
+    :focus {
+        border: 2px solid var(--border-acces-color);
+    }   
+    header {
+        display: flex;
+        justify-content: space-between;
+        height: auto;
+        flex-wrap: wrap;
+    }
+    .retour-index {
+        display: none;
+        width: 182px;
+        height: 30px;
+        position: absolute;
+        left: 50%;
+        top: 1vh;
+        border-radius: 5px;
+        background-color: var(--bg-acces-color);
+    }
+    .fixe {
+        display: initial;
+        position: fixed;
+        width: 100%;
+        background-color: transparent;
+        height: auto;
+        margin-top: 0.4em;
+        left: 40%;
+    }
+    .retour-texte {
+        position: relative;
+        line-height: initial;
+        border-radius: 5px;
+        padding: 0.3em;
+        left: 0%;
+    }
+    .retour-texte:focus {
+        border: 2px solid var(--border-acces-color);
+    }
+    #titre-principal {
+        width: 60%;
+        align-self: flex-start;
+        order: 0;
+    }
+    #logo {
+        width: 80%;
+        object-fit: contain;
+    }
+    #logo:focus {
+        border: 2px solid var(--border-acces-color);
+    }
+    nav {
+        order: 2;
+        flex-wrap: wrap;
+        height: auto;
+        width: 100%;
+    }
+    #nav:focus {
+        border: 2px solid var(--border-acces-color);
+    }
+    .nav-bar {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .tag {
+        padding: 0.4vh 1.4vw;
+        margin: 0.2em 0.2em;
+    }
+    .tag:hover {
+        background-color: var(--primaire-color);
+        color: var(--border-tag-color);
+        cursor: pointer;
+    }
+    .tag.focus {
+        background-color: var(--primaire-color);
+        color: var(--border-tag-color);
+    }
+    .tag:focus {
+        background-color: var(--primaire-color);
+        color: var(--border-tag-color);
+    }
+    .tag.invisible {
+        display: none;
+    }
+    .titre-page {
+        order: 1;
+        width: 39%;
+        margin: 0;
+        font-size: 1em;
+        font-weight: normal;
+        align-self: center;
+        text-align: center;
+    }
+    #selection-photographes {
+        flex-direction: column;
+        align-content: center;
+        margin-top: 3vh;
+    }
+    .cadre-profil {
+        width: 100%
+    }
+    .cadre-profil:focus {
+        border: 2px solid var(--border-acces-color);
+    }
+    .lien-profil {
+        width: 100%
+    }
+    .lien-profil:hover {
+        cursor: pointer;
+        background-color: var(--border-tag-color);
+    }
+    .lien-profil:focus {
+        border: 2px solid var(--border-acces-color);
+    }
+    .lien-profil img {
+        width: 40vw;
+        height: 40vw;
+    }
+    .cadre-photo:focus {
+        border: 2px solid var(--border-acces-color);
+    }
+    .nom-profil {
+        align-self: center;
+        font-size: 2.25em;
+        text-align: center;
+        color: var(--second-color);
+        margin-bottom: 0;
+    }
+    .cadre-fiche-photographe {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .cadre-fiche-photographe:focus {
+        border: 2px solid var(--border-acces-color);
+    }
+    address {
+        font-size: 0.9em;
+        text-align: center;
+        color: #901c1c;
+    }
+    .citation-profil {
+        font-size: 0.7em;
+        text-align: center;
+        color: #000;
+    }
+    .prix-profil {
+        font-size: 0.7em;
+        text-align: center;
+        color: #757575;
+        margin-top: 0;
+    }
+    .cadre-tags-photographe {
+        display: flex;
+        align-self: center;
+    }
+    .cadre-tags-photographe:focus {
+        border: 2px solid var(--border-acces-color);
+    }
+    .cadre-profil.invisible {
+        display: none;
+    }
+    .cadre-profil.active {
+        border: 2px solid #95FFF9;
+    }
 }
