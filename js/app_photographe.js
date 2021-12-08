@@ -569,7 +569,6 @@ function compareId(allPhotographers, allMedia) {
         let navDate = document.querySelector('.tri-date')
         let navPopularite = document.querySelector('.tri-popularite')
         let navTitre = document.querySelector('.tri-titre')
-        let spanLikesMedia = document.querySelectorAll('.likes-media')
 
         function triMedia() {
 
