@@ -982,10 +982,10 @@ function compareId(allPhotographers, allMedia) {
                 }
                 else {
                     //sinon les champs sont valides et return true sur la variable validationChampsIndividuel
-                    console.log(firstName.value);
-                    console.log(lastName.value);
-                    console.log(email.value);
-                    console.log(messageZone.value);
+                    console.log("Prénom:" + firstName.value);
+                    console.log("Nom:" +lastName.value);
+                    console.log("Mail:" +email.value);
+                    console.log("Message:" +messageZone.value);
                     return validationChampsIndividuel = true;
                 }
             });
@@ -1040,6 +1040,7 @@ function compareId(allPhotographers, allMedia) {
                     e.preventDefault()
                     console.log("Votre message à été envoyé")
                     modalDisplay.classList.remove('show')
+                    alert("Votre message à été envoyé !")
                     return true
                 }
                 else {
