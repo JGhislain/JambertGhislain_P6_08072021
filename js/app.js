@@ -45,7 +45,6 @@ function profilsPhotographes(photographers) {
         const photographe = photographers[i];
         insertionArticlePhotographe(photographe);
     }
-    console.log(photographers)
     listePhotographes = photographers
 }
 
@@ -153,7 +152,6 @@ function insertionArticlePhotographe(photographe) {
 //--------------------------------------------------------------------------------------//
 //                              FONCTION D'ÉCOUTE DES TAGS                              //
 //--------------------------------------------------------------------------------------//
-console.log(baliseTagsPhotographe)
 
 function TagsSelection(tagsPhotoProfil, allTags) {
     
@@ -188,16 +186,13 @@ function TagsSelection(tagsPhotoProfil, allTags) {
 
 
 function tagStorage() {
-    console.log(listePhotographes)
     let tagStorage = sessionStorage.getItem("tag")
-    console.log(tagStorage)
     if (tagStorage != null) {
         const filterStorage = listePhotographes.filter(ph => {
             return ph.tags.includes(tagStorage)
         })
         for (let i = 0; i < baliseClassTag.length; i++) {
             const lien = baliseClassTag[i];
-            console.log(lien)
             if (lien.id == tagStorage) {
                 lien.classList.toggle('focus')
             }
@@ -207,28 +202,6 @@ function tagStorage() {
         sessionStorage.clear()
         }
 }
-
-//--------------------------------------------------------------------------------------//
-//              Fonction de pointage du focus vers la section photographe               //
-//--------------------------------------------------------------------------------------//
-
-/* const retourTexte = document.querySelector('.retour-texte')
-
-const focusAccess = function (e) {
-    console.log(retourTexte.querySelector(':focus'))
-    if ((retourTexte.querySelector(':focus') != null) && (e.key == 'Enter')) {
-        e.preventDefault()
-        console.log(cadreProfil[0].focus())
-    }
-}
-
-window.addEventListener('keyup', e => {
-    console.log(e.key)
-    if (e.key === 'Tab') {
-        focusAccess(e)
-        console.log(e.target)
-    }
-}) */
 
 //--------------------------------------------------------------------------------------//
 //                             FONCTION D'ECOUTE DU SCROLL                              //

@@ -318,7 +318,7 @@ article.invisible {
 .media-photographe {
     height: 300px;
     width: 100%;
-    object-fit: contain;
+    object-fit: cover;
     border-radius: 5px;
 }
 .media:focus {
@@ -479,9 +479,6 @@ article.invisible {
     background-color: transparent;
     border: 0;
     cursor: pointer;
-}
-.modal__close:focus {
-    border: 2px solid var(--border-acces-color);
 }
 .modal-close {
     color: #FFF;
@@ -781,9 +778,6 @@ textarea {
         background-color: transparent;
         border: 0;
         cursor: pointer;
-    }
-    .modal__close:focus {
-        border: 2px solid var(--border-acces-color);
     }
     .modal-close {
         color: #FFF;

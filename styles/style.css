@@ -40,24 +40,20 @@ header {
 .fixe {
     display: initial;
     position: fixed;
-    top: 0;
+    top: 10px;
     left: 50%;
-    height: 30px;
-    border-radius: 5px;
-    background-color: var(--bg-acces-color);
     z-index: 3;
 }
 .retour-texte {
-    position: absolute;
-    top: 10%;
-    left: 8%;
+    border-radius: 5px;
+    text-align: center;
+    padding: 0.5em;
     background-color: var(--bg-acces-color);
     text-decoration: none;
     color: #000;
     font-weight: bold;
     font-size: 1.12em;
     line-height: 1.44em;
-    text-align: center;
 }
 #titre-principal {
     width: 20%;

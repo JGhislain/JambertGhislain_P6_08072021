@@ -3,10 +3,8 @@
 //--------------------------------------------------------------------------------------//
 
 const params = new URLSearchParams(location.search)
-console.log((location.search))
 var numbId = (location.search).match(/\d/g);
 numbId = numbId.join("")
-console.log(numbId)
 
 //--------------------------------------------------------------------------------------//
 //               Récupération des médias et des profils des photographes                //
@@ -65,8 +63,6 @@ function compareId(allPhotographers, allMedia) {
     }
         //Sinon renvoyer vers la page
     else {
-        console.log(photographeEnCours)
-        console.log(mediaEnCours)
         
 //--------------------------------------------------------------------------------------//
 //                   Fabricateur qui classe les infos du photographe                    //
@@ -182,9 +178,9 @@ function compareId(allPhotographers, allMedia) {
                 triCategorie.classList.add('tri-categorie')
                 triCategorie.setAttribute('role', 'menu2')
                 triCategorie.setAttribute('aria-labelledby', 'nav-button')
-                triCategorie.innerHTML = `<li class="ligne-un" role="none"><span tabindex="0" role="menuitem" class= "tri-popularite categorie">Popularité</span></li>
-                <li class="ligne-deux" role="none"><span tabindex="0" role="menuitem" class= "tri-date categorie">Date</span></li>
-                <li class="ligne-trois" role="none"><span tabindex="0" role="menuitem" class= "tri-titre categorie">Titre</span></li>`        
+                triCategorie.innerHTML = `<li class="ligne-un" role="none"><span tabindex="-1" role="menuitem" class= "tri-popularite categorie">Popularité</span></li>
+                <li class="ligne-deux" role="none"><span tabindex="-1" role="menuitem" class= "tri-date categorie">Date</span></li>
+                <li class="ligne-trois" role="none"><span tabindex="-1" role="menuitem" class= "tri-titre categorie">Titre</span></li>`        
                 sectionMedia.appendChild(triMedia)
                 triMedia.appendChild(triCategorie)
             }
@@ -199,6 +195,8 @@ function compareId(allPhotographers, allMedia) {
                 sectionProfil.appendChild(infoProfil)
                 let prixProfil = document.createElement('span')
                 prixProfil.classList.add('prix-profil')
+                prixProfil.setAttribute('aria-label', this.price + ' euros par jour')
+                prixProfil.setAttribute('tabindex', '0')
                 prixProfil.innerHTML = this.price+"€" + " / jour"
                 let cardeInfoProfil = document.querySelector('.info-profil')
                 cardeInfoProfil.appendChild(prixProfil)
@@ -227,32 +225,32 @@ function compareId(allPhotographers, allMedia) {
                 modalContact.setAttribute('role', 'form')
                 modalContact.setAttribute('aria-labelledby', 'contact-me')
                 modalContact.innerHTML = `<div class="content">
-                <div class="modal-body">
+                <div class="modal-body" tabindex='1'>
                 <p class="contact-me">Contactez-moi<button class="modal__close"><i class="fas fa-times modal-close"></i></button></p>
-                <p class="nom-contact">${this.name}</p>
+                <p class="nom-contact aria-label='contacter ${this.name}' tabindex='0' aria-controls='${modalContact.id}'">${this.name}</p>
                 <form name="contact" id="formulaire" action="photographe.html" method="post">
                 <div class="formData">
                 <label for="first">Prénom</label><br>
-                <input class="text-control" type="text" id="first" name="first" placeholder="Votre prénom" aria-required='true'/><br>
+                <input class="text-control" type="text" id="first" name="first" placeholder="Votre prénom" aria-required='true' aria-label='Votre prénom' tabindex='0' aria-controls='${modalContact.id}'/><br>
                 <span id="first-validation"></span>
                 </div>
                 <div class="formData">
                 <label for="last">Nom</label><br>
-                <input class="text-control" type="text" id="last" name="last" placeholder="Votre nom" aria-required='true'/><br>
+                <input class="text-control" type="text" id="last" name="last" placeholder="Votre nom" aria-required='true' aria-label='Votre nom' tabindex='0' aria-controls='${modalContact.id}'/><br>
                 <span id="last-validation"></span>
                 </div>
                 <div class="formData">
                 <label for="email">Email</label><br>
-                <input class="text-control" type="email" id="email" name="email" placeholder="Votre Email" aria-required='true'/><br>
+                <input class="text-control" type="email" id="email" name="email" placeholder="Votre Email" aria-required='true' aria-label='Votre mail' tabindex='0' aria-controls='${modalContact.id}'/><br>
                 <span id="email-validation"></span>
                 </div>
                 <div class="formData">
                 <label for="message">Votre message</label><br>
-                <textarea class="text-control" type="textarea" id="message" name="message" placeholder="Saisissez votre message" aria-required='true'></textarea><br>
+                <textarea class="text-control" type="textarea" id="message" name="message" placeholder="Saisissez votre message" aria-required='true' aria-label='Saisissez votre message' tabindex='0' aria-controls='${modalContact.id}'></textarea><br>
                 <span id="message-validation"></span>
                 </div>
                 <div class="submit">
-                <input class="btn-submit" type="submit" id="btn-submit" value="Envoyer"/><br>
+                <input class="btn-submit" type="submit" id="btn-submit" value="Envoyer" aria-label='Cliquer pour envoyer votre message' tabindex='0' aria-controls='${modalContact.id}'/><br>
                 <span id="error-validation"></span>
                 </div>
                 </form>
@@ -385,7 +383,7 @@ function compareId(allPhotographers, allMedia) {
                 titreMedia.setAttribute('aria-controls', 'media')
                 titreMedia.innerHTML = this.title
                 divInfo.appendChild(titreMedia)
-                divInfo.innerHTML += `<span class="nb-likes" arial-label='${this.likes}' tabindex='0' aria-controls='media'>${this.likes}</span><i class="far fa-heart coeur"></i>`
+                divInfo.innerHTML += `<span class="nb-likes" arial-label='${this.likes}' tabindex='-1' aria-controls='media'>${this.likes}</span><i class="far fa-heart coeur"  aria-label='${this.likes}' tabindex='0' aria-controls='media'></i>`
             }
 
 //--------------------------------------------------------------------------------------//
@@ -479,6 +477,8 @@ function compareId(allPhotographers, allMedia) {
             let cardeInfoProfil = document.querySelector('.info-profil')
             let likesProfil = document.createElement('span')
             likesProfil.classList.add('likes-profil')
+            likesProfil.setAttribute('aria-label', somme + "    j'aime")
+            likesProfil.setAttribute('tabindex', '0')
             likesProfil.innerHTML = Math.round(somme) + " " + `<i class="far fa-heart coeur-profil"></i>`
             cardeInfoProfil.appendChild(likesProfil)
         }
@@ -503,7 +503,6 @@ function compareId(allPhotographers, allMedia) {
                     //et on incrémente +1 au compteur de likes
                     if (!icone.classList.contains('bold')) {
                         icone.classList.add('bold')
-                        console.log(e.target.previousElementSibling)
                         icone.previousElementSibling.innerHTML ++
                         somme ++
                     }
@@ -521,6 +520,36 @@ function compareId(allPhotographers, allMedia) {
         }
 
         nombreLikes();
+
+        let nombreLikesKey = function() {
+            let iconesCoeur = document.querySelectorAll('.coeur')
+            for (let i = 0; i < iconesCoeur.length; i++) {
+                const icone = iconesCoeur[i];
+                //On écoute le click des icones de coeurs
+                icone.addEventListener('keydown', function(e) {
+                    if (e.key == 'Enter') {
+                        //Si on click sur un coeur on ajoute la class 'bold'
+                        //et on incrémente +1 au compteur de likes
+                        if (!icone.classList.contains('bold')) {
+                            icone.classList.add('bold')
+                            icone.previousElementSibling.innerHTML ++
+                            somme ++
+                        }
+                        //Sinon on retire la classe 'bold'
+                        else {
+                            icone.classList.remove('bold')
+                            icone.previousElementSibling.innerHTML --
+                            somme --
+                        }
+                        //On attache la nouvelle valeur à la page
+                        let likesProfil = document.querySelector('.likes-profil')
+                        likesProfil.firstChild.textContent = somme                        
+                    }
+                })
+            }
+        }
+
+        nombreLikesKey()
 
 //--------------------------------------------------------------------------------------//
 //                        Trieuse des photographes en fonction des tags                 //
@@ -553,22 +582,23 @@ function compareId(allPhotographers, allMedia) {
         let navLink = document.querySelector('.trier')
         let triCategorieLink = document.querySelector('.tri-categorie')
         let iconeChevron = document.querySelector('.chevron')
+        let navDate = document.querySelector('.tri-date')
+        let navPopularite = document.querySelector('.tri-popularite')
+        let navTitre = document.querySelector('.tri-titre')
         //Écoute de la balise au click
         let affichageListeTri = () => {
             navLink.addEventListener('click', (e) => {
                 triCategorieLink.classList.toggle('visible')
                 iconeChevron.classList.toggle('visible')
+                navDate.setAttribute('tabindex', '0')
+                navPopularite.setAttribute('tabindex', '0')
+                navTitre.setAttribute('tabindex', '0')
             })
         }
 
         affichageListeTri();
 
 // ---- Tri des médias en fonction de la popularité --------------------------------------
-        
-        //Appel des éléments du DOM nécessaire
-        let navDate = document.querySelector('.tri-date')
-        let navPopularite = document.querySelector('.tri-popularite')
-        let navTitre = document.querySelector('.tri-titre')
 
         function triMedia() {
 
@@ -595,9 +625,6 @@ function compareId(allPhotographers, allMedia) {
                 if (a.title < b.title)
                 return -1;
             })
-            console.log(listeMediaLikes)
-            console.log(listeMediaDate)
-            console.log(listeMediaTitre)
             //On écoute la balise popularité au click
             navPopularite.addEventListener('click', (e) => {
                 e.preventDefault()
@@ -809,7 +836,6 @@ function compareId(allPhotographers, allMedia) {
 
             next.addEventListener('click', nextLightbox)
             window.addEventListener('keyup', (e) => {
-                console.log(e.key)
                 if (e.keyCode === 39) {
                     nextLightbox()
                 }
@@ -1063,11 +1089,9 @@ function compareId(allPhotographers, allMedia) {
         function focusForm(e) {
             e.preventDefault()
             let indexForm = focusables.findIndex(getFocus => getFocus === modalDisplay.querySelector(':focus'))
-            console.log(modalDisplay.querySelector(':focus'))
             if (indexForm < 1) {
                 indexForm = 15
             }
-            console.log(focusables.length)
             focusables[indexForm].focus()
             if (e.shiftKey == 'Tab') {
                 indexForm --
@@ -1075,12 +1099,9 @@ function compareId(allPhotographers, allMedia) {
             else {
                 indexForm ++
             }
-            console.log(indexForm)
             document.querySelector('.submit').addEventListener('keydown', e => {
                 e.preventDefault()
-                console.log(e.defaultPrevented)
                 if (e.shiftKey === true) {
-                    console.log('bordel')
                     indexForm = 13
                     focusables[indexForm].focus()
                 }
@@ -1097,7 +1118,8 @@ function compareId(allPhotographers, allMedia) {
 
         modalBoutonOpen.addEventListener('click', openModal)
         window.addEventListener('keydown', (e) => {
-            if (e.keyCode === 70) {
+            //ajouter la condition pour la touche "f" + ecoute pour ajout de like avec toucje "entrée"
+            if (e.keyCode === 70 && !modalDisplay.classList.contains('show')) {
                 openModal(e)
             }
         })
