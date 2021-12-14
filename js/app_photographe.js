@@ -590,9 +590,16 @@ function compareId(allPhotographers, allMedia) {
             navLink.addEventListener('click', (e) => {
                 triCategorieLink.classList.toggle('visible')
                 iconeChevron.classList.toggle('visible')
-                navDate.setAttribute('tabindex', '0')
-                navPopularite.setAttribute('tabindex', '0')
-                navTitre.setAttribute('tabindex', '0')
+                if (triCategorieLink.classList.contains('visible')) {
+                    navDate.setAttribute('tabindex', '0')
+                    navPopularite.setAttribute('tabindex', '0')
+                    navTitre.setAttribute('tabindex', '0')
+                }
+                else {
+                    navDate.setAttribute('tabindex', '-1')
+                    navPopularite.setAttribute('tabindex', '-1')
+                    navTitre.setAttribute('tabindex', '-1')
+                }
             })
         }
 
